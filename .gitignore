@@ -1,0 +1,23 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+.venv/
+.vscode/
+!.vscode/extensions.json
+.idea/
+.env
+*.log
+*.swp
+
+# Python
+.python-version
+__pycache__/
+*.pyc
+build
+dist
+pydo.egg-info
+
+# client gen
+node_modules/
+testscript.py
+changelist.md

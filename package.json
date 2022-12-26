@@ -1,0 +1,22 @@
+{
+  "name": "@t0mk/equinixmetalpy",
+  "description": "Python client generator based on Equinix Metal OpenAPI specification.",
+  "devDependencies": {
+    "autorest": "~3.6.1",
+    "@autorest/core": "~3.9.0",
+    "@autorest/modelerfour": "~4.23.6"
+  },
+  "scripts": {
+    "autorest": "autorest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t0mk/equinixmetalpy.git"
+  },
+  "author": "Equinix Developer Relations Team",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/t0mk/equinixmetalpy/issues"
+  },
+  "homepage": "https://github.com/t0mk/equinixmetalpy#readme"
+}
