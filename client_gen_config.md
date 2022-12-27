@@ -13,9 +13,15 @@ override-client-name: Client
 add-credential: true
 credential-default-policy-type: AzureKeyCredentialPolicy
 credential-key-header-name: X-Auth-Token
+security: AzureKey
+security-header-name: X-Auth-Token
 
 
 directive:
+  - from: openapi-document
+    where: '$.components.parameters[*]'
+    transform: >
+      $["x-ms-parameter-location"] = "method";
   - from: openapi-document
     where: '$.paths["/devices/{id}/traffic"].get.parameters[4]'
     debug: true
