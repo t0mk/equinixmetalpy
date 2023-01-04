@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>equinixmetalpy.aio package &mdash; equinixmetalpy 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> equinixmetalpy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">equinixmetalpy.aio package</a><ul>
+<li><a class="reference internal" href="#module-equinixmetalpy.aio">Module contents</a><ul>
+<li><a class="reference internal" href="#equinixmetalpy.aio.Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a><ul>
+<li><a class="reference internal" href="#equinixmetalpy.aio.Client.close"><code class="docutils literal notranslate"><span class="pre">Client.close()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">equinixmetalpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">equinixmetalpy.aio package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/equinixmetalpy.aio.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="equinixmetalpy-aio-package">
+<h1>equinixmetalpy.aio package<a class="headerlink" href="#equinixmetalpy-aio-package" title="Permalink to this heading"></a></h1>
+<section id="module-equinixmetalpy.aio">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-equinixmetalpy.aio" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="equinixmetalpy.aio.Client">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">equinixmetalpy.aio.</span></span><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credential</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AzureKeyCredential</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://api.equinix.com/metal/v1'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#equinixmetalpy.aio.Client" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="equinixmetalpy.aio.operations.html#equinixmetalpy.aio.operations.ClientOperationsMixin" title="equinixmetalpy.aio.operations._client_operations.ClientOperationsMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientOperationsMixin</span></code></a></p>
+<section id="introduction">
+<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h3>
+<p>Equinix Metal provides a RESTful HTTP API which can be reached at
+<a class="reference external" href="https://api.equinix.com/metal/v1">https://api.equinix.com/metal/v1</a>. This document describes the API and how to use it.</p>
+<p>The API allows you to programmatically interact with all
+of your Equinix Metal resources, including devices, networks, addresses, organizations,
+projects, and your user account. Every feature of the Equinix Metal web interface is accessible
+through the API.</p>
+<p>The API docs are generated from the Equinix Metal OpenAPI specification and are officially
+hosted at <a class="reference external" href="https://metal.equinix.com/developers/api">https://metal.equinix.com/developers/api</a>.</p>
+</section>
+<section id="common-parameters">
+<h3>Common Parameters<a class="headerlink" href="#common-parameters" title="Permalink to this heading"></a></h3>
+<p>The Equinix Metal API uses a few methods to minimize network traffic and improve throughput.
+These parameters are not used in all API calls, but are used often enough to warrant their own
+section. Look for these parameters in the documentation for the API calls that support them.</p>
+<section id="pagination">
+<h4>Pagination<a class="headerlink" href="#pagination" title="Permalink to this heading"></a></h4>
+<p>Pagination is used to limit the number of results returned in a single request. The API will
+return a maximum of 100 results per page. To retrieve additional results, you can use the
+<code class="docutils literal notranslate"><span class="pre">page</span></code> and <code class="docutils literal notranslate"><span class="pre">per_page</span></code> query parameters.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">page</span></code> parameter is used to specify the page number. The first page is <code class="docutils literal notranslate"><span class="pre">1</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">per_page</span></code> parameter is used to specify the number of results per page. The maximum number of
+results differs by resource type.</p>
+</section>
+<section id="sorting">
+<h4>Sorting<a class="headerlink" href="#sorting" title="Permalink to this heading"></a></h4>
+<p>Where offered, the API allows you to sort results by a specific field. To sort results use the
+<code class="docutils literal notranslate"><span class="pre">sort_by</span></code> query parameter with the root level field name as the value. The <code class="docutils literal notranslate"><span class="pre">sort_direction</span></code>
+parameter is used to specify the sort direction, either either <code class="docutils literal notranslate"><span class="pre">asc</span></code> (ascending) or <code class="docutils literal notranslate"><span class="pre">desc</span></code>
+(descending).</p>
+</section>
+<section id="filtering">
+<h4>Filtering<a class="headerlink" href="#filtering" title="Permalink to this heading"></a></h4>
+<p>Filtering is used to limit the results returned in a single request. The API supports filtering
+by certain fields in the response. To filter results, you can use the field as a query
+parameter.</p>
+<p>For example, to filter the IP list to only return public IPv4 addresses, you can filter by the
+<code class="docutils literal notranslate"><span class="pre">type</span></code> field, as in the following request:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl -H <span class="s1">&#39;X-Auth-Token: my_authentication_token&#39;</span>          https://api.equinix.com/metal/v1/projects/id/ips?type<span class="o">=</span>public_ipv4
+</pre></div>
+</div>
+<p>Only IP addresses with the <code class="docutils literal notranslate"><span class="pre">type</span></code> field set to <code class="docutils literal notranslate"><span class="pre">public_ipv4</span></code> will be returned.</p>
+</section>
+<section id="searching">
+<h4>Searching<a class="headerlink" href="#searching" title="Permalink to this heading"></a></h4>
+<p>Searching is used to find matching resources using multiple field comparissons. The API
+supports searching in resources that define this behavior. The fields available for search
+differ by resource, as does the search strategy.</p>
+<p>To search resources you can use the <code class="docutils literal notranslate"><span class="pre">search</span></code> query parameter.</p>
+</section>
+<section id="include-and-exclude">
+<h4>Include and Exclude<a class="headerlink" href="#include-and-exclude" title="Permalink to this heading"></a></h4>
+<p>For resources that contain references to other resources, sucha as a Device that refers to the
+Project it resides in, the Equinix Metal API will returns <code class="docutils literal notranslate"><span class="pre">href</span></code> values (API links) to the
+associated resource.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+  ...
+  &quot;project&quot;: {
+    &quot;href&quot;: &quot;/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd&quot;
+  }
+}
+</pre></div>
+</div>
+<p>If you’re going need the project details, you can avoid a second API request.  Specify the
+contained <code class="docutils literal notranslate"><span class="pre">href</span></code> resources and collections that you’d like to have included in the response
+using the <code class="docutils literal notranslate"><span class="pre">include</span></code> query parameter.</p>
+<p>For example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl -H <span class="s1">&#39;X-Auth-Token: my_authentication_token&#39;</span>          https://api.equinix.com/metal/v1/user?include<span class="o">=</span>projects
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">include</span></code> parameter is generally accepted in <code class="docutils literal notranslate"><span class="pre">GET</span></code>, <code class="docutils literal notranslate"><span class="pre">POST</span></code>, <code class="docutils literal notranslate"><span class="pre">PUT</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">PATCH</span></code> requests where <code class="docutils literal notranslate"><span class="pre">href</span></code> resources are presented.</p>
+<p>To have multiple resources include, use a comma-separated list (e.g.
+<code class="docutils literal notranslate"><span class="pre">?include=emails,projects,memberships</span></code>).</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl -H <span class="s1">&#39;X-Auth-Token: my_authentication_token&#39;</span>          https://api.equinix.com/metal/v1/user?include<span class="o">=</span>emails,projects,memberships
+</pre></div>
+</div>
+<p>You may also include nested associations up to three levels deep using dot notation (    <code class="docutils literal notranslate"><span class="pre">?include=memberships.projects</span></code>):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl -H <span class="s1">&#39;X-Auth-Token: my_authentication_token&#39;</span>          https://api.equinix.com/metal/v1/user?include<span class="o">=</span>memberships.projects
+</pre></div>
+</div>
+<p>To exclude resources, and optimize response delivery, use the <code class="docutils literal notranslate"><span class="pre">exclude</span></code> query parameter. The
+<code class="docutils literal notranslate"><span class="pre">exclude</span></code> parameter is generally accepted in <code class="docutils literal notranslate"><span class="pre">GET</span></code>, <code class="docutils literal notranslate"><span class="pre">POST</span></code>, <code class="docutils literal notranslate"><span class="pre">PUT</span></code>, and <code class="docutils literal notranslate"><span class="pre">PATCH</span></code>
+requests for fields with nested object responses. When excluded, these fields will be replaced
+with an object that contains only an <code class="docutils literal notranslate"><span class="pre">href</span></code> field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param credential</dt>
+<dd class="field-odd"><p>Credential needed for the client to connect to Azure. Required.</p>
+</dd>
+<dt class="field-even">type credential</dt>
+<dd class="field-even"><p>~azure.core.credentials.AzureKeyCredential</p>
+</dd>
+<dt class="field-odd">param base_url</dt>
+<dd class="field-odd"><p>Service URL. Default value is “<a class="reference external" href="https://api.equinix.com/metal/v1">https://api.equinix.com/metal/v1</a>”.</p>
+</dd>
+<dt class="field-even">type base_url</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="equinixmetalpy.aio.Client.close">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#equinixmetalpy.aio.Client.close" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Equinix.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

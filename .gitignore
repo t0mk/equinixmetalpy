@@ -13,7 +13,7 @@
 .python-version
 __pycache__/
 *.pyc
-build
+doctrees
 dist
 pydo.egg-info
 

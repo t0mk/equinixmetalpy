@@ -2,8 +2,6 @@
 
 Python SDK for Equinix Metal API, generated with azure/autorest, insipired by https://github.com/digitalocean/pydo
 
-It only creates methods for API calls, I haven't found a way for it to create models (classes) for API objects and query bodies yet.
-
 ## Using
 
 See [example.py](example.py).

@@ -1,4 +1,4 @@
-LOCAL_SPEC_FILE=./api-docs
+LOCAL_SPEC_FILE=./openapi.fixed.yaml
 MODELERFOUR_VERSION="4.23.6"
 AUTOREST_PYTHON_VERSION="6.0.1"
 POETRY_VERSION:=$(shell poetry version)
@@ -25,16 +25,16 @@ clean: ## Removes all generated code (except _patch.py files)
 	@printf "=== Cleaning src directory\n"
 	@find src/equinixmetalpy -type f ! -name "_patch.py" ! -name "custom_*.py" ! -name "exceptions.py" -exec rm -rf {} +
 
-.PHONY: download-spec
-download-spec: ## Download Latest DO Spec
-	@echo Downloading published spec; \
-	touch api-docs && \
-	curl  https://api.equinix.com/metal/v1/api-docs -o $(LOCAL_SPEC_FILE)
+#.PHONY: download-spec
+#download-spec: ## Download Latest DO Spec
+#	@echo Downloading published spec; \
+#	touch api-docs && \
+#	curl  https://api.equinix.com/metal/v1/api-docs -o $(LOCAL_SPEC_FILE)
 
 .PHONY: generate
 ifndef SPEC_FILE
 generate: SPEC_FILE = $(LOCAL_SPEC_FILE)
-generate: dev-dependencies download-spec ## Generates the python client using the latest published spec first.
+generate: dev-dependencies ## Generates the python client using the latest published spec first.
 endif
 generate: install clean dev-dependencies
 	@printf "=== Generating client with spec: $(SPEC_FILE)\n\n"; \

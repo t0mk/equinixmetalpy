@@ -7,7 +7,7 @@ python: true
 black: true
 output-folder: src/
 verbose: true
-version-tolerant: true
+version-tolerant: false
 override-client-name: Client
 
 add-credential: true
@@ -22,11 +22,6 @@ directive:
     where: '$.components.parameters[*]'
     transform: >
       $["x-ms-parameter-location"] = "method";
-  - from: openapi-document
-    where: '$.paths["/devices/{id}/traffic"].get.parameters[4]'
-    debug: true
-    transform: >
-      $["explode"] = undefined;
 ```
 
 ## examples of directives
