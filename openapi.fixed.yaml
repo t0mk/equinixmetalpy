@@ -719,103 +719,19 @@ components:
       style: form
   requestBodies: {}
   schemas:
-    ProjectList:
-      example:
-        projects:
-        - devices:
-          - href: href
-          - href: href
-          volumes:
-          - href: href
-          - href: href
-          created_at: 2000-01-23 04:56:07+00:00
-          memberships:
-          - href: href
-          - href: href
-          bgp_config:
-            href: href
-          max_devices: '{}'
-          ssh_keys:
-          - href: href
-          - href: href
-          updated_at: 2000-01-23 04:56:07+00:00
-          invitations:
-          - href: href
-          - href: href
-          members:
-          - href: href
-          - href: href
-          name: name
-          network_status: '{}'
-          customdata: '{}'
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          payment_method:
-            href: href
-        - devices:
-          - href: href
-          - href: href
-          volumes:
-          - href: href
-          - href: href
-          created_at: 2000-01-23 04:56:07+00:00
-          memberships:
-          - href: href
-          - href: href
-          bgp_config:
-            href: href
-          max_devices: '{}'
-          ssh_keys:
-          - href: href
-          - href: href
-          updated_at: 2000-01-23 04:56:07+00:00
-          invitations:
-          - href: href
-          - href: href
-          members:
-          - href: href
-          - href: href
-          name: name
-          network_status: '{}'
-          customdata: '{}'
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          payment_method:
-            href: href
-        meta:
-          next:
-            href: href
-          total: 0
-          last:
-            href: href
-          previous:
-            href: href
-          self:
-            href: href
-          first:
-            href: href
+    Error:
+      description: Error responses are included with 4xx and 5xx HTTP responses from
+        the API service. Either "error" or "errors" will be set.
       properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        projects:
+        error:
+          description: A description of the error that caused the request to fail.
+          type: string
+        errors:
+          description: A list of errors that contributed to the request failing.
           items:
-            $ref: '#/components/schemas/Project'
+            description: An error message that contributed to the request failing.
+            type: string
           type: array
-      type: object
-    ProjectUpdateInput:
-      example:
-        payment_method_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        name: name
-        backend_transfer_enabled: true
-        customdata: '{}'
-      properties:
-        backend_transfer_enabled:
-          type: boolean
-        customdata:
-          type: object
-        name:
-          type: string
-        payment_method_id:
-          format: uuid
-          type: string
       type: object
     DeviceList:
       example:
@@ -1416,19 +1332,51 @@ components:
         meta:
           $ref: '#/components/schemas/Meta'
       type: object
-    Error:
-      description: Error responses are included with 4xx and 5xx HTTP responses from
-        the API service. Either "error" or "errors" will be set.
+    DeviceUpdateInput:
+      example:
+        userdata: userdata
+        hostname: hostname
+        spot_instance: true
+        network_frozen: true
+        description: description
+        always_pxe: true
+        billing_cycle: billing_cycle
+        customdata: '{}'
+        ipxe_script_url: ipxe_script_url
+        locked: true
+        tags:
+        - tags
+        - tags
       properties:
-        error:
-          description: A description of the error that caused the request to fail.
+        always_pxe:
+          type: boolean
+        billing_cycle:
           type: string
-        errors:
-          description: A list of errors that contributed to the request failing.
+        customdata:
+          type: object
+        description:
+          type: string
+        hostname:
+          type: string
+        ipxe_script_url:
+          type: string
+        locked:
+          type: boolean
+        network_frozen:
+          description: If true, this instance can not be converted to a different
+            network type.
+          type: boolean
+        spot_instance:
+          description: Can be set to false to convert a spot-market instance to on-demand.
+          externalDocs:
+            url: https://metal.equinix.com/developers/docs/deploy/spot-market/#converting-a-spot-market-server-to-on-demand
+          type: boolean
+        tags:
           items:
-            description: An error message that contributed to the request failing.
             type: string
           type: array
+        userdata:
+          type: string
       type: object
     Project:
       example:
@@ -1508,6 +1456,108 @@ components:
             $ref: '#/components/schemas/Href'
           type: array
       type: object
+    ProjectList:
+      example:
+        projects:
+        - devices:
+          - href: href
+          - href: href
+          volumes:
+          - href: href
+          - href: href
+          created_at: 2000-01-23 04:56:07+00:00
+          memberships:
+          - href: href
+          - href: href
+          bgp_config:
+            href: href
+          max_devices: '{}'
+          ssh_keys:
+          - href: href
+          - href: href
+          updated_at: 2000-01-23 04:56:07+00:00
+          invitations:
+          - href: href
+          - href: href
+          members:
+          - href: href
+          - href: href
+          name: name
+          network_status: '{}'
+          customdata: '{}'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          payment_method:
+            href: href
+        - devices:
+          - href: href
+          - href: href
+          volumes:
+          - href: href
+          - href: href
+          created_at: 2000-01-23 04:56:07+00:00
+          memberships:
+          - href: href
+          - href: href
+          bgp_config:
+            href: href
+          max_devices: '{}'
+          ssh_keys:
+          - href: href
+          - href: href
+          updated_at: 2000-01-23 04:56:07+00:00
+          invitations:
+          - href: href
+          - href: href
+          members:
+          - href: href
+          - href: href
+          name: name
+          network_status: '{}'
+          customdata: '{}'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          payment_method:
+            href: href
+        meta:
+          next:
+            href: href
+          total: 0
+          last:
+            href: href
+          previous:
+            href: href
+          self:
+            href: href
+          first:
+            href: href
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        projects:
+          items:
+            $ref: '#/components/schemas/Project'
+          type: array
+      type: object
+    createDevice_request:
+      oneOf:
+      - $ref: '#/components/schemas/DeviceCreateInMetroInput'
+      - $ref: '#/components/schemas/DeviceCreateInFacilityInput'
+    ProjectUpdateInput:
+      example:
+        payment_method_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        name: name
+        backend_transfer_enabled: true
+        customdata: '{}'
+      properties:
+        backend_transfer_enabled:
+          type: boolean
+        customdata:
+          type: object
+        name:
+          type: string
+        payment_method_id:
+          format: uuid
+          type: string
+      type: object
     ProjectCreateFromRootInput:
       example:
         payment_method_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -1527,56 +1577,6 @@ components:
           type: string
       required:
       - name
-      type: object
-    createDevice_request:
-      oneOf:
-      - $ref: '#/components/schemas/DeviceCreateInMetroInput'
-      - $ref: '#/components/schemas/DeviceCreateInFacilityInput'
-    DeviceUpdateInput:
-      example:
-        userdata: userdata
-        hostname: hostname
-        spot_instance: true
-        network_frozen: true
-        description: description
-        always_pxe: true
-        billing_cycle: billing_cycle
-        customdata: '{}'
-        ipxe_script_url: ipxe_script_url
-        locked: true
-        tags:
-        - tags
-        - tags
-      properties:
-        always_pxe:
-          type: boolean
-        billing_cycle:
-          type: string
-        customdata:
-          type: object
-        description:
-          type: string
-        hostname:
-          type: string
-        ipxe_script_url:
-          type: string
-        locked:
-          type: boolean
-        network_frozen:
-          description: If true, this instance can not be converted to a different
-            network type.
-          type: boolean
-        spot_instance:
-          description: Can be set to false to convert a spot-market instance to on-demand.
-          externalDocs:
-            url: https://metal.equinix.com/developers/docs/deploy/spot-market/#converting-a-spot-market-server-to-on-demand
-          type: boolean
-        tags:
-          items:
-            type: string
-          type: array
-        userdata:
-          type: string
       type: object
     Device:
       example:
@@ -2024,6 +2024,10 @@ components:
       required:
       - href
       type: object
+    DeviceCreateInFacilityInput:
+      allOf:
+      - $ref: '#/components/schemas/FacilityInput'
+      - $ref: '#/components/schemas/DeviceCreateInput'
     OperatingSystem:
       example:
         distro: distro
@@ -2066,16 +2070,181 @@ components:
         version:
           type: string
       type: object
-    Device_actions_inner:
+    Device_created_by:
+      allOf:
+      - $ref: '#/components/schemas/UserLite'
+      - description: The user that created the device.
+        type: object
+    Device_project:
+      allOf:
+      - $ref: '#/components/schemas/Href'
+      - description: Full version of project object when included
+        type: object
+    DeviceCreateInMetroInput:
+      allOf:
+      - $ref: '#/components/schemas/MetroInput'
+      - $ref: '#/components/schemas/DeviceCreateInput'
+    Device_project_lite:
+      allOf:
+      - $ref: '#/components/schemas/Href'
+      - description: Lite version of project object when included
+        type: object
+    Event:
       example:
-        name: name
+        interpolated: interpolated
+        relationships:
+        - href: href
+        - href: href
+        created_at: 2000-01-23 04:56:07+00:00
+        href: href
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        state: state
+        body: body
         type: type
       properties:
+        body:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        href:
+          type: string
+        id:
+          format: uuid
+          type: string
+        interpolated:
+          type: string
+        relationships:
+          items:
+            $ref: '#/components/schemas/Href'
+          type: array
+        state:
+          type: string
         type:
           type: string
-        name:
-          type: string
       type: object
+    Port:
+      description: Port is a hardware port associated with a reserved or instantiated
+        hardware device.
+      example:
+        native_virtual_network:
+          vxlan: 5
+          metal_gateways:
+          - gateway_address: 10.1.2.1/27
+            updated_at: 2000-01-23 04:56:07+00:00
+            vlan: 1001
+            created_at: 2000-01-23 04:56:07+00:00
+            href: href
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            state: ready
+          - gateway_address: 10.1.2.1/27
+            updated_at: 2000-01-23 04:56:07+00:00
+            vlan: 1001
+            created_at: 2000-01-23 04:56:07+00:00
+            href: href
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            state: ready
+          metro_code: metro_code
+          instances:
+          - href: href
+          - href: href
+          metro:
+            href: href
+          description: description
+          href: href
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          facility:
+            href: href
+          assigned_to_virtual_circuit: true
+          assigned_to:
+            href: href
+        disbond_operation_supported: true
+        data:
+          bonded: true
+          mac: mac
+        name: bond0
+        virtual_networks:
+        - href: href
+        - href: href
+        href: href
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: NetworkPort
+        network_type: layer2-bonded
+        bond:
+          name: name
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        bond:
+          $ref: '#/components/schemas/BondPortData'
+        data:
+          $ref: '#/components/schemas/PortData'
+        disbond_operation_supported:
+          description: Indicates whether or not the bond can be broken on the port
+            (when applicable).
+          type: boolean
+        href:
+          type: string
+        id:
+          format: uuid
+          type: string
+        name:
+          example: bond0
+          type: string
+        type:
+          description: Type is either "NetworkBondPort" for bond ports or "NetworkPort"
+            for bondable ethernet ports
+          enum:
+          - NetworkPort
+          - NetworkBondPort
+          type: string
+        network_type:
+          description: Composite network type of the bond
+          enum:
+          - layer2-bonded
+          - layer2-individual
+          - layer3
+          - hybrid
+          - hybrid-bonded
+          type: string
+        native_virtual_network:
+          $ref: '#/components/schemas/VirtualNetwork'
+        virtual_networks:
+          items:
+            $ref: '#/components/schemas/Href'
+          type: array
+      type: object
+    Meta:
+      example:
+        next:
+          href: href
+        total: 0
+        last:
+          href: href
+        previous:
+          href: href
+        self:
+          href: href
+        first:
+          href: href
+      properties:
+        first:
+          $ref: '#/components/schemas/Href'
+        last:
+          $ref: '#/components/schemas/Href'
+        next:
+          $ref: '#/components/schemas/Href'
+        previous:
+          $ref: '#/components/schemas/Href'
+        self:
+          $ref: '#/components/schemas/Href'
+        total:
+          type: integer
+      type: object
+    Device_metro:
+      allOf:
+      - $ref: '#/components/schemas/Metro'
+      - description: The metro the facility is in
+        type: object
     Plan:
       example:
         legacy: true
@@ -2181,32 +2350,73 @@ components:
           - custom
           type: string
       type: object
-    Meta:
+    Facility:
       example:
-        next:
-          href: href
-        total: 0
-        last:
-          href: href
-        previous:
-          href: href
-        self:
-          href: href
-        first:
-          href: href
+        features:
+        - baremetal
+        - backend_transfer
+        - global_ipv4
+        address:
+          country: country
+          address: address
+          address2: address2
+          city: city
+          coordinates:
+            latitude: latitude
+            longitude: longitude
+          state: state
+          zip_code: zip_code
+        code: code
+        ip_ranges:
+        - 2604:1380::/36
+        - 147.75.192.0/21
+        metro: null
+        name: name
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
-        first:
-          $ref: '#/components/schemas/Href'
-        last:
-          $ref: '#/components/schemas/Href'
-        next:
-          $ref: '#/components/schemas/Href'
-        previous:
-          $ref: '#/components/schemas/Href'
-        self:
-          $ref: '#/components/schemas/Href'
-        total:
-          type: integer
+        address:
+          $ref: '#/components/schemas/Address'
+        code:
+          type: string
+        features:
+          example:
+          - baremetal
+          - backend_transfer
+          - global_ipv4
+          items:
+            enum:
+            - baremetal
+            - backend_transfer
+            - layer_2
+            - global_ipv4
+            - ibx
+            type: string
+          type: array
+        id:
+          format: uuid
+          type: string
+        ip_ranges:
+          description: IP ranges registered in facility. Can be used for GeoIP location
+          example:
+          - 2604:1380::/36
+          - 147.75.192.0/21
+          items:
+            type: string
+          type: array
+        metro:
+          $ref: '#/components/schemas/Device_metro'
+        name:
+          type: string
+      type: object
+    Device_actions_inner:
+      example:
+        name: name
+        type: type
+      properties:
+        type:
+          type: string
+        name:
+          type: string
       type: object
     IPAssignment:
       example:
@@ -2270,215 +2480,210 @@ components:
         public:
           type: boolean
       type: object
-    Device_metro:
-      allOf:
-      - $ref: '#/components/schemas/Metro'
-      - description: The metro the facility is in
-        type: object
-    Device_created_by:
-      allOf:
-      - $ref: '#/components/schemas/UserLite'
-      - description: The user that created the device.
-        type: object
-    DeviceCreateInFacilityInput:
-      allOf:
-      - $ref: '#/components/schemas/FacilityInput'
-      - $ref: '#/components/schemas/DeviceCreateInput'
-    Device_project_lite:
-      allOf:
-      - $ref: '#/components/schemas/Href'
-      - description: Lite version of project object when included
-        type: object
-    Port:
-      description: Port is a hardware port associated with a reserved or instantiated
-        hardware device.
+    Metro:
       example:
-        native_virtual_network:
-          vxlan: 5
-          metal_gateways:
-          - gateway_address: 10.1.2.1/27
-            updated_at: 2000-01-23 04:56:07+00:00
-            vlan: 1001
-            created_at: 2000-01-23 04:56:07+00:00
-            href: href
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            state: ready
-          - gateway_address: 10.1.2.1/27
-            updated_at: 2000-01-23 04:56:07+00:00
-            vlan: 1001
-            created_at: 2000-01-23 04:56:07+00:00
-            href: href
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            state: ready
-          metro_code: metro_code
-          instances:
-          - href: href
-          - href: href
-          metro:
-            href: href
-          description: description
-          href: href
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          facility:
-            href: href
-          assigned_to_virtual_circuit: true
-          assigned_to:
-            href: href
-        disbond_operation_supported: true
-        data:
-          bonded: true
-          mac: mac
-        name: bond0
-        virtual_networks:
-        - href: href
-        - href: href
-        href: href
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        type: NetworkPort
-        network_type: layer2-bonded
-        bond:
-          name: name
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-      properties:
-        bond:
-          $ref: '#/components/schemas/BondPortData'
-        data:
-          $ref: '#/components/schemas/PortData'
-        disbond_operation_supported:
-          description: Indicates whether or not the bond can be broken on the port
-            (when applicable).
-          type: boolean
-        href:
-          type: string
-        id:
-          format: uuid
-          type: string
-        name:
-          example: bond0
-          type: string
-        type:
-          description: Type is either "NetworkBondPort" for bond ports or "NetworkPort"
-            for bondable ethernet ports
-          enum:
-          - NetworkPort
-          - NetworkBondPort
-          type: string
-        network_type:
-          description: Composite network type of the bond
-          enum:
-          - layer2-bonded
-          - layer2-individual
-          - layer3
-          - hybrid
-          - hybrid-bonded
-          type: string
-        native_virtual_network:
-          $ref: '#/components/schemas/VirtualNetwork'
-        virtual_networks:
-          items:
-            $ref: '#/components/schemas/Href'
-          type: array
-      type: object
-    Device_project:
-      allOf:
-      - $ref: '#/components/schemas/Href'
-      - description: Full version of project object when included
-        type: object
-    Event:
-      example:
-        interpolated: interpolated
-        relationships:
-        - href: href
-        - href: href
-        created_at: 2000-01-23 04:56:07+00:00
-        href: href
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        state: state
-        body: body
-        type: type
-      properties:
-        body:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        href:
-          type: string
-        id:
-          format: uuid
-          type: string
-        interpolated:
-          type: string
-        relationships:
-          items:
-            $ref: '#/components/schemas/Href'
-          type: array
-        state:
-          type: string
-        type:
-          type: string
-      type: object
-    DeviceCreateInMetroInput:
-      allOf:
-      - $ref: '#/components/schemas/MetroInput'
-      - $ref: '#/components/schemas/DeviceCreateInput'
-    Facility:
-      example:
-        features:
-        - baremetal
-        - backend_transfer
-        - global_ipv4
-        address:
-          country: country
-          address: address
-          address2: address2
-          city: city
-          coordinates:
-            latitude: latitude
-            longitude: longitude
-          state: state
-          zip_code: zip_code
+        country: country
         code: code
-        ip_ranges:
-        - 2604:1380::/36
-        - 147.75.192.0/21
-        metro: null
         name: name
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
-        address:
-          $ref: '#/components/schemas/Address'
         code:
           type: string
-        features:
-          example:
-          - baremetal
-          - backend_transfer
-          - global_ipv4
-          items:
-            enum:
-            - baremetal
-            - backend_transfer
-            - layer_2
-            - global_ipv4
-            - ibx
-            type: string
-          type: array
+        country:
+          type: string
         id:
           format: uuid
           type: string
-        ip_ranges:
-          description: IP ranges registered in facility. Can be used for GeoIP location
-          example:
-          - 2604:1380::/36
-          - 147.75.192.0/21
-          items:
-            type: string
-          type: array
-        metro:
-          $ref: '#/components/schemas/Device_metro'
         name:
           type: string
+      type: object
+    FacilityInput:
+      properties:
+        facility:
+          $ref: '#/components/schemas/FacilityInput_facility'
+      required:
+      - facility
+      type: object
+    PortData:
+      example:
+        bonded: true
+        mac: mac
+      properties:
+        mac:
+          description: MAC address is set for NetworkPort ports
+          type: string
+        bonded:
+          description: Bonded is true for NetworkPort ports in a bond and NetworkBondPort
+            ports that are active
+          type: boolean
+      type: object
+    Plan_available_in_metros_inner:
+      example:
+        price:
+          hour: 1.23
+        href: href
+      properties:
+        href:
+          description: href to the Metro
+          type: string
+        price:
+          $ref: '#/components/schemas/Plan_available_in_inner_price'
+      type: object
+    Address:
+      example:
+        country: country
+        address: address
+        address2: address2
+        city: city
+        coordinates:
+          latitude: latitude
+          longitude: longitude
+        state: state
+        zip_code: zip_code
+      properties:
+        address:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+        country:
+          type: string
+        state:
+          type: string
+        zip_code:
+          type: string
+      required:
+      - address
+      - country
+      - zip_code
+      type: object
+    ParentBlock:
+      example:
+        netmask: netmask
+        cidr: 5
+        href: href
+        network: network
+      properties:
+        cidr:
+          type: integer
+        href:
+          type: string
+        netmask:
+          type: string
+        network:
+          type: string
+      type: object
+    UserLite:
+      properties:
+        avatar_thumb_url:
+          description: Avatar thumbnail URL of the User
+          type: string
+        created_at:
+          description: When the user was created
+          format: date-time
+          type: string
+        email:
+          description: Primary email address of the User
+          type: string
+        first_name:
+          description: First name of the User
+          type: string
+        full_name:
+          description: Full name of the User
+          type: string
+        href:
+          description: API URL uniquely representing the User
+          type: string
+        id:
+          description: ID of the User
+          format: uuid
+          type: string
+        last_name:
+          description: Last name of the User
+          type: string
+        short_id:
+          description: Short ID of the User
+          type: string
+        updated_at:
+          description: When the user details were last updated
+          format: date-time
+          type: string
+      required:
+      - id
+      - short_id
+      type: object
+    MetroInput:
+      properties:
+        metro:
+          description: 'Metro code or ID of where the instance should be provisioned
+            in.
+
+            Either metro or facility must be provided.'
+          example: sv
+          type: string
+      required:
+      - metro
+      type: object
+    Plan_specs:
+      example:
+        features:
+          txt: true
+          uefi: true
+          raid: true
+        cpus:
+        - count: 2
+          type: type
+        - count: 2
+          type: type
+        drives:
+        - size: 3.84TB
+          count: 7
+          type: HDD
+          category: boot
+        - size: 3.84TB
+          count: 7
+          type: HDD
+          category: boot
+        nics:
+        - count: 2
+          type: 1Gbps
+        - count: 2
+          type: 1Gbps
+      properties:
+        cpus:
+          items:
+            $ref: '#/components/schemas/Plan_specs_cpus_inner'
+          type: array
+        drives:
+          items:
+            $ref: '#/components/schemas/Plan_specs_drives_inner'
+          type: array
+        nics:
+          items:
+            $ref: '#/components/schemas/Plan_specs_nics_inner'
+          type: array
+        features:
+          $ref: '#/components/schemas/Plan_specs_features'
+      type: object
+    IPAssignment_metro:
+      allOf:
+      - $ref: '#/components/schemas/Metro'
+      - description: The metro the IP address is in
+        type: object
+    Plan_available_in_inner:
+      example:
+        price:
+          hour: 1.23
+        href: href
+      properties:
+        href:
+          description: href to the Facility
+          type: string
+        price:
+          $ref: '#/components/schemas/Plan_available_in_inner_price'
       type: object
     VirtualNetwork:
       example:
@@ -2548,224 +2753,6 @@ components:
           type: string
         vxlan:
           type: integer
-      type: object
-    ParentBlock:
-      example:
-        netmask: netmask
-        cidr: 5
-        href: href
-        network: network
-      properties:
-        cidr:
-          type: integer
-        href:
-          type: string
-        netmask:
-          type: string
-        network:
-          type: string
-      type: object
-    Plan_specs:
-      example:
-        features:
-          txt: true
-          uefi: true
-          raid: true
-        cpus:
-        - count: 2
-          type: type
-        - count: 2
-          type: type
-        drives:
-        - size: 3.84TB
-          count: 7
-          type: HDD
-          category: boot
-        - size: 3.84TB
-          count: 7
-          type: HDD
-          category: boot
-        nics:
-        - count: 2
-          type: 1Gbps
-        - count: 2
-          type: 1Gbps
-      properties:
-        cpus:
-          items:
-            $ref: '#/components/schemas/Plan_specs_cpus_inner'
-          type: array
-        drives:
-          items:
-            $ref: '#/components/schemas/Plan_specs_drives_inner'
-          type: array
-        nics:
-          items:
-            $ref: '#/components/schemas/Plan_specs_nics_inner'
-          type: array
-        features:
-          $ref: '#/components/schemas/Plan_specs_features'
-      type: object
-    Metro:
-      example:
-        country: country
-        code: code
-        name: name
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-      properties:
-        code:
-          type: string
-        country:
-          type: string
-        id:
-          format: uuid
-          type: string
-        name:
-          type: string
-      type: object
-    Plan_available_in_metros_inner:
-      example:
-        price:
-          hour: 1.23
-        href: href
-      properties:
-        href:
-          description: href to the Metro
-          type: string
-        price:
-          $ref: '#/components/schemas/Plan_available_in_inner_price'
-      type: object
-    BondPortData:
-      example:
-        name: name
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-      properties:
-        id:
-          description: ID of the bonding port
-          format: uuid
-          type: string
-        name:
-          description: Name of the port interface for the bond ("bond0")
-          type: string
-      type: object
-    FacilityInput:
-      properties:
-        facility:
-          $ref: '#/components/schemas/FacilityInput_facility'
-      required:
-      - facility
-      type: object
-    UserLite:
-      properties:
-        avatar_thumb_url:
-          description: Avatar thumbnail URL of the User
-          type: string
-        created_at:
-          description: When the user was created
-          format: date-time
-          type: string
-        email:
-          description: Primary email address of the User
-          type: string
-        first_name:
-          description: First name of the User
-          type: string
-        full_name:
-          description: Full name of the User
-          type: string
-        href:
-          description: API URL uniquely representing the User
-          type: string
-        id:
-          description: ID of the User
-          format: uuid
-          type: string
-        last_name:
-          description: Last name of the User
-          type: string
-        short_id:
-          description: Short ID of the User
-          type: string
-        updated_at:
-          description: When the user details were last updated
-          format: date-time
-          type: string
-      required:
-      - id
-      - short_id
-      type: object
-    Address:
-      example:
-        country: country
-        address: address
-        address2: address2
-        city: city
-        coordinates:
-          latitude: latitude
-          longitude: longitude
-        state: state
-        zip_code: zip_code
-      properties:
-        address:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        coordinates:
-          $ref: '#/components/schemas/Coordinates'
-        country:
-          type: string
-        state:
-          type: string
-        zip_code:
-          type: string
-      required:
-      - address
-      - country
-      - zip_code
-      type: object
-    MetroInput:
-      properties:
-        metro:
-          description: 'Metro code or ID of where the instance should be provisioned
-            in.
-
-            Either metro or facility must be provided.'
-          example: sv
-          type: string
-      required:
-      - metro
-      type: object
-    IPAssignment_metro:
-      allOf:
-      - $ref: '#/components/schemas/Metro'
-      - description: The metro the IP address is in
-        type: object
-    PortData:
-      example:
-        bonded: true
-        mac: mac
-      properties:
-        mac:
-          description: MAC address is set for NetworkPort ports
-          type: string
-        bonded:
-          description: Bonded is true for NetworkPort ports in a bond and NetworkBondPort
-            ports that are active
-          type: boolean
-      type: object
-    Plan_available_in_inner:
-      example:
-        price:
-          hour: 1.23
-        href: href
-      properties:
-        href:
-          description: href to the Facility
-          type: string
-        price:
-          $ref: '#/components/schemas/Plan_available_in_inner_price'
       type: object
     DeviceCreateInput:
       properties:
@@ -3025,29 +3012,79 @@ components:
       - operating_system
       - plan
       type: object
-    Plan_specs_nics_inner:
+    BondPortData:
       example:
-        count: 2
-        type: 1Gbps
+        name: name
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
-        count:
-          example: 2
-          type: integer
-        type:
-          enum:
-          - 1Gbps
-          - 10Gbps
-          - 25Gbps
+        id:
+          description: ID of the bonding port
+          format: uuid
+          type: string
+        name:
+          description: Name of the port interface for the bond ("bond0")
           type: string
       type: object
-    Plan_available_in_inner_price:
+    Coordinates:
       example:
-        hour: 1.23
+        latitude: latitude
+        longitude: longitude
       properties:
-        hour:
-          example: 1.23
-          format: decimal
-          type: number
+        latitude:
+          type: string
+        longitude:
+          type: string
+      type: object
+    DeviceCreateInput_ip_addresses_inner:
+      properties:
+        address_family:
+          description: Address Family for IP Address
+          enum:
+          - 4
+          - 6
+          example: 4
+          format: int32
+          type: integer
+        cidr:
+          description: Cidr Size for the IP Block created. Valid values depends on
+            the operating system being provisioned. (28..32 for IPv4 addresses, 124..127
+            for IPv6 addresses)
+          example: 28
+          format: int32
+          type: integer
+        ip_reservations:
+          description: UUIDs of any IP reservations to use when assigning IPs
+          items:
+            type: string
+          type: array
+        public:
+          default: true
+          description: Address Type for IP Address
+          example: false
+          type: boolean
+      type: object
+    SSHKeyInput:
+      example:
+        label: label
+        key: key
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+      type: object
+    Plan_specs_features:
+      example:
+        txt: true
+        uefi: true
+        raid: true
+      properties:
+        raid:
+          type: boolean
+        txt:
+          type: boolean
+        uefi:
+          type: boolean
       type: object
     MetalGatewayLite:
       example:
@@ -3094,91 +3131,21 @@ components:
           example: 1001
           type: integer
       type: object
-    Coordinates:
+    Plan_specs_nics_inner:
       example:
-        latitude: latitude
-        longitude: longitude
+        count: 2
+        type: 1Gbps
       properties:
-        latitude:
-          type: string
-        longitude:
-          type: string
-      type: object
-    Plan_specs_features:
-      example:
-        txt: true
-        uefi: true
-        raid: true
-      properties:
-        raid:
-          type: boolean
-        txt:
-          type: boolean
-        uefi:
-          type: boolean
-      type: object
-    DeviceCreateInput_ip_addresses_inner:
-      properties:
-        address_family:
-          description: Address Family for IP Address
+        count:
+          example: 2
+          type: integer
+        type:
           enum:
-          - 4
-          - 6
-          example: 4
-          format: int32
-          type: integer
-        cidr:
-          description: Cidr Size for the IP Block created. Valid values depends on
-            the operating system being provisioned. (28..32 for IPv4 addresses, 124..127
-            for IPv6 addresses)
-          example: 28
-          format: int32
-          type: integer
-        ip_reservations:
-          description: UUIDs of any IP reservations to use when assigning IPs
-          items:
-            type: string
-          type: array
-        public:
-          default: true
-          description: Address Type for IP Address
-          example: false
-          type: boolean
-      type: object
-    SSHKeyInput:
-      example:
-        label: label
-        key: key
-      properties:
-        key:
-          type: string
-        label:
+          - 1Gbps
+          - 10Gbps
+          - 25Gbps
           type: string
       type: object
-    FacilityInput_facility:
-      anyOf:
-      - example:
-        - sv15
-        items:
-          type: string
-        type: array
-      - example: any
-        type: string
-      description: 'The datacenter where the device should be created.
-
-
-        Either metro or facility must be provided.
-
-
-        The API will accept either a single facility `{ "facility": "f1" }`, or it
-        can be instructed to create the device in the best available datacenter `{
-        "facility": "any" }`.
-
-
-        Additionally it is possible to set a prioritized location selection. For example
-        `{ "facility": ["f3", "f2", "any"] }` can be used to prioritize `f3` and then
-        `f2` before accepting `any` facility. If none of the facilities provided have
-        availability for the requested device the request will fail.'
     Plan_specs_cpus_inner:
       example:
         count: 2
@@ -3188,6 +3155,15 @@ components:
           type: integer
         type:
           type: string
+      type: object
+    Plan_available_in_inner_price:
+      example:
+        hour: 1.23
+      properties:
+        hour:
+          example: 1.23
+          format: decimal
+          type: number
       type: object
     Plan_specs_drives_inner:
       example:
@@ -3214,6 +3190,30 @@ components:
           - storage
           type: string
       type: object
+    FacilityInput_facility:
+      anyOf:
+      - example:
+        - sv15
+        items:
+          type: string
+        type: array
+      - example: any
+        type: string
+      description: 'The datacenter where the device should be created.
+
+
+        Either metro or facility must be provided.
+
+
+        The API will accept either a single facility `{ "facility": "f1" }`, or it
+        can be instructed to create the device in the best available datacenter `{
+        "facility": "any" }`.
+
+
+        Additionally it is possible to set a prioritized location selection. For example
+        `{ "facility": ["f3", "f2", "any"] }` can be used to prioritize `f3` and then
+        `f2` before accepting `any` facility. If none of the facilities provided have
+        availability for the requested device the request will fail.'
   securitySchemes:
     x_auth_token:
       description: 'HTTP header containing the User or Project API key that will be

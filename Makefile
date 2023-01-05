@@ -43,6 +43,7 @@ generate: install clean dev-dependencies
 		--use:@autorest/python@$(AUTOREST_PYTHON_VERSION) \
 		--package-version=$(PACKAGE_VERSION) \
 		--input-file=$(SPEC_FILE)
+
 	@poetry run black src
 
 .PHONY: install

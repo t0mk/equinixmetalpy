@@ -6,6 +6,10 @@ Python SDK for Equinix Metal API, generated with azure/autorest, insipired by ht
 
 See [example.py](example.py).
 
+## Patching Equinix Metal OpenAPI spec
+
+We need to do some fixes to the default openapi yaml specification from Equinix Metal. The [fixSpec.py](fixSpec.py) script modifies the original in `openapi.yaml` into `openapi.fixed.yaml`.
+
 ## Generating
 
 First install what you need `make install`, and then generate:
