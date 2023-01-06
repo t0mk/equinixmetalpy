@@ -12,7 +12,7 @@ from azure.core.credentials import AzureKeyCredential
 
 __all__: List[
     str
-] = []  # Add all objects you want publicly available to users at this package level
+] = ["Manager"]  # Add all objects you want publicly available to users at this package level
 
 
 class Manager(Client):
@@ -28,7 +28,6 @@ class Manager(Client):
 
 
 def patch_sdk():
-    print("fdsfsdfsdf")
     """Do not remove from this file.
 
     `patch_sdk` is a last resort escape hatch that allows you to do customizations
