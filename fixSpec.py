@@ -8,13 +8,30 @@ from collections import OrderedDict
 INFILE = "openapi.yaml"
 OUTFILE = "openapi.fixed.yaml"
 
+# what tags I want to keep
+WANT = ["Projects", "Devices", "Organizations"]
+
+# what paths I want to keep
+PATHS = [
+    '/projects',
+    '/projects/{id}',
+    '/projects/{id}/devices',
+    '/devices/{id}',
+    '/organizations',
+    '/organizations/{id}/projects',
+]
+
+
 def setup_yaml():
     """ https://stackoverflow.com/a/8661021 """
+
     def represent_dict_order(self, data): return self.represent_mapping(
         'tag:yaml.org,2002:map', data.items())
     yaml.add_representer(OrderedDict, represent_dict_order)
 
+
 setup_yaml()
+
 
 def fixNumInt(di):
     if isinstance(di, dict):
@@ -26,6 +43,7 @@ def fixNumInt(di):
     elif isinstance(di, list):
         for v in di:
             fixNumInt(v)
+
 
 def fixPrevious(di):
     print("prev")
@@ -79,18 +97,6 @@ def loadYaml(fn):
         return yaml.load(f, Loader=FullLoader)
 
 
-# what tags I want to keep
-WANT = ["Projects", "Devices"]
-
-# what paths I want to keep
-PATHS = [
-    '/projects',
-    '/projects/{id}',
-    '/projects/{id}/devices',
-    '/devices/{id}',
-]
-
-
 originalSpec = loadYaml(INFILE)
 fixedSpec = copy.deepcopy(originalSpec)
 
@@ -131,6 +137,20 @@ fixedSpec['components']['requestBodies'] = {}
 fixedSpec['tags'] = tags
 fixedSpec['paths'] = paths
 
+# organization to project
+fixedSpec['components']['schemas']['Project']['properties']['organization'] = {
+    "$ref": "#/components/schemas/Organization"
+}
+
+# href property to all schemas if they have propertiesm and don't already have it
+for s in fixedSpec['components']['schemas']:
+    if 'properties' in fixedSpec['components']['schemas'][s]:
+        if 'href' not in fixedSpec['components']['schemas'][s]['properties']:
+            fixedSpec['components']['schemas'][s]['properties']['href'] = {
+                "type": "string",
+                "format": "uri"
+            }
+
 # fixing schema
 fixSchemas = ["DeviceCreateInput"]
 removeProperties = ["always_pxe", "hardware_reservation_id"]
@@ -141,7 +161,7 @@ for s in fixSchemas:
 
 fixNumInt(fixedSpec)
 fixExplode(fixedSpec)
-#fixPrevious(fixedSpec)
+# fixPrevious(fixedSpec)
 
 with open(OUTFILE, 'w') as f:
     originalSpec = yaml.dump(
