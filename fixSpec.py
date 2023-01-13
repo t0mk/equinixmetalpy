@@ -45,20 +45,6 @@ def fixNumInt(di):
             fixNumInt(v)
 
 
-def fixPrevious(di):
-    print("prev")
-    if isinstance(di, dict):
-        for k, v in di.items():
-            print(k, v)
-            if k == "previous":
-                di[k]["nullable"] = True
-                return
-            fixPrevious(v)
-    elif isinstance(di, list):
-        for v in di:
-            fixPrevious(v)
-
-
 def fixExplode(di):
     if isinstance(di, dict):
         if 'explode' in di:
@@ -161,7 +147,6 @@ for s in fixSchemas:
 
 fixNumInt(fixedSpec)
 fixExplode(fixedSpec)
-# fixPrevious(fixedSpec)
 
 with open(OUTFILE, 'w') as f:
     originalSpec = yaml.dump(
