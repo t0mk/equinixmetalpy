@@ -8,24 +8,9 @@ import time
 # $ pip install rich
 from rich import print
 
-from src.equinixmetalpy import Client
+import equinixmetalpy
 
-from azure.core.credentials import AzureKeyCredential
-
-logging_enable = False
-
-if os.getenv("DEBUG") == '1':
-    import logging
-    import sys
-    logging_enable = True
-
-    # Create a logger for the 'azure' SDK
-    logger = logging.getLogger('azure')
-    logger.setLevel(logging.DEBUG)
-
-    # Configure a console output
-    handler = logging.StreamHandler(stream=sys.stdout)
-    logger.addHandler(handler)
+from equinixmetalpy import ApiException
 
 
 def wait_for_device_active(did):
@@ -40,11 +25,7 @@ def wait_for_device_active(did):
     raise Exception("Timed out waiting for device to become active")
 
 
-akc = AzureKeyCredential(
-    os.getenv("PACKET_AUTH_TOKEN"),
-)
-
-client = Client(akc, logging_enable=logging_enable)
+client = equinixmetalpy.Manager(os.getenv("PACKET_AUTH_TOKEN"))
 
 
 projects_resp = client.find_projects()
@@ -60,9 +41,22 @@ dci = DeviceCreateInMetroInput(
 )
 
 
+def set_defined(object, key, value):
+    if not hasattr(object, key):
+        raise Exception(
+            "Object {0} does not have attribute {1}".format(object, key))
+    if value is not None:
+        setattr(object, key, value)
+
+
+#set_defined(dci, "metro", "ff")
+
+
 new_device_resp = client.create_device(pid, dci)
 print("New Device:")
+print(type(new_device_resp))
 print(new_device_resp)
+equinixmetalpy.raise_if_error(new_device_resp)
 
 wait_for_device_active(new_device_resp.id)
 
