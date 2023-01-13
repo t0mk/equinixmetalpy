@@ -4,13 +4,13 @@
    contain the root `toctree` directive.
 
 #########################################
-:mod:`Equinixmetalpy` --- DigitalOcean's Python library
+:mod:`Equinixmetalpy` --- Python library for Equinix Metal
 #########################################
 
 .. module:: equinixmetalpy
 
-:mod:`equinixmetalpy` is a Python client library for DigitalOceans's `HTTP API
-<https://docs.digitalocean.com/reference/api/api-reference/>`_.
+:mod:`equinixmetalpy` is a Python client library for Equnix Metal HTTP API
+`<https://deploy.equinix.com/developers/api/metal/>`_.
 
 Installation
 ============
@@ -24,21 +24,21 @@ Initialization
 ==============
 
 :mod:`equinixmetalpy` must be initialized with :meth:`equinixmetalpy.client`. A
-DigitalOcean API Token is required. The token can be passed explicitly to :meth:`equinixmetalpy.client` or defined as environment variables
-``DIGITALOCEAN_TOKEN``.
+Equinix Metal Token is required. The token can be passed explicitly to :meth:`equinixmetalpy.client` or defined as environment variables
+``METAL_AUTH_TOKEN``.
 
 Here's an example of initializing the Equinixmetalpy Client::
 
    from equinixmetalpy import Client
 
-   client = Client(token="<DIGITALOCEAN_TOKEN>")  
+   client = Client(token="<METAL_AUTH_TOKEN>")  
 
 .. autofunction:: equinixmetalpy.Client
 
 Example
 ===========
 Find below a working example for GET a ssh_key (`per this http request
-<https://docs.digitalocean.com/reference/api/api-reference/#operation/sshKeys_list>`_) and printing the ID associated with the ssh key. If you'd like to try out this quick example, you can follow these instructions to add ssh keys to your DO account::
+<https://deploy.equinix.com/developers/api/metal/#tag/SSHKeys>`_) and printing the ID associated with the ssh key. If you'd like to try out this quick example, you can follow these instructions to add ssh keys to your DO account::
 
    from equinixmetalpy import Client
 
@@ -52,10 +52,6 @@ The above code snippet should output the following::
 
    ID: 123456, NAME: my_test_ssh_key, FINGERPRINT: 5c:74:7e:60:28:69:34:ca:dd:74:67:c3:f3:00:7f:fe
    ID: 123457, NAME: my_prod_ssh_key, FINGERPRINT: eb:76:c7:2a:d3:3e:80:5d:ef:2e:ca:86:d7:79:94:0d
-
-You can find a more thorough example of using the Equinixmetalpy client `here
-<https://github.com/digitalocean/equinixmetalpy/blob/main/examples/poc_droplets_volumes_sshkeys.py>`_.
-The example walks through the process of creating a droplet with a specified ssh key, creating a volume, and then attaching the volume to the droplet. 
 
 Pagination
 ~~~~~~~~~~~
