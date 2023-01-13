@@ -7,7 +7,7 @@
 
 import datetime
 import sys
-from typing import Any, List, Optional, TYPE_CHECKING, Union
+from typing import Any, IO, List, Optional, TYPE_CHECKING, Union
 
 from .. import _serialization
 
@@ -40,6 +40,8 @@ class Address(_serialization.Model):
     :vartype state: str
     :ivar zip_code: Required.
     :vartype zip_code: str
+    :ivar href:
+    :vartype href: str
     """
 
     _validation = {
@@ -56,6 +58,7 @@ class Address(_serialization.Model):
         "country": {"key": "country", "type": "str"},
         "state": {"key": "state", "type": "str"},
         "zip_code": {"key": "zip_code", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -68,6 +71,7 @@ class Address(_serialization.Model):
         city: Optional[str] = None,
         coordinates: Optional["_models.Coordinates"] = None,
         state: Optional[str] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -85,6 +89,8 @@ class Address(_serialization.Model):
         :paramtype state: str
         :keyword zip_code: Required.
         :paramtype zip_code: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.address = address
@@ -94,6 +100,7 @@ class Address(_serialization.Model):
         self.country = country
         self.state = state
         self.zip_code = zip_code
+        self.href = href
 
 
 class BondPortData(_serialization.Model):
@@ -103,29 +110,36 @@ class BondPortData(_serialization.Model):
     :vartype id: str
     :ivar name: Name of the port interface for the bond ("bond0").
     :vartype name: str
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
         "id": {"key": "id", "type": "str"},
         "name": {"key": "name", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
         self,
         *,
-        id: Optional[str] = None,
+        id: Optional[str] = None,  # pylint: disable=redefined-builtin
         name: Optional[str] = None,
-        **kwargs  # pylint: disable=redefined-builtin
+        href: Optional[str] = None,
+        **kwargs
     ):
         """
         :keyword id: ID of the bonding port.
         :paramtype id: str
         :keyword name: Name of the port interface for the bond ("bond0").
         :paramtype name: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.id = id
         self.name = name
+        self.href = href
 
 
 class Coordinates(_serialization.Model):
@@ -135,11 +149,14 @@ class Coordinates(_serialization.Model):
     :vartype latitude: str
     :ivar longitude:
     :vartype longitude: str
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
         "latitude": {"key": "latitude", "type": "str"},
         "longitude": {"key": "longitude", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -147,6 +164,7 @@ class Coordinates(_serialization.Model):
         *,
         latitude: Optional[str] = None,
         longitude: Optional[str] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -154,10 +172,13 @@ class Coordinates(_serialization.Model):
         :paramtype latitude: str
         :keyword longitude:
         :paramtype longitude: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.latitude = latitude
         self.longitude = longitude
+        self.href = href
 
 
 class CreateDeviceRequest(_serialization.Model):
@@ -499,25 +520,36 @@ class DeviceActionsInner(_serialization.Model):
     :vartype type: str
     :ivar name:
     :vartype name: str
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
         "type": {"key": "type", "type": "str"},
         "name": {"key": "name", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
-        self, *, type: Optional[str] = None, name: Optional[str] = None, **kwargs
+        self,
+        *,
+        type: Optional[str] = None,
+        name: Optional[str] = None,
+        href: Optional[str] = None,
+        **kwargs
     ):
         """
         :keyword type:
         :paramtype type: str
         :keyword name:
         :paramtype name: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.type = type
         self.name = name
+        self.href = href
 
 
 class UserLite(_serialization.Model):
@@ -860,6 +892,8 @@ class DeviceCreateInput(
      <https://metal.equinix.com/developers/docs/operating-systems/custom-ipxe/#provisioning-with-custom-ipxe>`_
      for more details.
     :vartype userdata: str
+    :ivar href:
+    :vartype href: str
     """
 
     _validation = {
@@ -894,9 +928,10 @@ class DeviceCreateInput(
         "termination_time": {"key": "termination_time", "type": "iso-8601"},
         "user_ssh_keys": {"key": "user_ssh_keys", "type": "[str]"},
         "userdata": {"key": "userdata", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-locals
         self,
         *,
         operating_system: str,
@@ -928,6 +963,7 @@ class DeviceCreateInput(
         termination_time: Optional[datetime.datetime] = None,
         user_ssh_keys: Optional[List[str]] = None,
         userdata: Optional[str] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -1072,6 +1108,8 @@ class DeviceCreateInput(
          <https://metal.equinix.com/developers/docs/operating-systems/custom-ipxe/#provisioning-with-custom-ipxe>`_
          for more details.
         :paramtype userdata: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.always_pxe = always_pxe
@@ -1097,6 +1135,7 @@ class DeviceCreateInput(
         self.termination_time = termination_time
         self.user_ssh_keys = user_ssh_keys
         self.userdata = userdata
+        self.href = href
 
 
 class FacilityInput(_serialization.Model):
@@ -1116,6 +1155,8 @@ class FacilityInput(_serialization.Model):
      accepting ``any`` facility. If none of the facilities provided have availability for the
      requested device the request will fail. Required.
     :vartype facility: ~equinixmetalpy.models.FacilityInputFacility
+    :ivar href:
+    :vartype href: str
     """
 
     _validation = {
@@ -1124,9 +1165,16 @@ class FacilityInput(_serialization.Model):
 
     _attribute_map = {
         "facility": {"key": "facility", "type": "FacilityInputFacility"},
+        "href": {"key": "href", "type": "str"},
     }
 
-    def __init__(self, *, facility: "_models.FacilityInputFacility", **kwargs):
+    def __init__(
+        self,
+        *,
+        facility: "_models.FacilityInputFacility",
+        href: Optional[str] = None,
+        **kwargs
+    ):
         """
         :keyword facility: The datacenter where the device should be created.
 
@@ -1140,9 +1188,12 @@ class FacilityInput(_serialization.Model):
          accepting ``any`` facility. If none of the facilities provided have availability for the
          requested device the request will fail. Required.
         :paramtype facility: ~equinixmetalpy.models.FacilityInputFacility
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.facility = facility
+        self.href = href
 
 
 class DeviceCreateInFacilityInput(
@@ -1305,6 +1356,8 @@ class DeviceCreateInFacilityInput(
      accepting ``any`` facility. If none of the facilities provided have availability for the
      requested device the request will fail. Required.
     :vartype facility: ~equinixmetalpy.models.FacilityInputFacility
+    :ivar href:
+    :vartype href: str
     """
 
     _validation = {
@@ -1341,6 +1394,7 @@ class DeviceCreateInFacilityInput(
         "user_ssh_keys": {"key": "user_ssh_keys", "type": "[str]"},
         "userdata": {"key": "userdata", "type": "str"},
         "facility": {"key": "facility", "type": "FacilityInputFacility"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(  # pylint: disable=too-many-locals
@@ -1376,6 +1430,7 @@ class DeviceCreateInFacilityInput(
         termination_time: Optional[datetime.datetime] = None,
         user_ssh_keys: Optional[List[str]] = None,
         userdata: Optional[str] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -1532,9 +1587,12 @@ class DeviceCreateInFacilityInput(
          accepting ``any`` facility. If none of the facilities provided have availability for the
          requested device the request will fail. Required.
         :paramtype facility: ~equinixmetalpy.models.FacilityInputFacility
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(
             facility=facility,
+            href=href,
             always_pxe=always_pxe,
             billing_cycle=billing_cycle,
             customdata=customdata,
@@ -1584,6 +1642,7 @@ class DeviceCreateInFacilityInput(
         self.user_ssh_keys = user_ssh_keys
         self.userdata = userdata
         self.facility = facility
+        self.href = href
 
 
 class MetroInput(_serialization.Model):
@@ -1594,6 +1653,8 @@ class MetroInput(_serialization.Model):
     :ivar metro: Metro code or ID of where the instance should be provisioned in.
      Either metro or facility must be provided. Required.
     :vartype metro: str
+    :ivar href:
+    :vartype href: str
     """
 
     _validation = {
@@ -1602,16 +1663,20 @@ class MetroInput(_serialization.Model):
 
     _attribute_map = {
         "metro": {"key": "metro", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
-    def __init__(self, *, metro: str, **kwargs):
+    def __init__(self, *, metro: str, href: Optional[str] = None, **kwargs):
         """
         :keyword metro: Metro code or ID of where the instance should be provisioned in.
          Either metro or facility must be provided. Required.
         :paramtype metro: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.metro = metro
+        self.href = href
 
 
 class DeviceCreateInMetroInput(
@@ -1765,6 +1830,8 @@ class DeviceCreateInMetroInput(
     :ivar metro: Metro code or ID of where the instance should be provisioned in.
      Either metro or facility must be provided. Required.
     :vartype metro: str
+    :ivar href:
+    :vartype href: str
     """
 
     _validation = {
@@ -1801,6 +1868,7 @@ class DeviceCreateInMetroInput(
         "user_ssh_keys": {"key": "user_ssh_keys", "type": "[str]"},
         "userdata": {"key": "userdata", "type": "str"},
         "metro": {"key": "metro", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(  # pylint: disable=too-many-locals
@@ -1836,6 +1904,7 @@ class DeviceCreateInMetroInput(
         termination_time: Optional[datetime.datetime] = None,
         user_ssh_keys: Optional[List[str]] = None,
         userdata: Optional[str] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -1983,9 +2052,12 @@ class DeviceCreateInMetroInput(
         :keyword metro: Metro code or ID of where the instance should be provisioned in.
          Either metro or facility must be provided. Required.
         :paramtype metro: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(
             metro=metro,
+            href=href,
             always_pxe=always_pxe,
             billing_cycle=billing_cycle,
             customdata=customdata,
@@ -2035,6 +2107,7 @@ class DeviceCreateInMetroInput(
         self.user_ssh_keys = user_ssh_keys
         self.userdata = userdata
         self.metro = metro
+        self.href = href
 
 
 class DeviceCreateInputIpAddressesInner(_serialization.Model):
@@ -2050,6 +2123,8 @@ class DeviceCreateInputIpAddressesInner(_serialization.Model):
     :vartype ip_reservations: list[str]
     :ivar public: Address Type for IP Address.
     :vartype public: bool
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
@@ -2057,6 +2132,7 @@ class DeviceCreateInputIpAddressesInner(_serialization.Model):
         "cidr": {"key": "cidr", "type": "int"},
         "ip_reservations": {"key": "ip_reservations", "type": "[str]"},
         "public": {"key": "public", "type": "bool"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -2068,6 +2144,7 @@ class DeviceCreateInputIpAddressesInner(_serialization.Model):
         cidr: Optional[int] = None,
         ip_reservations: Optional[List[str]] = None,
         public: bool = True,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -2081,12 +2158,15 @@ class DeviceCreateInputIpAddressesInner(_serialization.Model):
         :paramtype ip_reservations: list[str]
         :keyword public: Address Type for IP Address.
         :paramtype public: bool
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.address_family = address_family
         self.cidr = cidr
         self.ip_reservations = ip_reservations
         self.public = public
+        self.href = href
 
 
 class DeviceList(_serialization.Model):
@@ -2096,11 +2176,14 @@ class DeviceList(_serialization.Model):
     :vartype devices: list[~equinixmetalpy.models.Device]
     :ivar meta:
     :vartype meta: ~equinixmetalpy.models.Meta
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
         "devices": {"key": "devices", "type": "[Device]"},
         "meta": {"key": "meta", "type": "Meta"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -2108,6 +2191,7 @@ class DeviceList(_serialization.Model):
         *,
         devices: Optional[List["_models.Device"]] = None,
         meta: Optional["_models.Meta"] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -2115,10 +2199,13 @@ class DeviceList(_serialization.Model):
         :paramtype devices: list[~equinixmetalpy.models.Device]
         :keyword meta:
         :paramtype meta: ~equinixmetalpy.models.Meta
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.devices = devices
         self.meta = meta
+        self.href = href
 
 
 class Metro(_serialization.Model):
@@ -2132,6 +2219,8 @@ class Metro(_serialization.Model):
     :vartype id: str
     :ivar name:
     :vartype name: str
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
@@ -2139,6 +2228,7 @@ class Metro(_serialization.Model):
         "country": {"key": "country", "type": "str"},
         "id": {"key": "id", "type": "str"},
         "name": {"key": "name", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -2148,6 +2238,7 @@ class Metro(_serialization.Model):
         country: Optional[str] = None,
         id: Optional[str] = None,  # pylint: disable=redefined-builtin
         name: Optional[str] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -2159,12 +2250,15 @@ class Metro(_serialization.Model):
         :paramtype id: str
         :keyword name:
         :paramtype name: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.code = code
         self.country = country
         self.id = id
         self.name = name
+        self.href = href
 
 
 class DeviceMetro(Metro):
@@ -2178,6 +2272,8 @@ class DeviceMetro(Metro):
     :vartype id: str
     :ivar name:
     :vartype name: str
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
@@ -2185,6 +2281,7 @@ class DeviceMetro(Metro):
         "country": {"key": "country", "type": "str"},
         "id": {"key": "id", "type": "str"},
         "name": {"key": "name", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -2194,6 +2291,7 @@ class DeviceMetro(Metro):
         country: Optional[str] = None,
         id: Optional[str] = None,  # pylint: disable=redefined-builtin
         name: Optional[str] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -2205,8 +2303,12 @@ class DeviceMetro(Metro):
         :paramtype id: str
         :keyword name:
         :paramtype name: str
+        :keyword href:
+        :paramtype href: str
         """
-        super().__init__(code=code, country=country, id=id, name=name, **kwargs)
+        super().__init__(
+            code=code, country=country, id=id, name=name, href=href, **kwargs
+        )
 
 
 class Href(_serialization.Model):
@@ -2312,6 +2414,8 @@ class DeviceUpdateInput(
     :vartype tags: list[str]
     :ivar userdata:
     :vartype userdata: str
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
@@ -2326,6 +2430,7 @@ class DeviceUpdateInput(
         "spot_instance": {"key": "spot_instance", "type": "bool"},
         "tags": {"key": "tags", "type": "[str]"},
         "userdata": {"key": "userdata", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -2342,6 +2447,7 @@ class DeviceUpdateInput(
         spot_instance: Optional[bool] = None,
         tags: Optional[List[str]] = None,
         userdata: Optional[str] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -2368,6 +2474,8 @@ class DeviceUpdateInput(
         :paramtype tags: list[str]
         :keyword userdata:
         :paramtype userdata: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.always_pxe = always_pxe
@@ -2381,6 +2489,7 @@ class DeviceUpdateInput(
         self.spot_instance = spot_instance
         self.tags = tags
         self.userdata = userdata
+        self.href = href
 
 
 class Error(_serialization.Model):
@@ -2390,11 +2499,14 @@ class Error(_serialization.Model):
     :vartype error: str
     :ivar errors: A list of errors that contributed to the request failing.
     :vartype errors: list[str]
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
         "error": {"key": "error", "type": "str"},
         "errors": {"key": "errors", "type": "[str]"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -2402,6 +2514,7 @@ class Error(_serialization.Model):
         *,
         error: Optional[str] = None,
         errors: Optional[List[str]] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -2409,10 +2522,13 @@ class Error(_serialization.Model):
         :paramtype error: str
         :keyword errors: A list of errors that contributed to the request failing.
         :paramtype errors: list[str]
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.error = error
         self.errors = errors
+        self.href = href
 
 
 class Event(_serialization.Model):
@@ -2506,6 +2622,8 @@ class Facility(_serialization.Model):
     :vartype metro: ~equinixmetalpy.models.DeviceMetro
     :ivar name:
     :vartype name: str
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
@@ -2516,6 +2634,7 @@ class Facility(_serialization.Model):
         "ip_ranges": {"key": "ip_ranges", "type": "[str]"},
         "metro": {"key": "metro", "type": "DeviceMetro"},
         "name": {"key": "name", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -2528,6 +2647,7 @@ class Facility(_serialization.Model):
         ip_ranges: Optional[List[str]] = None,
         metro: Optional["_models.DeviceMetro"] = None,
         name: Optional[str] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -2545,6 +2665,8 @@ class Facility(_serialization.Model):
         :paramtype metro: ~equinixmetalpy.models.DeviceMetro
         :keyword name:
         :paramtype name: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.address = address
@@ -2554,6 +2676,7 @@ class Facility(_serialization.Model):
         self.ip_ranges = ip_ranges
         self.metro = metro
         self.name = name
+        self.href = href
 
 
 class FacilityInputFacility(_serialization.Model):
@@ -2724,6 +2847,8 @@ class IPAssignmentMetro(Metro):
     :vartype id: str
     :ivar name:
     :vartype name: str
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
@@ -2731,6 +2856,7 @@ class IPAssignmentMetro(Metro):
         "country": {"key": "country", "type": "str"},
         "id": {"key": "id", "type": "str"},
         "name": {"key": "name", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -2740,6 +2866,7 @@ class IPAssignmentMetro(Metro):
         country: Optional[str] = None,
         id: Optional[str] = None,  # pylint: disable=redefined-builtin
         name: Optional[str] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -2751,8 +2878,12 @@ class IPAssignmentMetro(Metro):
         :paramtype id: str
         :keyword name:
         :paramtype name: str
+        :keyword href:
+        :paramtype href: str
         """
-        super().__init__(code=code, country=country, id=id, name=name, **kwargs)
+        super().__init__(
+            code=code, country=country, id=id, name=name, href=href, **kwargs
+        )
 
 
 class Meta(_serialization.Model):
@@ -2770,6 +2901,8 @@ class Meta(_serialization.Model):
     :vartype self_property: ~equinixmetalpy.models.Href
     :ivar total:
     :vartype total: int
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
@@ -2779,6 +2912,7 @@ class Meta(_serialization.Model):
         "previous": {"key": "previous", "type": "Href"},
         "self_property": {"key": "self", "type": "Href"},
         "total": {"key": "total", "type": "int"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -2790,6 +2924,7 @@ class Meta(_serialization.Model):
         previous: Optional["_models.Href"] = None,
         self_property: Optional["_models.Href"] = None,
         total: Optional[int] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -2805,6 +2940,8 @@ class Meta(_serialization.Model):
         :paramtype self_property: ~equinixmetalpy.models.Href
         :keyword total:
         :paramtype total: int
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.first = first
@@ -2813,6 +2950,7 @@ class Meta(_serialization.Model):
         self.previous = previous
         self.self_property = self_property
         self.total = total
+        self.href = href
 
 
 class MetalGatewayLite(_serialization.Model):
@@ -2917,6 +3055,8 @@ class OperatingSystem(_serialization.Model):
     :vartype slug: str
     :ivar version:
     :vartype version: str
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
@@ -2929,6 +3069,7 @@ class OperatingSystem(_serialization.Model):
         "provisionable_on": {"key": "provisionable_on", "type": "[str]"},
         "slug": {"key": "slug", "type": "str"},
         "version": {"key": "version", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -2943,6 +3084,7 @@ class OperatingSystem(_serialization.Model):
         provisionable_on: Optional[List[str]] = None,
         slug: Optional[str] = None,
         version: Optional[str] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -2966,6 +3108,8 @@ class OperatingSystem(_serialization.Model):
         :paramtype slug: str
         :keyword version:
         :paramtype version: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.distro = distro
@@ -2977,6 +3121,284 @@ class OperatingSystem(_serialization.Model):
         self.provisionable_on = provisionable_on
         self.slug = slug
         self.version = version
+        self.href = href
+
+
+class Organization(
+    _serialization.Model
+):  # pylint: disable=too-many-instance-attributes
+    """Organization.
+
+    :ivar address:
+    :vartype address: ~equinixmetalpy.models.Address
+    :ivar billing_address:
+    :vartype billing_address: ~equinixmetalpy.models.Address
+    :ivar created_at:
+    :vartype created_at: ~datetime.datetime
+    :ivar credit_amount:
+    :vartype credit_amount: float
+    :ivar customdata: Any object.
+    :vartype customdata: JSON
+    :ivar description:
+    :vartype description: str
+    :ivar enforce2_fa_at: Force to all members to have enabled the two factor authentication after
+     that date, unless the value is null.
+    :vartype enforce2_fa_at: ~datetime.datetime
+    :ivar id:
+    :vartype id: str
+    :ivar logo:
+    :vartype logo: IO
+    :ivar members:
+    :vartype members: list[~equinixmetalpy.models.Href]
+    :ivar memberships:
+    :vartype memberships: list[~equinixmetalpy.models.Href]
+    :ivar name:
+    :vartype name: str
+    :ivar projects:
+    :vartype projects: list[~equinixmetalpy.models.Href]
+    :ivar terms:
+    :vartype terms: int
+    :ivar twitter:
+    :vartype twitter: str
+    :ivar updated_at:
+    :vartype updated_at: ~datetime.datetime
+    :ivar website:
+    :vartype website: str
+    :ivar href:
+    :vartype href: str
+    """
+
+    _attribute_map = {
+        "address": {"key": "address", "type": "Address"},
+        "billing_address": {"key": "billing_address", "type": "Address"},
+        "created_at": {"key": "created_at", "type": "iso-8601"},
+        "credit_amount": {"key": "credit_amount", "type": "float"},
+        "customdata": {"key": "customdata", "type": "object"},
+        "description": {"key": "description", "type": "str"},
+        "enforce2_fa_at": {"key": "enforce_2fa_at", "type": "iso-8601"},
+        "id": {"key": "id", "type": "str"},
+        "logo": {"key": "logo", "type": "IO"},
+        "members": {"key": "members", "type": "[Href]"},
+        "memberships": {"key": "memberships", "type": "[Href]"},
+        "name": {"key": "name", "type": "str"},
+        "projects": {"key": "projects", "type": "[Href]"},
+        "terms": {"key": "terms", "type": "int"},
+        "twitter": {"key": "twitter", "type": "str"},
+        "updated_at": {"key": "updated_at", "type": "iso-8601"},
+        "website": {"key": "website", "type": "str"},
+        "href": {"key": "href", "type": "str"},
+    }
+
+    def __init__(
+        self,
+        *,
+        address: Optional["_models.Address"] = None,
+        billing_address: Optional["_models.Address"] = None,
+        created_at: Optional[datetime.datetime] = None,
+        credit_amount: Optional[float] = None,
+        customdata: Optional[JSON] = None,
+        description: Optional[str] = None,
+        enforce2_fa_at: Optional[datetime.datetime] = None,
+        id: Optional[str] = None,  # pylint: disable=redefined-builtin
+        logo: Optional[IO] = None,
+        members: Optional[List["_models.Href"]] = None,
+        memberships: Optional[List["_models.Href"]] = None,
+        name: Optional[str] = None,
+        projects: Optional[List["_models.Href"]] = None,
+        terms: Optional[int] = None,
+        twitter: Optional[str] = None,
+        updated_at: Optional[datetime.datetime] = None,
+        website: Optional[str] = None,
+        href: Optional[str] = None,
+        **kwargs
+    ):
+        """
+        :keyword address:
+        :paramtype address: ~equinixmetalpy.models.Address
+        :keyword billing_address:
+        :paramtype billing_address: ~equinixmetalpy.models.Address
+        :keyword created_at:
+        :paramtype created_at: ~datetime.datetime
+        :keyword credit_amount:
+        :paramtype credit_amount: float
+        :keyword customdata: Any object.
+        :paramtype customdata: JSON
+        :keyword description:
+        :paramtype description: str
+        :keyword enforce2_fa_at: Force to all members to have enabled the two factor authentication
+         after that date, unless the value is null.
+        :paramtype enforce2_fa_at: ~datetime.datetime
+        :keyword id:
+        :paramtype id: str
+        :keyword logo:
+        :paramtype logo: IO
+        :keyword members:
+        :paramtype members: list[~equinixmetalpy.models.Href]
+        :keyword memberships:
+        :paramtype memberships: list[~equinixmetalpy.models.Href]
+        :keyword name:
+        :paramtype name: str
+        :keyword projects:
+        :paramtype projects: list[~equinixmetalpy.models.Href]
+        :keyword terms:
+        :paramtype terms: int
+        :keyword twitter:
+        :paramtype twitter: str
+        :keyword updated_at:
+        :paramtype updated_at: ~datetime.datetime
+        :keyword website:
+        :paramtype website: str
+        :keyword href:
+        :paramtype href: str
+        """
+        super().__init__(**kwargs)
+        self.address = address
+        self.billing_address = billing_address
+        self.created_at = created_at
+        self.credit_amount = credit_amount
+        self.customdata = customdata
+        self.description = description
+        self.enforce2_fa_at = enforce2_fa_at
+        self.id = id
+        self.logo = logo
+        self.members = members
+        self.memberships = memberships
+        self.name = name
+        self.projects = projects
+        self.terms = terms
+        self.twitter = twitter
+        self.updated_at = updated_at
+        self.website = website
+        self.href = href
+
+
+class OrganizationInput(_serialization.Model):
+    """OrganizationInput.
+
+    :ivar address:
+    :vartype address: ~equinixmetalpy.models.Address
+    :ivar billing_address:
+    :vartype billing_address: ~equinixmetalpy.models.Address
+    :ivar customdata: Any object.
+    :vartype customdata: JSON
+    :ivar description:
+    :vartype description: str
+    :ivar enforce2_fa_at: Force to all members to have enabled the two factor authentication after
+     that date, unless the value is null.
+    :vartype enforce2_fa_at: ~datetime.datetime
+    :ivar logo:
+    :vartype logo: IO
+    :ivar name:
+    :vartype name: str
+    :ivar twitter:
+    :vartype twitter: str
+    :ivar website:
+    :vartype website: str
+    :ivar href:
+    :vartype href: str
+    """
+
+    _attribute_map = {
+        "address": {"key": "address", "type": "Address"},
+        "billing_address": {"key": "billing_address", "type": "Address"},
+        "customdata": {"key": "customdata", "type": "object"},
+        "description": {"key": "description", "type": "str"},
+        "enforce2_fa_at": {"key": "enforce_2fa_at", "type": "iso-8601"},
+        "logo": {"key": "logo", "type": "IO"},
+        "name": {"key": "name", "type": "str"},
+        "twitter": {"key": "twitter", "type": "str"},
+        "website": {"key": "website", "type": "str"},
+        "href": {"key": "href", "type": "str"},
+    }
+
+    def __init__(
+        self,
+        *,
+        address: Optional["_models.Address"] = None,
+        billing_address: Optional["_models.Address"] = None,
+        customdata: Optional[JSON] = None,
+        description: Optional[str] = None,
+        enforce2_fa_at: Optional[datetime.datetime] = None,
+        logo: Optional[IO] = None,
+        name: Optional[str] = None,
+        twitter: Optional[str] = None,
+        website: Optional[str] = None,
+        href: Optional[str] = None,
+        **kwargs
+    ):
+        """
+        :keyword address:
+        :paramtype address: ~equinixmetalpy.models.Address
+        :keyword billing_address:
+        :paramtype billing_address: ~equinixmetalpy.models.Address
+        :keyword customdata: Any object.
+        :paramtype customdata: JSON
+        :keyword description:
+        :paramtype description: str
+        :keyword enforce2_fa_at: Force to all members to have enabled the two factor authentication
+         after that date, unless the value is null.
+        :paramtype enforce2_fa_at: ~datetime.datetime
+        :keyword logo:
+        :paramtype logo: IO
+        :keyword name:
+        :paramtype name: str
+        :keyword twitter:
+        :paramtype twitter: str
+        :keyword website:
+        :paramtype website: str
+        :keyword href:
+        :paramtype href: str
+        """
+        super().__init__(**kwargs)
+        self.address = address
+        self.billing_address = billing_address
+        self.customdata = customdata
+        self.description = description
+        self.enforce2_fa_at = enforce2_fa_at
+        self.logo = logo
+        self.name = name
+        self.twitter = twitter
+        self.website = website
+        self.href = href
+
+
+class OrganizationList(_serialization.Model):
+    """OrganizationList.
+
+    :ivar meta:
+    :vartype meta: ~equinixmetalpy.models.Meta
+    :ivar organizations:
+    :vartype organizations: list[~equinixmetalpy.models.Organization]
+    :ivar href:
+    :vartype href: str
+    """
+
+    _attribute_map = {
+        "meta": {"key": "meta", "type": "Meta"},
+        "organizations": {"key": "organizations", "type": "[Organization]"},
+        "href": {"key": "href", "type": "str"},
+    }
+
+    def __init__(
+        self,
+        *,
+        meta: Optional["_models.Meta"] = None,
+        organizations: Optional[List["_models.Organization"]] = None,
+        href: Optional[str] = None,
+        **kwargs
+    ):
+        """
+        :keyword meta:
+        :paramtype meta: ~equinixmetalpy.models.Meta
+        :keyword organizations:
+        :paramtype organizations: list[~equinixmetalpy.models.Organization]
+        :keyword href:
+        :paramtype href: str
+        """
+        super().__init__(**kwargs)
+        self.meta = meta
+        self.organizations = organizations
+        self.href = href
 
 
 class ParentBlock(_serialization.Model):
@@ -3056,6 +3478,8 @@ class Plan(_serialization.Model):  # pylint: disable=too-many-instance-attribute
     :vartype specs: ~equinixmetalpy.models.PlanSpecs
     :ivar type: The plan type. Known values are: "standard", "workload_optimized", and "custom".
     :vartype type: str or ~equinixmetalpy.models.PlanType
+    :ivar href:
+    :vartype href: str
     """
 
     _validation = {
@@ -3079,6 +3503,7 @@ class Plan(_serialization.Model):  # pylint: disable=too-many-instance-attribute
         "slug": {"key": "slug", "type": "str"},
         "specs": {"key": "specs", "type": "PlanSpecs"},
         "type": {"key": "type", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -3101,6 +3526,7 @@ class Plan(_serialization.Model):  # pylint: disable=too-many-instance-attribute
         slug: Optional[str] = None,
         specs: Optional["_models.PlanSpecs"] = None,
         type: Optional[Union[str, "_models.PlanType"]] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -3132,6 +3558,8 @@ class Plan(_serialization.Model):  # pylint: disable=too-many-instance-attribute
         :paramtype specs: ~equinixmetalpy.models.PlanSpecs
         :keyword type: The plan type. Known values are: "standard", "workload_optimized", and "custom".
         :paramtype type: str or ~equinixmetalpy.models.PlanType
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.available_in = available_in
@@ -3147,6 +3575,7 @@ class Plan(_serialization.Model):  # pylint: disable=too-many-instance-attribute
         self.slug = slug
         self.specs = specs
         self.type = type
+        self.href = href
 
 
 class PlanAvailableInInner(_serialization.Model):
@@ -3186,19 +3615,27 @@ class PlanAvailableInInnerPrice(_serialization.Model):
 
     :ivar hour:
     :vartype hour: float
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
         "hour": {"key": "hour", "type": "float"},
+        "href": {"key": "href", "type": "str"},
     }
 
-    def __init__(self, *, hour: Optional[float] = None, **kwargs):
+    def __init__(
+        self, *, hour: Optional[float] = None, href: Optional[str] = None, **kwargs
+    ):
         """
         :keyword hour:
         :paramtype hour: float
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.hour = hour
+        self.href = href
 
 
 class PlanAvailableInMetrosInner(_serialization.Model):
@@ -3244,6 +3681,8 @@ class PlanSpecs(_serialization.Model):
     :vartype nics: list[~equinixmetalpy.models.PlanSpecsNicsInner]
     :ivar features:
     :vartype features: ~equinixmetalpy.models.PlanSpecsFeatures
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
@@ -3251,6 +3690,7 @@ class PlanSpecs(_serialization.Model):
         "drives": {"key": "drives", "type": "[PlanSpecsDrivesInner]"},
         "nics": {"key": "nics", "type": "[PlanSpecsNicsInner]"},
         "features": {"key": "features", "type": "PlanSpecsFeatures"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -3260,6 +3700,7 @@ class PlanSpecs(_serialization.Model):
         drives: Optional[List["_models.PlanSpecsDrivesInner"]] = None,
         nics: Optional[List["_models.PlanSpecsNicsInner"]] = None,
         features: Optional["_models.PlanSpecsFeatures"] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -3271,12 +3712,15 @@ class PlanSpecs(_serialization.Model):
         :paramtype nics: list[~equinixmetalpy.models.PlanSpecsNicsInner]
         :keyword features:
         :paramtype features: ~equinixmetalpy.models.PlanSpecsFeatures
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.cpus = cpus
         self.drives = drives
         self.nics = nics
         self.features = features
+        self.href = href
 
 
 class PlanSpecsCpusInner(_serialization.Model):
@@ -3286,25 +3730,36 @@ class PlanSpecsCpusInner(_serialization.Model):
     :vartype count: int
     :ivar type:
     :vartype type: str
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
         "count": {"key": "count", "type": "int"},
         "type": {"key": "type", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
-        self, *, count: Optional[int] = None, type: Optional[str] = None, **kwargs
+        self,
+        *,
+        count: Optional[int] = None,
+        type: Optional[str] = None,
+        href: Optional[str] = None,
+        **kwargs
     ):
         """
         :keyword count:
         :paramtype count: int
         :keyword type:
         :paramtype type: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.count = count
         self.type = type
+        self.href = href
 
 
 class PlanSpecsDrivesInner(_serialization.Model):
@@ -3318,6 +3773,8 @@ class PlanSpecsDrivesInner(_serialization.Model):
     :vartype size: str
     :ivar category: Known values are: "boot", "cache", and "storage".
     :vartype category: str or ~equinixmetalpy.models.PlanSpecsDrivesInnerCategory
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
@@ -3325,6 +3782,7 @@ class PlanSpecsDrivesInner(_serialization.Model):
         "type": {"key": "type", "type": "str"},
         "size": {"key": "size", "type": "str"},
         "category": {"key": "category", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -3334,6 +3792,7 @@ class PlanSpecsDrivesInner(_serialization.Model):
         type: Optional[Union[str, "_models.PlanSpecsDrivesInnerType"]] = None,
         size: Optional[str] = None,
         category: Optional[Union[str, "_models.PlanSpecsDrivesInnerCategory"]] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -3345,12 +3804,15 @@ class PlanSpecsDrivesInner(_serialization.Model):
         :paramtype size: str
         :keyword category: Known values are: "boot", "cache", and "storage".
         :paramtype category: str or ~equinixmetalpy.models.PlanSpecsDrivesInnerCategory
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.count = count
         self.type = type
         self.size = size
         self.category = category
+        self.href = href
 
 
 class PlanSpecsFeatures(_serialization.Model):
@@ -3362,12 +3824,15 @@ class PlanSpecsFeatures(_serialization.Model):
     :vartype txt: bool
     :ivar uefi:
     :vartype uefi: bool
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
         "raid": {"key": "raid", "type": "bool"},
         "txt": {"key": "txt", "type": "bool"},
         "uefi": {"key": "uefi", "type": "bool"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -3376,6 +3841,7 @@ class PlanSpecsFeatures(_serialization.Model):
         raid: Optional[bool] = None,
         txt: Optional[bool] = None,
         uefi: Optional[bool] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -3385,11 +3851,14 @@ class PlanSpecsFeatures(_serialization.Model):
         :paramtype txt: bool
         :keyword uefi:
         :paramtype uefi: bool
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.raid = raid
         self.txt = txt
         self.uefi = uefi
+        self.href = href
 
 
 class PlanSpecsNicsInner(_serialization.Model):
@@ -3399,11 +3868,14 @@ class PlanSpecsNicsInner(_serialization.Model):
     :vartype count: int
     :ivar type: Known values are: "1Gbps", "10Gbps", and "25Gbps".
     :vartype type: str or ~equinixmetalpy.models.PlanSpecsNicsInnerType
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
         "count": {"key": "count", "type": "int"},
         "type": {"key": "type", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -3411,6 +3883,7 @@ class PlanSpecsNicsInner(_serialization.Model):
         *,
         count: Optional[int] = None,
         type: Optional[Union[str, "_models.PlanSpecsNicsInnerType"]] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -3418,10 +3891,13 @@ class PlanSpecsNicsInner(_serialization.Model):
         :paramtype count: int
         :keyword type: Known values are: "1Gbps", "10Gbps", and "25Gbps".
         :paramtype type: str or ~equinixmetalpy.models.PlanSpecsNicsInnerType
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.count = count
         self.type = type
+        self.href = href
 
 
 class Port(_serialization.Model):
@@ -3532,15 +4008,23 @@ class PortData(_serialization.Model):
     :ivar bonded: Bonded is true for NetworkPort ports in a bond and NetworkBondPort ports that are
      active.
     :vartype bonded: bool
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
         "mac": {"key": "mac", "type": "str"},
         "bonded": {"key": "bonded", "type": "bool"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
-        self, *, mac: Optional[str] = None, bonded: Optional[bool] = None, **kwargs
+        self,
+        *,
+        mac: Optional[str] = None,
+        bonded: Optional[bool] = None,
+        href: Optional[str] = None,
+        **kwargs
     ):
         """
         :keyword mac: MAC address is set for NetworkPort ports.
@@ -3548,10 +4032,13 @@ class PortData(_serialization.Model):
         :keyword bonded: Bonded is true for NetworkPort ports in a bond and NetworkBondPort ports that
          are active.
         :paramtype bonded: bool
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.mac = mac
         self.bonded = bonded
+        self.href = href
 
 
 class Project(_serialization.Model):  # pylint: disable=too-many-instance-attributes
@@ -3587,6 +4074,10 @@ class Project(_serialization.Model):  # pylint: disable=too-many-instance-attrib
     :vartype updated_at: ~datetime.datetime
     :ivar volumes:
     :vartype volumes: list[~equinixmetalpy.models.Href]
+    :ivar organization:
+    :vartype organization: ~equinixmetalpy.models.Organization
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
@@ -3605,6 +4096,8 @@ class Project(_serialization.Model):  # pylint: disable=too-many-instance-attrib
         "ssh_keys": {"key": "ssh_keys", "type": "[Href]"},
         "updated_at": {"key": "updated_at", "type": "iso-8601"},
         "volumes": {"key": "volumes", "type": "[Href]"},
+        "organization": {"key": "organization", "type": "Organization"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -3625,6 +4118,8 @@ class Project(_serialization.Model):  # pylint: disable=too-many-instance-attrib
         ssh_keys: Optional[List["_models.Href"]] = None,
         updated_at: Optional[datetime.datetime] = None,
         volumes: Optional[List["_models.Href"]] = None,
+        organization: Optional["_models.Organization"] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -3658,6 +4153,10 @@ class Project(_serialization.Model):  # pylint: disable=too-many-instance-attrib
         :paramtype updated_at: ~datetime.datetime
         :keyword volumes:
         :paramtype volumes: list[~equinixmetalpy.models.Href]
+        :keyword organization:
+        :paramtype organization: ~equinixmetalpy.models.Organization
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.bgp_config = bgp_config
@@ -3675,6 +4174,8 @@ class Project(_serialization.Model):  # pylint: disable=too-many-instance-attrib
         self.ssh_keys = ssh_keys
         self.updated_at = updated_at
         self.volumes = volumes
+        self.organization = organization
+        self.href = href
 
 
 class ProjectCreateFromRootInput(_serialization.Model):
@@ -3690,6 +4191,8 @@ class ProjectCreateFromRootInput(_serialization.Model):
     :vartype organization_id: str
     :ivar payment_method_id:
     :vartype payment_method_id: str
+    :ivar href:
+    :vartype href: str
     """
 
     _validation = {
@@ -3701,6 +4204,7 @@ class ProjectCreateFromRootInput(_serialization.Model):
         "name": {"key": "name", "type": "str"},
         "organization_id": {"key": "organization_id", "type": "str"},
         "payment_method_id": {"key": "payment_method_id", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -3710,6 +4214,7 @@ class ProjectCreateFromRootInput(_serialization.Model):
         customdata: Optional[JSON] = None,
         organization_id: Optional[str] = None,
         payment_method_id: Optional[str] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -3721,12 +4226,67 @@ class ProjectCreateFromRootInput(_serialization.Model):
         :paramtype organization_id: str
         :keyword payment_method_id:
         :paramtype payment_method_id: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.customdata = customdata
         self.name = name
         self.organization_id = organization_id
         self.payment_method_id = payment_method_id
+        self.href = href
+
+
+class ProjectCreateInput(_serialization.Model):
+    """ProjectCreateInput.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar customdata: Any object.
+    :vartype customdata: JSON
+    :ivar name: Required.
+    :vartype name: str
+    :ivar payment_method_id:
+    :vartype payment_method_id: str
+    :ivar href:
+    :vartype href: str
+    """
+
+    _validation = {
+        "name": {"required": True},
+    }
+
+    _attribute_map = {
+        "customdata": {"key": "customdata", "type": "object"},
+        "name": {"key": "name", "type": "str"},
+        "payment_method_id": {"key": "payment_method_id", "type": "str"},
+        "href": {"key": "href", "type": "str"},
+    }
+
+    def __init__(
+        self,
+        *,
+        name: str,
+        customdata: Optional[JSON] = None,
+        payment_method_id: Optional[str] = None,
+        href: Optional[str] = None,
+        **kwargs
+    ):
+        """
+        :keyword customdata: Any object.
+        :paramtype customdata: JSON
+        :keyword name: Required.
+        :paramtype name: str
+        :keyword payment_method_id:
+        :paramtype payment_method_id: str
+        :keyword href:
+        :paramtype href: str
+        """
+        super().__init__(**kwargs)
+        self.customdata = customdata
+        self.name = name
+        self.payment_method_id = payment_method_id
+        self.href = href
 
 
 class ProjectList(_serialization.Model):
@@ -3736,11 +4296,14 @@ class ProjectList(_serialization.Model):
     :vartype meta: ~equinixmetalpy.models.Meta
     :ivar projects:
     :vartype projects: list[~equinixmetalpy.models.Project]
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
         "meta": {"key": "meta", "type": "Meta"},
         "projects": {"key": "projects", "type": "[Project]"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -3748,6 +4311,7 @@ class ProjectList(_serialization.Model):
         *,
         meta: Optional["_models.Meta"] = None,
         projects: Optional[List["_models.Project"]] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -3755,10 +4319,13 @@ class ProjectList(_serialization.Model):
         :paramtype meta: ~equinixmetalpy.models.Meta
         :keyword projects:
         :paramtype projects: list[~equinixmetalpy.models.Project]
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.meta = meta
         self.projects = projects
+        self.href = href
 
 
 class ProjectUpdateInput(_serialization.Model):
@@ -3772,6 +4339,8 @@ class ProjectUpdateInput(_serialization.Model):
     :vartype name: str
     :ivar payment_method_id:
     :vartype payment_method_id: str
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
@@ -3779,6 +4348,7 @@ class ProjectUpdateInput(_serialization.Model):
         "customdata": {"key": "customdata", "type": "object"},
         "name": {"key": "name", "type": "str"},
         "payment_method_id": {"key": "payment_method_id", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
@@ -3788,6 +4358,7 @@ class ProjectUpdateInput(_serialization.Model):
         customdata: Optional[JSON] = None,
         name: Optional[str] = None,
         payment_method_id: Optional[str] = None,
+        href: Optional[str] = None,
         **kwargs
     ):
         """
@@ -3799,12 +4370,15 @@ class ProjectUpdateInput(_serialization.Model):
         :paramtype name: str
         :keyword payment_method_id:
         :paramtype payment_method_id: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.backend_transfer_enabled = backend_transfer_enabled
         self.customdata = customdata
         self.name = name
         self.payment_method_id = payment_method_id
+        self.href = href
 
 
 class SSHKeyInput(_serialization.Model):
@@ -3814,25 +4388,36 @@ class SSHKeyInput(_serialization.Model):
     :vartype key: str
     :ivar label:
     :vartype label: str
+    :ivar href:
+    :vartype href: str
     """
 
     _attribute_map = {
         "key": {"key": "key", "type": "str"},
         "label": {"key": "label", "type": "str"},
+        "href": {"key": "href", "type": "str"},
     }
 
     def __init__(
-        self, *, key: Optional[str] = None, label: Optional[str] = None, **kwargs
+        self,
+        *,
+        key: Optional[str] = None,
+        label: Optional[str] = None,
+        href: Optional[str] = None,
+        **kwargs
     ):
         """
         :keyword key:
         :paramtype key: str
         :keyword label:
         :paramtype label: str
+        :keyword href:
+        :paramtype href: str
         """
         super().__init__(**kwargs)
         self.key = key
         self.label = label
+        self.href = href
 
 
 class VirtualNetwork(

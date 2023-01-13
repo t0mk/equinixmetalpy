@@ -33,6 +33,9 @@ from ._models_py3 import MetalGatewayLite
 from ._models_py3 import Metro
 from ._models_py3 import MetroInput
 from ._models_py3 import OperatingSystem
+from ._models_py3 import Organization
+from ._models_py3 import OrganizationInput
+from ._models_py3 import OrganizationList
 from ._models_py3 import ParentBlock
 from ._models_py3 import Plan
 from ._models_py3 import PlanAvailableInInner
@@ -47,6 +50,7 @@ from ._models_py3 import Port
 from ._models_py3 import PortData
 from ._models_py3 import Project
 from ._models_py3 import ProjectCreateFromRootInput
+from ._models_py3 import ProjectCreateInput
 from ._models_py3 import ProjectList
 from ._models_py3 import ProjectUpdateInput
 from ._models_py3 import SSHKeyInput
@@ -56,6 +60,8 @@ from ._models_py3 import VirtualNetwork
 from ._client_enums import DeviceCreateInputBillingCycle
 from ._client_enums import DeviceCreateInputIpAddressesInnerAddressFamily
 from ._client_enums import DeviceState
+from ._client_enums import Enum11
+from ._client_enums import Enum12
 from ._client_enums import FacilityFeaturesItem
 from ._client_enums import MetalGatewayLiteState
 from ._client_enums import PlanDeploymentTypesItem
@@ -100,6 +106,9 @@ __all__ = [
     "Metro",
     "MetroInput",
     "OperatingSystem",
+    "Organization",
+    "OrganizationInput",
+    "OrganizationList",
     "ParentBlock",
     "Plan",
     "PlanAvailableInInner",
@@ -114,6 +123,7 @@ __all__ = [
     "PortData",
     "Project",
     "ProjectCreateFromRootInput",
+    "ProjectCreateInput",
     "ProjectList",
     "ProjectUpdateInput",
     "SSHKeyInput",
@@ -122,6 +132,8 @@ __all__ = [
     "DeviceCreateInputBillingCycle",
     "DeviceCreateInputIpAddressesInnerAddressFamily",
     "DeviceState",
+    "Enum11",
+    "Enum12",
     "FacilityFeaturesItem",
     "MetalGatewayLiteState",
     "PlanDeploymentTypesItem",

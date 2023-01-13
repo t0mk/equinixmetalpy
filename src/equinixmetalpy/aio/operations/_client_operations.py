@@ -23,10 +23,14 @@ from ... import models as _models
 from ..._vendor import _convert_request
 from ...operations._client_operations import (
     build_create_device_request,
+    build_create_organization_project_request,
+    build_create_organization_request,
     build_create_project_request,
     build_delete_device_request,
     build_delete_project_request,
     build_find_device_by_id_request,
+    build_find_organization_projects_request,
+    build_find_organizations_request,
     build_find_project_by_id_request,
     build_find_project_devices_request,
     build_find_projects_request,
@@ -341,6 +345,446 @@ class ClientOperationsMixin(MixinABC):
         return deserialized
 
     update_device.metadata = {"url": "/devices/{id}"}  # type: ignore
+
+    @distributed_trace_async
+    async def find_organizations(
+        self,
+        personal: Optional[Union[str, "_models.Enum11"]] = None,
+        without_projects: Optional[Union[str, "_models.Enum12"]] = None,
+        include: Optional[List[str]] = None,
+        exclude: Optional[List[str]] = None,
+        page: int = 1,
+        per_page: int = 10,
+        **kwargs: Any
+    ) -> Union[_models.OrganizationList, _models.Error]:
+        """Retrieve all organizations.
+
+        Returns a list of organizations that are accessible to the current user.
+
+        :param personal: Include, exclude or show only personal organizations. Known values are:
+         "include", "exclude", and "only". Default value is None.
+        :type personal: str or ~equinixmetalpy.models.Enum11
+        :param without_projects: Include, exclude or show only organizations that have no projects.
+         Known values are: "include", "exclude", and "only". Default value is None.
+        :type without_projects: str or ~equinixmetalpy.models.Enum12
+        :param include: Nested attributes to include. Included objects will return their full
+         attributes. Attribute names can be dotted (up to 3 levels) to included deeply
+         nested objects. Default value is None.
+        :type include: list[str]
+        :param exclude: Nested attributes to exclude. Excluded objects will return only the href
+         attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply
+         nested objects. Default value is None.
+        :type exclude: list[str]
+        :param page: Page to return. Default value is 1.
+        :type page: int
+        :param per_page: Items returned per page. Default value is 10.
+        :type per_page: int
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: OrganizationList or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.OrganizationList or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = kwargs.pop("headers", {}) or {}
+        _params = kwargs.pop("params", {}) or {}
+
+        cls = kwargs.pop(
+            "cls", None
+        )  # type: ClsType[Union[_models.OrganizationList, _models.Error]]
+
+        request = build_find_organizations_request(
+            personal=personal,
+            without_projects=without_projects,
+            include=include,
+            exclude=exclude,
+            page=page,
+            per_page=per_page,
+            template_url=self.find_organizations.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = await self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [200, 401]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        if response.status_code == 200:
+            deserialized = self._deserialize("OrganizationList", pipeline_response)
+
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    find_organizations.metadata = {"url": "/organizations"}  # type: ignore
+
+    @overload
+    async def create_organization(
+        self,
+        body: _models.OrganizationInput,
+        *,
+        content_type: str = "application/json",
+        **kwargs: Any
+    ) -> Union[_models.Organization, _models.Error]:
+        """Create an organization.
+
+        Creates an organization.
+
+        :param body: Organization to create. Required.
+        :type body: ~equinixmetalpy.models.OrganizationInput
+        :keyword content_type: Body Parameter content-type. Content type parameter for JSON body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: Organization or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.Organization or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+
+    @overload
+    async def create_organization(
+        self, body: IO, *, content_type: str = "application/json", **kwargs: Any
+    ) -> Union[_models.Organization, _models.Error]:
+        """Create an organization.
+
+        Creates an organization.
+
+        :param body: Organization to create. Required.
+        :type body: IO
+        :keyword content_type: Body Parameter content-type. Content type parameter for binary body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: Organization or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.Organization or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+
+    @distributed_trace_async
+    async def create_organization(
+        self, body: Union[_models.OrganizationInput, IO], **kwargs: Any
+    ) -> Union[_models.Organization, _models.Error]:
+        """Create an organization.
+
+        Creates an organization.
+
+        :param body: Organization to create. Is either a model type or a IO type. Required.
+        :type body: ~equinixmetalpy.models.OrganizationInput or IO
+        :keyword content_type: Body Parameter content-type. Known values are: 'application/json'.
+         Default value is None.
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: Organization or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.Organization or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
+        _params = kwargs.pop("params", {}) or {}
+
+        content_type = kwargs.pop(
+            "content_type", _headers.pop("Content-Type", None)
+        )  # type: Optional[str]
+        cls = kwargs.pop(
+            "cls", None
+        )  # type: ClsType[Union[_models.Organization, _models.Error]]
+
+        content_type = content_type or "application/json"
+        _json = None
+        _content = None
+        if isinstance(body, (IO, bytes)):
+            _content = body
+        else:
+            _json = self._serialize.body(body, "OrganizationInput")
+
+        request = build_create_organization_request(
+            content_type=content_type,
+            json=_json,
+            content=_content,
+            template_url=self.create_organization.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = await self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [201, 401, 404, 422]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        if response.status_code == 201:
+            deserialized = self._deserialize("Organization", pipeline_response)
+
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 404:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 422:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    create_organization.metadata = {"url": "/organizations"}  # type: ignore
+
+    @distributed_trace_async
+    async def find_organization_projects(
+        self,
+        id: str,
+        include: Optional[List[str]] = None,
+        exclude: Optional[List[str]] = None,
+        page: int = 1,
+        per_page: int = 10,
+        **kwargs: Any
+    ) -> Union[_models.ProjectList, _models.Error]:
+        """Retrieve all projects of an organization.
+
+        Returns a collection of projects that belong to the organization.
+
+        :param id: Organization UUID. Required.
+        :type id: str
+        :param include: Nested attributes to include. Included objects will return their full
+         attributes. Attribute names can be dotted (up to 3 levels) to included deeply
+         nested objects. Default value is None.
+        :type include: list[str]
+        :param exclude: Nested attributes to exclude. Excluded objects will return only the href
+         attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply
+         nested objects. Default value is None.
+        :type exclude: list[str]
+        :param page: Page to return. Default value is 1.
+        :type page: int
+        :param per_page: Items returned per page. Default value is 10.
+        :type per_page: int
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: ProjectList or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.ProjectList or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = kwargs.pop("headers", {}) or {}
+        _params = kwargs.pop("params", {}) or {}
+
+        cls = kwargs.pop(
+            "cls", None
+        )  # type: ClsType[Union[_models.ProjectList, _models.Error]]
+
+        request = build_find_organization_projects_request(
+            id=id,
+            include=include,
+            exclude=exclude,
+            page=page,
+            per_page=per_page,
+            template_url=self.find_organization_projects.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = await self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [200, 401]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        if response.status_code == 200:
+            deserialized = self._deserialize("ProjectList", pipeline_response)
+
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    find_organization_projects.metadata = {"url": "/organizations/{id}/projects"}  # type: ignore
+
+    @overload
+    async def create_organization_project(
+        self,
+        id: str,
+        body: _models.ProjectCreateInput,
+        *,
+        content_type: str = "application/json",
+        **kwargs: Any
+    ) -> Union[_models.Project, _models.Error]:
+        """Create a project for the organization.
+
+        Creates a new project for the organization.
+
+        :param id: Organization UUID. Required.
+        :type id: str
+        :param body: Project to create. Required.
+        :type body: ~equinixmetalpy.models.ProjectCreateInput
+        :keyword content_type: Body Parameter content-type. Content type parameter for JSON body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: Project or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.Project or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+
+    @overload
+    async def create_organization_project(
+        self,
+        id: str,
+        body: IO,
+        *,
+        content_type: str = "application/json",
+        **kwargs: Any
+    ) -> Union[_models.Project, _models.Error]:
+        """Create a project for the organization.
+
+        Creates a new project for the organization.
+
+        :param id: Organization UUID. Required.
+        :type id: str
+        :param body: Project to create. Required.
+        :type body: IO
+        :keyword content_type: Body Parameter content-type. Content type parameter for binary body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: Project or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.Project or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+
+    @distributed_trace_async
+    async def create_organization_project(
+        self, id: str, body: Union[_models.ProjectCreateInput, IO], **kwargs: Any
+    ) -> Union[_models.Project, _models.Error]:
+        """Create a project for the organization.
+
+        Creates a new project for the organization.
+
+        :param id: Organization UUID. Required.
+        :type id: str
+        :param body: Project to create. Is either a model type or a IO type. Required.
+        :type body: ~equinixmetalpy.models.ProjectCreateInput or IO
+        :keyword content_type: Body Parameter content-type. Known values are: 'application/json'.
+         Default value is None.
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: Project or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.Project or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
+        _params = kwargs.pop("params", {}) or {}
+
+        content_type = kwargs.pop(
+            "content_type", _headers.pop("Content-Type", None)
+        )  # type: Optional[str]
+        cls = kwargs.pop(
+            "cls", None
+        )  # type: ClsType[Union[_models.Project, _models.Error]]
+
+        content_type = content_type or "application/json"
+        _json = None
+        _content = None
+        if isinstance(body, (IO, bytes)):
+            _content = body
+        else:
+            _json = self._serialize.body(body, "ProjectCreateInput")
+
+        request = build_create_organization_project_request(
+            id=id,
+            content_type=content_type,
+            json=_json,
+            content=_content,
+            template_url=self.create_organization_project.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = await self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [201, 401, 422]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        if response.status_code == 201:
+            deserialized = self._deserialize("Project", pipeline_response)
+
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 422:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    create_organization_project.metadata = {"url": "/organizations/{id}/projects"}  # type: ignore
 
     @distributed_trace_async
     async def find_projects(

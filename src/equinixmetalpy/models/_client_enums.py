@@ -42,6 +42,22 @@ class DeviceState(str, Enum, metaclass=CaseInsensitiveEnumMeta):
     PROVISIONING = "provisioning"
 
 
+class Enum11(str, Enum, metaclass=CaseInsensitiveEnumMeta):
+    """Enum11."""
+
+    INCLUDE = "include"
+    EXCLUDE = "exclude"
+    ONLY = "only"
+
+
+class Enum12(str, Enum, metaclass=CaseInsensitiveEnumMeta):
+    """Enum12."""
+
+    INCLUDE = "include"
+    EXCLUDE = "exclude"
+    ONLY = "only"
+
+
 class FacilityFeaturesItem(str, Enum, metaclass=CaseInsensitiveEnumMeta):
     """FacilityFeaturesItem."""
 
