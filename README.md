@@ -10,13 +10,13 @@ See [example.py](example.py).
 
 We need to do some fixes to the default openapi yaml specification from Equinix Metal. The [fixSpec.py](fixSpec.py) script modifies the original in `openapi.yaml` into `openapi.fixed.yaml`.
 
+The script also prunes the paths in the spec, so that we don't need to wait long time for generating the code. The fixed spec only contains API for Projects, Devices and Operation right now.
+
 ## Generating
 
 First install what you need `make install`, and then generate:
 
 `make generate`
-
-.. takes about 5 minutes on Dell XPS 9830 (16 GB RAM).
 
 ## Config
 
