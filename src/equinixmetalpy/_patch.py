@@ -26,12 +26,7 @@ EM_API = "https://api.equinix.com/metal/v1"
 
 
 class Manager(Client):
-    def __init__(
-        self,
-        credential: str,
-        base_url: str = EM_API,
-        **kwargs: Any
-    ) -> None:
+    def __init__(self, credential: str, base_url: str = EM_API, **kwargs: Any) -> None:
         azure_credential = AzureKeyCredential(credential)
         if os.getenv("METAL_PYTHON_DEBUG") == "1":
             kwargs["logging_policy"] = HttpLoggingPolicy(api_endpoint=base_url)
