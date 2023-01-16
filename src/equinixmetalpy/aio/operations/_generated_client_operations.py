@@ -21,7 +21,7 @@ from azure.core.utils import case_insensitive_dict
 
 from ... import models as _models
 from ..._vendor import _convert_request
-from ...operations._client_operations import (
+from ...operations._generated_client_operations import (
     build_create_device_request,
     build_create_organization_project_request,
     build_create_organization_request,
@@ -45,7 +45,7 @@ ClsType = Optional[
 ]
 
 
-class ClientOperationsMixin(MixinABC):
+class GeneratedClientOperationsMixin(MixinABC):
     @distributed_trace_async
     async def delete_device(
         self, id: str, force_delete: Optional[bool] = None, **kwargs: Any

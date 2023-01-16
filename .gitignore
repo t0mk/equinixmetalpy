@@ -21,3 +21,6 @@ pydo.egg-info
 node_modules/
 testscript.py
 changelist.md
+
+# html docs
+docs/build

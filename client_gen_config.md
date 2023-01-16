@@ -8,15 +8,10 @@ black: true
 output-folder: src/
 verbose: true
 version-tolerant: false
-override-client-name: Client
+override-client-name: GeneratedClient
 add-credential: true
 credential-default-policy-type: AzureKeyCredentialPolicy
 credential-key-header-name: X-Auth-Token
 security: AzureKey
 security-header-name: X-Auth-Token
 ```
-
-## examples of directives
-https://github.com/Azure/autorest/blob/e9bee3709d31d8e01e21c3ab66fc8007696b4301/packages/extensions/core/resources/directives.md
-
-http://azure.github.io/autorest/user/literate-file-formats/configuration.html#directives---global-or-per-language

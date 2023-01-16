@@ -58,15 +58,6 @@ endif
 dev: dev-dependencies # Turns the current terminal into a poetry env
 	poetry shell
 
-.PHONY: lint-tests
-lint-tests: install
-	poetry run black --check --diff tests/. && \
-	poetry run pylint $(PYLINT_ARGS) tests/.
-
-.PHONY: test-mocked
-test-mocked: install
-	poetry run pytest -rA --tb=short tests/mocked/. $(PYTEST_ARGS)
-
 .PHONY: test-mocked
 test-integration: install
 	poetry run pytest -rA --tb=short tests/integration/. $(PYTEST_EXCLUDE_MARKS) $(PYTEST_ARGS)
@@ -87,7 +78,7 @@ docker-python: docker-build  ## Runs a python shell within a docker container
 
 .PHONY: lint-docs
 lint-docs:
-	docker run -v $(ROOT_DIR):/workdir ghcr.io/igorshubovych/markdownlint-cli:latest "*.md"
+	docker run -v $(ROOT_DIR):/workdir ghcr.io/igorshubovych/markdownlint-cli:latest "README.md"
 
 .PHONY: generate-docs
 generate-docs: install ## readthedocs requires a requirements.txt file, this step converts poetry file to requirements.txt file before re-gen the docs

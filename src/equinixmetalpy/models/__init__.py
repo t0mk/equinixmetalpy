@@ -57,21 +57,21 @@ from ._models_py3 import SSHKeyInput
 from ._models_py3 import UserLite
 from ._models_py3 import VirtualNetwork
 
-from ._client_enums import DeviceCreateInputBillingCycle
-from ._client_enums import DeviceCreateInputIpAddressesInnerAddressFamily
-from ._client_enums import DeviceState
-from ._client_enums import Enum11
-from ._client_enums import Enum12
-from ._client_enums import FacilityFeaturesItem
-from ._client_enums import MetalGatewayLiteState
-from ._client_enums import PlanDeploymentTypesItem
-from ._client_enums import PlanLine
-from ._client_enums import PlanSpecsDrivesInnerCategory
-from ._client_enums import PlanSpecsDrivesInnerType
-from ._client_enums import PlanSpecsNicsInnerType
-from ._client_enums import PlanType
-from ._client_enums import PortNetworkType
-from ._client_enums import PortType
+from ._generated_client_enums import DeviceCreateInputBillingCycle
+from ._generated_client_enums import DeviceCreateInputIpAddressesInnerAddressFamily
+from ._generated_client_enums import DeviceState
+from ._generated_client_enums import Enum11
+from ._generated_client_enums import Enum12
+from ._generated_client_enums import FacilityFeaturesItem
+from ._generated_client_enums import MetalGatewayLiteState
+from ._generated_client_enums import PlanDeploymentTypesItem
+from ._generated_client_enums import PlanLine
+from ._generated_client_enums import PlanSpecsDrivesInnerCategory
+from ._generated_client_enums import PlanSpecsDrivesInnerType
+from ._generated_client_enums import PlanSpecsNicsInnerType
+from ._generated_client_enums import PlanType
+from ._generated_client_enums import PortNetworkType
+from ._generated_client_enums import PortType
 from ._patch import __all__ as _patch_all
 from ._patch import *  # type: ignore # pylint: disable=unused-wildcard-import
 from ._patch import patch_sdk as _patch_sdk

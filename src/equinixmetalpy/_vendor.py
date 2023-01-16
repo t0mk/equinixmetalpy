@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 
 from azure.core.pipeline.transport import HttpRequest
 
-from ._configuration import ClientConfiguration
+from ._configuration import GeneratedClientConfiguration
 
 if TYPE_CHECKING:
     # pylint: disable=unused-import,ungrouped-imports
@@ -44,6 +44,6 @@ class MixinABC(ABC):
     """DO NOT use this class. It is for internal typing use only."""
 
     _client: "PipelineClient"
-    _config: ClientConfiguration
+    _config: GeneratedClientConfiguration
     _serialize: "Serializer"
     _deserialize: "Deserializer"

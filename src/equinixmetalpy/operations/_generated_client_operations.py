@@ -482,7 +482,7 @@ def build_create_device_request(id: str, **kwargs: Any) -> HttpRequest:
     return HttpRequest(method="POST", url=_url, headers=_headers, **kwargs)
 
 
-class ClientOperationsMixin(MixinABC):
+class GeneratedClientOperationsMixin(MixinABC):
     @distributed_trace
     def delete_device(
         self, id: str, force_delete: Optional[bool] = None, **kwargs: Any

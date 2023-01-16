@@ -13,10 +13,10 @@ from azure.core.pipeline import policies
 from .._version import VERSION
 
 
-class ClientConfiguration(
+class GeneratedClientConfiguration(
     Configuration
 ):  # pylint: disable=too-many-instance-attributes
-    """Configuration for Client.
+    """Configuration for GeneratedClient.
 
     Note that all parameters used to create this instance are saved as instance
     attributes.
@@ -26,12 +26,12 @@ class ClientConfiguration(
     """
 
     def __init__(self, credential: AzureKeyCredential, **kwargs: Any) -> None:
-        super(ClientConfiguration, self).__init__(**kwargs)
+        super(GeneratedClientConfiguration, self).__init__(**kwargs)
         if credential is None:
             raise ValueError("Parameter 'credential' must not be None.")
 
         self.credential = credential
-        kwargs.setdefault("sdk_moniker", "client/{}".format(VERSION))
+        kwargs.setdefault("sdk_moniker", "generatedclient/{}".format(VERSION))
         self._configure(**kwargs)
 
     def _configure(self, **kwargs: Any) -> None:

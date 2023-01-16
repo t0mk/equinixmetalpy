@@ -5,20 +5,20 @@
 # --------------------------------------------------------------------------
 
 from copy import deepcopy
-from typing import Any
+from typing import Any, Awaitable
 
-from azure.core import PipelineClient
+from azure.core import AsyncPipelineClient
 from azure.core.credentials import AzureKeyCredential
-from azure.core.rest import HttpRequest, HttpResponse
+from azure.core.rest import AsyncHttpResponse, HttpRequest
 
-from . import models
-from ._configuration import ClientConfiguration
-from ._serialization import Deserializer, Serializer
-from .operations import ClientOperationsMixin
+from .. import models
+from .._serialization import Deserializer, Serializer
+from ._configuration import GeneratedClientConfiguration
+from .operations import GeneratedClientOperationsMixin
 
 
-class Client(
-    ClientOperationsMixin
+class GeneratedClient(
+    GeneratedClientOperationsMixin
 ):  # pylint: disable=client-accepts-api-version-keyword
     """desc.
 
@@ -34,8 +34,10 @@ class Client(
         base_url: str = "https://api.equinix.com/metal/v1",
         **kwargs: Any
     ) -> None:
-        self._config = ClientConfiguration(credential=credential, **kwargs)
-        self._client = PipelineClient(base_url=base_url, config=self._config, **kwargs)
+        self._config = GeneratedClientConfiguration(credential=credential, **kwargs)
+        self._client = AsyncPipelineClient(
+            base_url=base_url, config=self._config, **kwargs
+        )
 
         client_models = {
             k: v for k, v in models.__dict__.items() if isinstance(v, type)
@@ -44,14 +46,16 @@ class Client(
         self._deserialize = Deserializer(client_models)
         self._serialize.client_side_validation = False
 
-    def _send_request(self, request: HttpRequest, **kwargs: Any) -> HttpResponse:
+    def _send_request(
+        self, request: HttpRequest, **kwargs: Any
+    ) -> Awaitable[AsyncHttpResponse]:
         """Runs the network request through the client's chained policies.
 
         >>> from azure.core.rest import HttpRequest
         >>> request = HttpRequest("GET", "https://www.example.org/")
         <HttpRequest [GET], url: 'https://www.example.org/'>
-        >>> response = client._send_request(request)
-        <HttpResponse: 200 OK>
+        >>> response = await client._send_request(request)
+        <AsyncHttpResponse: 200 OK>
 
         For more information on this code flow, see https://aka.ms/azsdk/dpcodegen/python/send_request
 
@@ -59,22 +63,19 @@ class Client(
         :type request: ~azure.core.rest.HttpRequest
         :keyword bool stream: Whether the response payload will be streamed. Defaults to False.
         :return: The response of your network call. Does not do error handling on your response.
-        :rtype: ~azure.core.rest.HttpResponse
+        :rtype: ~azure.core.rest.AsyncHttpResponse
         """
 
         request_copy = deepcopy(request)
         request_copy.url = self._client.format_url(request_copy.url)
         return self._client.send_request(request_copy, **kwargs)
 
-    def close(self):
-        # type: () -> None
-        self._client.close()
+    async def close(self) -> None:
+        await self._client.close()
 
-    def __enter__(self):
-        # type: () -> Client
-        self._client.__enter__()
+    async def __aenter__(self) -> "GeneratedClient":
+        await self._client.__aenter__()
         return self
 
-    def __exit__(self, *exc_details):
-        # type: (Any) -> None
-        self._client.__exit__(*exc_details)
+    async def __aexit__(self, *exc_details) -> None:
+        await self._client.__aexit__(*exc_details)

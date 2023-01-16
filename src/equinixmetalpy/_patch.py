@@ -6,14 +6,15 @@
 
 Follow our quickstart for examples: https://aka.ms/azsdk/python/dpcodegen/python/customize
 """
-from typing import List, Any
-from ._client import Client
-from azure.core.credentials import AzureKeyCredential
+from equinixmetalpy import GeneratedClient, _version
 from .models import Error
-import os
 
+from azure.core.credentials import AzureKeyCredential
 from azure.core.pipeline.policies import SansIOHTTPPolicy
 from azure.core.pipeline import PipelineRequest, PipelineResponse
+
+import os
+from typing import List, Any
 import logging
 import sys
 import re
@@ -29,7 +30,7 @@ _LOGGER.setLevel(logging.DEBUG)
 
 __all__: List[str] = [
     "ApiException",
-    "Manager",
+    "Client",
     "is_error",
     "collect_error_message",
     "raise_if_error",
@@ -40,12 +41,13 @@ EM_API = "https://api.equinix.com/metal/v1"
 
 HEADERS_TO_SANITIZE = ["x-auth-token", "set-cookie"]
 
+
 def prettyjson(txt):
-    return json.dumps(json.loads(txt), sort_keys=True, indent=4, separators=(',', ': '))
+    return json.dumps(json.loads(txt), sort_keys=True, indent=4, separators=(",", ": "))
 
 
 def get_bottom_divider(topdiv):
-    return "└" + "─" * (len(topdiv)-2) + "┘" + "\n"
+    return "└" + "─" * (len(topdiv) - 2) + "┘" + "\n"
 
 
 def get_top_divider(title):
@@ -60,6 +62,7 @@ def get_headers_string(headers_dict):
         else:
             log_string += "\n  '{}': '{}'".format(header, value)
     return log_string
+
 
 class HttpLoggingPolicy(SansIOHTTPPolicy):
 
@@ -76,9 +79,11 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
         :param request: The PipelineRequest object.
         :type request: ~azure.core.pipeline.PipelineRequest
         """
-        topdiv = get_top_divider("Http {} to {}".format(
-            request.http_request.method,
-            request.http_request.url.replace(self.api_endpoint, ""))
+        topdiv = get_top_divider(
+            "Http {} to {}".format(
+                request.http_request.method,
+                request.http_request.url.replace(self.api_endpoint, ""),
+            )
         )
         http_request = request.http_request
         if not _LOGGER.isEnabledFor(logging.DEBUG):
@@ -93,12 +98,12 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
             elif isinstance(http_request.body, types.AsyncGeneratorType):
                 log_string += "\nFile upload"
             elif http_request.body:
-                if http_request.headers.get("content-type", "").startswith("application/json"):
-                    log_string += "\nBody:\n" + \
-                        prettyjson(http_request.body)
+                if http_request.headers.get("content-type", "").startswith(
+                    "application/json"
+                ):
+                    log_string += "\nBody:\n" + prettyjson(http_request.body)
                 else:
-                    log_string += "\nBody:\n{}".format(
-                        str(http_request.body))
+                    log_string += "\nBody:\n{}".format(str(http_request.body))
             else:
                 log_string += "\nEmpty body"
             _LOGGER.debug(log_string)
@@ -115,10 +120,12 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
         :type response: ~azure.core.pipeline.PipelineResponse
         """
         http_response = response.http_response
-        topdiv = get_top_divider("Http {} \"{}\" from {}".format(
-            http_response.status_code,
-            responses.get(http_response.status_code, "Unknown"),
-            request.http_request.url.replace(self.api_endpoint, ""))
+        topdiv = get_top_divider(
+            'Http {} "{}" from {}'.format(
+                http_response.status_code,
+                responses.get(http_response.status_code, "Unknown"),
+                request.http_request.url.replace(self.api_endpoint, ""),
+            )
         )
         try:
             if not _LOGGER.isEnabledFor(logging.DEBUG):
@@ -127,7 +134,7 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
             _LOGGER.debug(topdiv)
             log_string = get_headers_string(http_response.headers)
             # We don't want to log binary data if the response is a file.
-            #log_string += "\nBody:"
+            # log_string += "\nBody:"
             pattern = re.compile(
                 r'attachment; ?filename=["\w.]+', re.IGNORECASE)
             header = http_response.headers.get("content-disposition")
@@ -136,15 +143,14 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
                 filename = header.partition("=")[2]
                 log_string += "\nBody contains file attachments: {}".format(
                     filename)
-            elif http_response.headers.get("content-type", "").endswith(
-                "octet-stream"
-            ):
+            elif http_response.headers.get("content-type", "").endswith("octet-stream"):
                 log_string += "\nBody contains binary data."
             elif http_response.headers.get("content-type", "").startswith("image"):
                 log_string += "\nBody contains image data."
-            elif http_response.headers.get("content-type", "").startswith("application/json"):
-                log_string += "\nBody:\n" + \
-                    prettyjson(http_response.text())
+            elif http_response.headers.get("content-type", "").startswith(
+                "application/json"
+            ):
+                log_string += "\nBody:\n" + prettyjson(http_response.text())
             else:
                 if response.context.options.get("stream", False):
                     log_string += "\nBody is streamable."
@@ -161,14 +167,13 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
         _LOGGER.debug(get_bottom_divider(topdiv))
 
 
-
-
-class Manager(Client):
+class Client(GeneratedClient):
     def __init__(self, credential: str, base_url: str = EM_API, **kwargs: Any) -> None:
         azure_credential = AzureKeyCredential(credential)
         if os.getenv("METAL_PYTHON_DEBUG") == "1":
             kwargs["logging_policy"] = HttpLoggingPolicy(api_endpoint=base_url)
-        super().__init__(azure_credential, base_url, **kwargs)
+        sdk_moniker = f"pydo/{_version.VERSION}"
+        super().__init__(azure_credential, base_url, sdk_moniker=sdk_moniker, **kwargs)
 
 
 def patch_sdk():
