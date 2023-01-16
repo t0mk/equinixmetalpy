@@ -9,10 +9,10 @@ INFILE = "openapi.yaml"
 OUTFILE = "openapi.fixed.yaml"
 
 # what tags I want to keep
-WANT = ["Projects", "Devices", "Organizations"]
+WANT_TAGS = ["Projects", "Devices", "Organizations"]
 
 # what paths I want to keep
-PATHS = [
+WANT_PATHS = [
     '/projects',
     '/projects/{id}',
     '/projects/{id}/devices',
@@ -91,11 +91,11 @@ paths = OrderedDict()
 schemas = OrderedDict()
 
 for t in originalSpec['tags']:
-    if t['name'] in WANT:
+    if t['name'] in WANT_TAGS:
         tags.append(t)
 
 for path in originalSpec['paths']:
-    if path in PATHS:
+    if path in WANT_PATHS:
         paths[path] = originalSpec['paths'][path]
 
 neededSchemas = findSchemas(paths)
@@ -105,6 +105,7 @@ for s in neededSchemas:
 neededSchemas = set()
 newSchemasDiscovered = True
 
+# this is just cherrypicking schemas that are wanted
 while newSchemasDiscovered:
     newSchemasDiscovered = False
     newSchemas = findSchemas(schemas)
@@ -123,12 +124,12 @@ fixedSpec['components']['requestBodies'] = {}
 fixedSpec['tags'] = tags
 fixedSpec['paths'] = paths
 
-# organization to project
+# FIX 0. organization href to project
 fixedSpec['components']['schemas']['Project']['properties']['organization'] = {
     "$ref": "#/components/schemas/Organization"
 }
 
-# href property to all schemas if they have propertiesm and don't already have it
+# FIX 1. href property to all schemas if they have propertiesm and don't already have it
 for s in fixedSpec['components']['schemas']:
     if 'properties' in fixedSpec['components']['schemas'][s]:
         if 'href' not in fixedSpec['components']['schemas'][s]['properties']:
@@ -137,7 +138,7 @@ for s in fixedSpec['components']['schemas']:
                 "format": "uri"
             }
 
-# fixing schema
+# FIX 2. remove defaults for always_pxe and hardware_reservation_id
 fixSchemas = ["DeviceCreateInput"]
 removeProperties = ["always_pxe", "hardware_reservation_id"]
 for s in fixSchemas:
@@ -145,7 +146,10 @@ for s in fixSchemas:
         if p in fixedSpec['components']['schemas'][s]['properties']:
             del fixedSpec['components']['schemas'][s]['properties'][p]['default']
 
+# FIX 3. fix type and format for integers
 fixNumInt(fixedSpec)
+
+# FIX 4. fix explode in non-array parameters
 fixExplode(fixedSpec)
 
 with open(OUTFILE, 'w') as f:
