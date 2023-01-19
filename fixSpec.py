@@ -45,10 +45,15 @@ def fixNumInt(di):
             fixNumInt(v)
 
 
+EXPLODE_ALLOWED_TYPES = [
+    "array",
+    "object",
+]
+
 def fixExplode(di):
     if isinstance(di, dict):
         if 'explode' in di:
-            if 'items' in di['schema']:
+            if di['schema']['type'] in EXPLODE_ALLOWED_TYPES:
                 pass
             else:
                 del di['explode']
