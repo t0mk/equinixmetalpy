@@ -169,11 +169,11 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
 
 class Client(GeneratedClient):
     def __init__(self, credential: str, base_url: str = EM_API, **kwargs: Any) -> None:
-        azure_credential = AzureKeyCredential(credential)
+        credential = AzureKeyCredential(credential)
         if os.getenv("METAL_PYTHON_DEBUG") == "1":
             kwargs["logging_policy"] = HttpLoggingPolicy(api_endpoint=base_url)
-        sdk_moniker = f"pydo/{_version.VERSION}"
-        super().__init__(azure_credential, base_url, sdk_moniker=sdk_moniker, **kwargs)
+        sdk_moniker = f"equinixmetalpy/{_version.VERSION}"
+        super().__init__(credential, base_url, sdk_moniker=sdk_moniker, **kwargs)
 
 
 def patch_sdk():

@@ -5,17 +5,15 @@ insipired by <https://github.com/digitalocean/pydo>
 
 ## Quickstart
 
-To create a device, you can use 
+Simple example showing how to create a device:
 
 ```python
-import equinixmetalpy
 import os
 
-client = equinixmetalpy.Client(os.getenv("PACKET_AUTH_TOKEN"))
+import equinixmetalpy
 
-# select first free project
-projects_resp = client.find_projects()
-pid = projects_resp.projects[0].id
+client = equinixmetalpy.Client(os.environ["METAL_AUTH_TOKEN"])
+project_id = os.environ["METAL_PROJECT_ID"]
 
 dci = equinixmetalpy.models.DeviceCreateInMetroInput(
     operating_system="ubuntu_18_04",
@@ -26,20 +24,16 @@ dci = equinixmetalpy.models.DeviceCreateInMetroInput(
     tags=["test"]
 )
 
-new_device_resp = client.create_device(pid, dci)
-
-# The variable can contain either new device object or error.
-# Check it with raise_if_error.
-equinixmetalpy.raise_if_error(new_device_resp)
-
-print("New Device:")
-print(new_device_resp)
-
+print("About to create device in project: " + project_id)
+new_device_resp = client.create_device(project_id, dci)
 ```
+
+See [examples/device_basic.py](examples/device_basic.py) and other
+scripts in [examples](examples) directory for more complete code.
 
 ## Debugging HTTP API calls
 
-If you want to see HTTP traffice, set env var `METAL_PYTHON_DEBUG` to
+If you want to see HTTP traffic, set env var `METAL_PYTHON_DEBUG` to
 "1".
 
 ## Patching Equinix Metal OpenAPI spec
@@ -50,7 +44,7 @@ original in `openapi.yaml` into `openapi.fixed.yaml`.
 
 The script also prunes paths in the spec, so that we don't need to
 wait long time for generating code for all the API operations. The
-fixed spec only contains API for Projects, Devices and Operation right
+fixed spec only contains API for Projects, Devices and Organization right
 now.
 
 ## Generating
