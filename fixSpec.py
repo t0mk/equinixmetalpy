@@ -131,7 +131,7 @@ fixedSpec['paths'] = paths
 
 # FIX 0. organization href to project
 fixedSpec['components']['schemas']['Project']['properties']['organization'] = {
-    "$ref": "#/components/schemas/Organization"
+    "$ref": "#/components/schemas/Href"
 }
 
 # FIX 1. href property to all schemas if they have propertiesm and don't already have it
