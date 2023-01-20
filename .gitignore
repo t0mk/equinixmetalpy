@@ -15,7 +15,7 @@ __pycache__/
 *.pyc
 doctrees
 dist
-pydo.egg-info
+equinixmetalpy.egg-info
 
 # client gen
 node_modules/
