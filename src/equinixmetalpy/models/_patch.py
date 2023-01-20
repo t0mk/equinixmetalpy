@@ -7,6 +7,7 @@
 Follow our quickstart for examples: https://aka.ms/azsdk/python/dpcodegen/python/customize
 """
 from typing import List
+from . import _models_py3
 
 __all__: List[
     str
@@ -20,3 +21,7 @@ def patch_sdk():
     you can't accomplish using the techniques described in
     https://aka.ms/azsdk/python/dpcodegen/python/customize
     """
+    _models_py3.DeviceList.list = property(lambda self: self.devices)
+    _models_py3.ProjectList.list = property(lambda self: self.projects)
+    _models_py3.OrganizationList.list = property(
+        lambda self: self.organizations)
