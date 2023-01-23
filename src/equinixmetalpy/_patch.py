@@ -22,11 +22,6 @@ import types
 import json
 from http.client import responses
 
-_LOGGER = logging.getLogger(__name__)
-handler = logging.StreamHandler(stream=sys.stderr)
-_LOGGER.addHandler(handler)
-_LOGGER.setLevel(logging.DEBUG)
-
 
 __all__: List[str] = [
     "ApiException",
@@ -70,7 +65,13 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
     HTTP request/response logger.
     """
 
-    def __init__(self, api_endpoint):  # pylint: disable=unused-argument
+    def __init__(self, api_endpoint, file):  # pylint: disable=unused-argument
+        self._logger = logging.getLogger(__name__)
+        handler = logging.StreamHandler(stream=sys.stderr)
+        if file:
+            handler = logging.FileHandler(file)
+        self._logger.addHandler(handler)
+        self._logger.setLevel(logging.DEBUG)
         self.api_endpoint = api_endpoint
 
     def on_request(self, request):  # pylint: disable=too-many-return-statements
@@ -86,10 +87,10 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
             )
         )
         http_request = request.http_request
-        if not _LOGGER.isEnabledFor(logging.DEBUG):
+        if not self._logger.isEnabledFor(logging.DEBUG):
             return
 
-        _LOGGER.debug(topdiv)
+        self._logger.debug(topdiv)
         try:
             log_string = get_headers_string(http_request.headers)
             # We don't want to log the binary data of a file upload.
@@ -106,10 +107,10 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
                     log_string += "\nBody:\n{}".format(str(http_request.body))
             else:
                 log_string += "\nEmpty body"
-            _LOGGER.debug(log_string)
+            self._logger.debug(log_string)
         except Exception as err:  # pylint: disable=broad-except
-            _LOGGER.debug("Failed to log request: %r", err)
-        _LOGGER.debug(get_bottom_divider(topdiv))
+            self._logger.debug("Failed to log request: %r", err)
+        self._logger.debug(get_bottom_divider(topdiv))
 
     def on_response(self, request, response):
         # type: (PipelineRequest, PipelineResponse) -> None
@@ -128,10 +129,10 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
             )
         )
         try:
-            if not _LOGGER.isEnabledFor(logging.DEBUG):
+            if not self._logger.isEnabledFor(logging.DEBUG):
                 return
 
-            _LOGGER.debug(topdiv)
+            self._logger.debug(topdiv)
             log_string = get_headers_string(http_response.headers)
             # We don't want to log binary data if the response is a file.
             # log_string += "\nBody:"
@@ -161,17 +162,26 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
                     else:
                         log_string += "\nEmpty body"
                     # log_string += "\n{}".format(http_response.text())
-            _LOGGER.debug(log_string)
+            self._logger.debug(log_string)
         except Exception as err:  # pylint: disable=broad-except
-            _LOGGER.debug("Failed to log response: %s", repr(err))
-        _LOGGER.debug(get_bottom_divider(topdiv))
+            self._logger.debug("Failed to log response: %s", repr(err))
+        self._logger.debug(get_bottom_divider(topdiv))
 
 
 class Client(GeneratedClient):
     def __init__(self, credential: str, base_url: str = EM_API, **kwargs: Any) -> None:
         credential = AzureKeyCredential(credential)
-        if os.getenv("METAL_PYTHON_DEBUG") == "1":
-            kwargs["logging_policy"] = HttpLoggingPolicy(api_endpoint=base_url)
+        logging_policy = None
+        debug_log_file = os.getenv("METAL_PYTHON_DEBUG_LOG")
+        if (os.getenv("METAL_PYTHON_DEBUG") == "1") | (debug_log_file is not None):
+            policy_args = dict(api_endpoint=base_url)
+            if len(debug_log_file) > 0:
+                policy_args["file"] = debug_log_file
+            else:
+                raise ValueError(
+                    "When METAL_PYTHON_DEBUG_LOG set, it must not be empty")
+            logging_policy = HttpLoggingPolicy(**policy_args)
+        kwargs["logging_policy"] = logging_policy
         sdk_moniker = f"equinixmetalpy/{_version.VERSION}"
         super().__init__(credential, base_url, sdk_moniker=sdk_moniker, **kwargs)
 
