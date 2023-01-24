@@ -13,12 +13,14 @@ WANT_TAGS = ["Projects", "Devices", "Organizations"]
 
 # what paths I want to keep
 WANT_PATHS = [
+    '/devices/{id}',
+    '/organizations',
+    '/organizations/{id}',
+    '/organizations/{id}/projects',
+    '/organizations/{id}/devices',
     '/projects',
     '/projects/{id}',
     '/projects/{id}/devices',
-    '/devices/{id}',
-    '/organizations',
-    '/organizations/{id}/projects',
 ]
 
 
@@ -49,6 +51,7 @@ EXPLODE_ALLOWED_TYPES = [
     "array",
     "object",
 ]
+
 
 def fixExplode(di):
     if isinstance(di, dict):
@@ -156,6 +159,29 @@ fixNumInt(fixedSpec)
 
 # FIX 4. fix explode in non-array parameters
 fixExplode(fixedSpec)
+
+# FIX 5. add backend_transfer_enabled to Project Schema
+project_props = fixedSpec['components']['schemas']['Project']['properties']
+project_props['backend_transfer_enabled'] = {'type': 'boolean'}
+
+# FIX 6. add `search` param to search capable paths
+search_param = {
+    "name": "search",
+    "in": "query",
+    "description": "Search query",
+    "required": False,
+    "schema": {
+        "type": "string"
+    }
+}
+search_capable_paths = [
+    '/projects',
+    '/organizations/{id}/projects',
+    '/projects/{id}/devices',
+    '/organizations/{id}/devices',
+]
+for path in search_capable_paths:
+    fixedSpec['paths'][path]['get']['parameters'].append(search_param)
 
 with open(OUTFILE, 'w') as f:
     originalSpec = yaml.dump(

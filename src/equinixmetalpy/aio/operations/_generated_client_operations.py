@@ -27,14 +27,18 @@ from ...operations._generated_client_operations import (
     build_create_organization_request,
     build_create_project_request,
     build_delete_device_request,
+    build_delete_organization_request,
     build_delete_project_request,
     build_find_device_by_id_request,
+    build_find_organization_by_id_request,
+    build_find_organization_devices_request,
     build_find_organization_projects_request,
     build_find_organizations_request,
     build_find_project_by_id_request,
     build_find_project_devices_request,
     build_find_projects_request,
     build_update_device_request,
+    build_update_organization_request,
     build_update_project_request,
 )
 from .._vendor import MixinABC
@@ -565,6 +569,409 @@ class GeneratedClientOperationsMixin(MixinABC):
     create_organization.metadata = {"url": "/organizations"}  # type: ignore
 
     @distributed_trace_async
+    async def delete_organization(
+        self, id: str, **kwargs: Any
+    ) -> Optional[_models.Error]:
+        """Delete the organization.
+
+        Deletes the organization.
+
+        :param id: Organization UUID. Required.
+        :type id: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: Error or None or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.Error or None
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = kwargs.pop("headers", {}) or {}
+        _params = kwargs.pop("params", {}) or {}
+
+        cls = kwargs.pop("cls", None)  # type: ClsType[Optional[_models.Error]]
+
+        request = build_delete_organization_request(
+            id=id,
+            template_url=self.delete_organization.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = await self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [204, 401, 404]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        deserialized = None
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 404:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    delete_organization.metadata = {"url": "/organizations/{id}"}  # type: ignore
+
+    @distributed_trace_async
+    async def find_organization_by_id(
+        self,
+        id: str,
+        include: Optional[List[str]] = None,
+        exclude: Optional[List[str]] = None,
+        **kwargs: Any
+    ) -> Union[_models.Organization, _models.Error]:
+        """Retrieve an organization's details.
+
+        Returns a single organization's details, if the user is authorized to view it.
+
+        :param id: Organization UUID. Required.
+        :type id: str
+        :param include: Nested attributes to include. Included objects will return their full
+         attributes. Attribute names can be dotted (up to 3 levels) to included deeply
+         nested objects. Default value is None.
+        :type include: list[str]
+        :param exclude: Nested attributes to exclude. Excluded objects will return only the href
+         attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply
+         nested objects. Default value is None.
+        :type exclude: list[str]
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: Organization or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.Organization or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = kwargs.pop("headers", {}) or {}
+        _params = kwargs.pop("params", {}) or {}
+
+        cls = kwargs.pop(
+            "cls", None
+        )  # type: ClsType[Union[_models.Organization, _models.Error]]
+
+        request = build_find_organization_by_id_request(
+            id=id,
+            include=include,
+            exclude=exclude,
+            template_url=self.find_organization_by_id.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = await self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [200, 401, 403, 404]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        if response.status_code == 200:
+            deserialized = self._deserialize("Organization", pipeline_response)
+
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 403:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 404:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    find_organization_by_id.metadata = {"url": "/organizations/{id}"}  # type: ignore
+
+    @overload
+    async def update_organization(
+        self,
+        id: str,
+        body: _models.OrganizationInput,
+        *,
+        content_type: str = "application/json",
+        **kwargs: Any
+    ) -> Union[_models.Organization, _models.Error]:
+        """Update the organization.
+
+        Updates the organization.
+
+        :param id: Organization UUID. Required.
+        :type id: str
+        :param body: Organization to update. Required.
+        :type body: ~equinixmetalpy.models.OrganizationInput
+        :keyword content_type: Body Parameter content-type. Content type parameter for JSON body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: Organization or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.Organization or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+
+    @overload
+    async def update_organization(
+        self,
+        id: str,
+        body: IO,
+        *,
+        content_type: str = "application/json",
+        **kwargs: Any
+    ) -> Union[_models.Organization, _models.Error]:
+        """Update the organization.
+
+        Updates the organization.
+
+        :param id: Organization UUID. Required.
+        :type id: str
+        :param body: Organization to update. Required.
+        :type body: IO
+        :keyword content_type: Body Parameter content-type. Content type parameter for binary body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: Organization or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.Organization or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+
+    @distributed_trace_async
+    async def update_organization(
+        self, id: str, body: Union[_models.OrganizationInput, IO], **kwargs: Any
+    ) -> Union[_models.Organization, _models.Error]:
+        """Update the organization.
+
+        Updates the organization.
+
+        :param id: Organization UUID. Required.
+        :type id: str
+        :param body: Organization to update. Is either a model type or a IO type. Required.
+        :type body: ~equinixmetalpy.models.OrganizationInput or IO
+        :keyword content_type: Body Parameter content-type. Known values are: 'application/json'.
+         Default value is None.
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: Organization or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.Organization or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
+        _params = kwargs.pop("params", {}) or {}
+
+        content_type = kwargs.pop(
+            "content_type", _headers.pop("Content-Type", None)
+        )  # type: Optional[str]
+        cls = kwargs.pop(
+            "cls", None
+        )  # type: ClsType[Union[_models.Organization, _models.Error]]
+
+        content_type = content_type or "application/json"
+        _json = None
+        _content = None
+        if isinstance(body, (IO, bytes)):
+            _content = body
+        else:
+            _json = self._serialize.body(body, "OrganizationInput")
+
+        request = build_update_organization_request(
+            id=id,
+            content_type=content_type,
+            json=_json,
+            content=_content,
+            template_url=self.update_organization.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = await self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [200, 401, 403, 404, 422]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        if response.status_code == 200:
+            deserialized = self._deserialize("Organization", pipeline_response)
+
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 403:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 404:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 422:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    update_organization.metadata = {"url": "/organizations/{id}"}  # type: ignore
+
+    @distributed_trace_async
+    async def find_organization_devices(
+        self,
+        id: str,
+        facility: Optional[str] = None,
+        hostname: Optional[str] = None,
+        reserved: Optional[bool] = None,
+        tag: Optional[str] = None,
+        type: Optional[str] = None,
+        include: Optional[List[str]] = None,
+        exclude: Optional[List[str]] = None,
+        page: int = 1,
+        per_page: int = 10,
+        search: Optional[str] = None,
+        **kwargs: Any
+    ) -> Union[_models.DeviceList, _models.Error]:
+        """Retrieve all devices of an organization.
+
+        Provides a collection of devices for a given organization.
+
+        :param id: Organization UUID. Required.
+        :type id: str
+        :param facility: Filter by device facility. Default value is None.
+        :type facility: str
+        :param hostname: Filter by partial hostname. Default value is None.
+        :type hostname: str
+        :param reserved: Filter only reserved instances. Default value is None.
+        :type reserved: bool
+        :param tag: Filter by device tag. Default value is None.
+        :type tag: str
+        :param type: Filter by instance type (ondemand,spot,reserved). Default value is None.
+        :type type: str
+        :param include: Nested attributes to include. Included objects will return their full
+         attributes. Attribute names can be dotted (up to 3 levels) to included deeply
+         nested objects. Default value is None.
+        :type include: list[str]
+        :param exclude: Nested attributes to exclude. Excluded objects will return only the href
+         attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply
+         nested objects. Default value is None.
+        :type exclude: list[str]
+        :param page: Page to return. Default value is 1.
+        :type page: int
+        :param per_page: Items returned per page. Default value is 10.
+        :type per_page: int
+        :param search: Search query. Default value is None.
+        :type search: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: DeviceList or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.DeviceList or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = kwargs.pop("headers", {}) or {}
+        _params = kwargs.pop("params", {}) or {}
+
+        cls = kwargs.pop(
+            "cls", None
+        )  # type: ClsType[Union[_models.DeviceList, _models.Error]]
+
+        request = build_find_organization_devices_request(
+            id=id,
+            facility=facility,
+            hostname=hostname,
+            reserved=reserved,
+            tag=tag,
+            type=type,
+            include=include,
+            exclude=exclude,
+            page=page,
+            per_page=per_page,
+            search=search,
+            template_url=self.find_organization_devices.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = await self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [200, 401, 403, 404]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        if response.status_code == 200:
+            deserialized = self._deserialize("DeviceList", pipeline_response)
+
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 403:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 404:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    find_organization_devices.metadata = {"url": "/organizations/{id}/devices"}  # type: ignore
+
+    @distributed_trace_async
     async def find_organization_projects(
         self,
         id: str,
@@ -572,6 +979,7 @@ class GeneratedClientOperationsMixin(MixinABC):
         exclude: Optional[List[str]] = None,
         page: int = 1,
         per_page: int = 10,
+        search: Optional[str] = None,
         **kwargs: Any
     ) -> Union[_models.ProjectList, _models.Error]:
         """Retrieve all projects of an organization.
@@ -592,6 +1000,8 @@ class GeneratedClientOperationsMixin(MixinABC):
         :type page: int
         :param per_page: Items returned per page. Default value is 10.
         :type per_page: int
+        :param search: Search query. Default value is None.
+        :type search: str
         :keyword callable cls: A custom type or function that will be passed the direct response
         :return: ProjectList or Error or the result of cls(response)
         :rtype: ~equinixmetalpy.models.ProjectList or ~equinixmetalpy.models.Error
@@ -617,6 +1027,7 @@ class GeneratedClientOperationsMixin(MixinABC):
             exclude=exclude,
             page=page,
             per_page=per_page,
+            search=search,
             template_url=self.find_organization_projects.metadata["url"],
             headers=_headers,
             params=_params,
@@ -793,6 +1204,7 @@ class GeneratedClientOperationsMixin(MixinABC):
         exclude: Optional[List[str]] = None,
         page: int = 1,
         per_page: int = 10,
+        search: Optional[str] = None,
         **kwargs: Any
     ) -> Union[_models.ProjectList, _models.Error]:
         """Retrieve all projects.
@@ -811,6 +1223,8 @@ class GeneratedClientOperationsMixin(MixinABC):
         :type page: int
         :param per_page: Items returned per page. Default value is 10.
         :type per_page: int
+        :param search: Search query. Default value is None.
+        :type search: str
         :keyword callable cls: A custom type or function that will be passed the direct response
         :return: ProjectList or Error or the result of cls(response)
         :rtype: ~equinixmetalpy.models.ProjectList or ~equinixmetalpy.models.Error
@@ -835,6 +1249,7 @@ class GeneratedClientOperationsMixin(MixinABC):
             exclude=exclude,
             page=page,
             per_page=per_page,
+            search=search,
             template_url=self.find_projects.metadata["url"],
             headers=_headers,
             params=_params,
@@ -1296,6 +1711,7 @@ class GeneratedClientOperationsMixin(MixinABC):
         exclude: Optional[List[str]] = None,
         page: int = 1,
         per_page: int = 10,
+        search: Optional[str] = None,
         **kwargs: Any
     ) -> Union[_models.DeviceList, _models.Error]:
         """Retrieve all devices of a project.
@@ -1326,6 +1742,8 @@ class GeneratedClientOperationsMixin(MixinABC):
         :type page: int
         :param per_page: Items returned per page. Default value is 10.
         :type per_page: int
+        :param search: Search query. Default value is None.
+        :type search: str
         :keyword callable cls: A custom type or function that will be passed the direct response
         :return: DeviceList or Error or the result of cls(response)
         :rtype: ~equinixmetalpy.models.DeviceList or ~equinixmetalpy.models.Error
@@ -1356,6 +1774,7 @@ class GeneratedClientOperationsMixin(MixinABC):
             exclude=exclude,
             page=page,
             per_page=per_page,
+            search=search,
             template_url=self.find_project_devices.metadata["url"],
             headers=_headers,
             params=_params,

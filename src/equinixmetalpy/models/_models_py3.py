@@ -4075,9 +4075,11 @@ class Project(_serialization.Model):  # pylint: disable=too-many-instance-attrib
     :ivar volumes:
     :vartype volumes: list[~equinixmetalpy.models.Href]
     :ivar organization:
-    :vartype organization: ~equinixmetalpy.models.Organization
+    :vartype organization: ~equinixmetalpy.models.Href
     :ivar href:
     :vartype href: str
+    :ivar backend_transfer_enabled:
+    :vartype backend_transfer_enabled: bool
     """
 
     _attribute_map = {
@@ -4096,8 +4098,9 @@ class Project(_serialization.Model):  # pylint: disable=too-many-instance-attrib
         "ssh_keys": {"key": "ssh_keys", "type": "[Href]"},
         "updated_at": {"key": "updated_at", "type": "iso-8601"},
         "volumes": {"key": "volumes", "type": "[Href]"},
-        "organization": {"key": "organization", "type": "Organization"},
+        "organization": {"key": "organization", "type": "Href"},
         "href": {"key": "href", "type": "str"},
+        "backend_transfer_enabled": {"key": "backend_transfer_enabled", "type": "bool"},
     }
 
     def __init__(
@@ -4118,8 +4121,9 @@ class Project(_serialization.Model):  # pylint: disable=too-many-instance-attrib
         ssh_keys: Optional[List["_models.Href"]] = None,
         updated_at: Optional[datetime.datetime] = None,
         volumes: Optional[List["_models.Href"]] = None,
-        organization: Optional["_models.Organization"] = None,
+        organization: Optional["_models.Href"] = None,
         href: Optional[str] = None,
+        backend_transfer_enabled: Optional[bool] = None,
         **kwargs
     ):
         """
@@ -4154,9 +4158,11 @@ class Project(_serialization.Model):  # pylint: disable=too-many-instance-attrib
         :keyword volumes:
         :paramtype volumes: list[~equinixmetalpy.models.Href]
         :keyword organization:
-        :paramtype organization: ~equinixmetalpy.models.Organization
+        :paramtype organization: ~equinixmetalpy.models.Href
         :keyword href:
         :paramtype href: str
+        :keyword backend_transfer_enabled:
+        :paramtype backend_transfer_enabled: bool
         """
         super().__init__(**kwargs)
         self.bgp_config = bgp_config
@@ -4176,6 +4182,7 @@ class Project(_serialization.Model):  # pylint: disable=too-many-instance-attrib
         self.volumes = volumes
         self.organization = organization
         self.href = href
+        self.backend_transfer_enabled = backend_transfer_enabled
 
 
 class ProjectCreateFromRootInput(_serialization.Model):

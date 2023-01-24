@@ -23,5 +23,4 @@ def patch_sdk():
     """
     _models_py3.DeviceList.list = property(lambda self: self.devices)
     _models_py3.ProjectList.list = property(lambda self: self.projects)
-    _models_py3.OrganizationList.list = property(
-        lambda self: self.organizations)
+    _models_py3.OrganizationList.list = property(lambda self: self.organizations)
