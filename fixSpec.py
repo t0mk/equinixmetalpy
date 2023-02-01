@@ -164,11 +164,11 @@ fixExplode(fixedSpec)
 project_props = fixedSpec['components']['schemas']['Project']['properties']
 project_props['backend_transfer_enabled'] = {'type': 'boolean'}
 
-# FIX 6. add `search` param to search capable paths
+# FIX 6. add `name` param to allow for search by resource name
 search_param = {
-    "name": "search",
+    "name": "name",
     "in": "query",
-    "description": "Search query",
+    "description": "Search by name substring",
     "required": False,
     "schema": {
         "type": "string"
@@ -180,8 +180,8 @@ search_capable_paths = [
     '/projects/{id}/devices',
     '/organizations/{id}/devices',
 ]
-for path in search_capable_paths:
-    fixedSpec['paths'][path]['get']['parameters'].append(search_param)
+#for path in search_capable_paths:
+#   fixedSpec['paths'][path]['get']['parameters'].append(search_param)
 
 with open(OUTFILE, 'w') as f:
     originalSpec = yaml.dump(

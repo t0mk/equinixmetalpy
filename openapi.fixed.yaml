@@ -598,13 +598,6 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - &id001
-        name: search
-        in: query
-        description: Search query
-        required: false
-        schema:
-          type: string
       responses:
         '200':
           content:
@@ -698,7 +691,6 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - *id001
       responses:
         '200':
           content:
@@ -814,7 +806,6 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - *id001
       responses:
         '200':
           content:
@@ -1124,7 +1115,6 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - *id001
       responses:
         '200':
           content:
@@ -1271,6 +1261,550 @@ components:
       style: form
   requestBodies: {}
   schemas:
+    ProjectUpdateInput:
+      example:
+        payment_method_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        name: name
+        backend_transfer_enabled: true
+        customdata: '{}'
+      properties:
+        backend_transfer_enabled:
+          type: boolean
+        customdata:
+          type: object
+        name:
+          type: string
+        payment_method_id:
+          format: uuid
+          type: string
+        href:
+          type: string
+          format: uri
+      type: object
+    ProjectCreateFromRootInput:
+      example:
+        payment_method_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        organization_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        name: name
+        customdata: '{}'
+      properties:
+        customdata:
+          type: object
+        name:
+          type: string
+        organization_id:
+          format: uuid
+          type: string
+        payment_method_id:
+          format: uuid
+          type: string
+        href:
+          type: string
+          format: uri
+      required:
+      - name
+      type: object
+    Organization:
+      example:
+        website: website
+        address:
+          country: country
+          address: address
+          address2: address2
+          city: city
+          coordinates:
+            latitude: latitude
+            longitude: longitude
+          state: state
+          zip_code: zip_code
+        projects:
+        - href: href
+        - href: href
+        credit_amount: 0.8008282
+        created_at: 2000-01-23 04:56:07+00:00
+        description: description
+        billing_address:
+          country: country
+          address: address
+          address2: address2
+          city: city
+          coordinates:
+            latitude: latitude
+            longitude: longitude
+          state: state
+          zip_code: zip_code
+        memberships:
+        - href: href
+        - href: href
+        enforce_2fa_at: 2000-01-23 04:56:07+00:00
+        twitter: twitter
+        updated_at: 2000-01-23 04:56:07+00:00
+        terms: 6
+        members:
+        - href: href
+        - href: href
+        name: name
+        logo: ''
+        customdata: '{}'
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        billing_address:
+          $ref: '#/components/schemas/Address'
+        created_at:
+          format: date-time
+          type: string
+        credit_amount:
+          format: float
+          type: number
+        customdata:
+          type: object
+        description:
+          type: string
+        enforce_2fa_at:
+          description: Force to all members to have enabled the two factor authentication
+            after that date, unless the value is null
+          format: date-time
+          type: string
+        id:
+          format: uuid
+          type: string
+        logo:
+          format: binary
+          type: string
+        members:
+          items:
+            $ref: '#/components/schemas/Href'
+          type: array
+        memberships:
+          items:
+            $ref: '#/components/schemas/Href'
+          type: array
+        name:
+          type: string
+        projects:
+          items:
+            $ref: '#/components/schemas/Href'
+          type: array
+        terms:
+          type: integer
+        twitter:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        website:
+          type: string
+        href:
+          type: string
+          format: uri
+      type: object
+    DeviceUpdateInput:
+      example:
+        userdata: userdata
+        hostname: hostname
+        spot_instance: true
+        network_frozen: true
+        description: description
+        always_pxe: true
+        billing_cycle: billing_cycle
+        customdata: '{}'
+        ipxe_script_url: ipxe_script_url
+        locked: true
+        tags:
+        - tags
+        - tags
+      properties:
+        always_pxe:
+          type: boolean
+        billing_cycle:
+          type: string
+        customdata:
+          type: object
+        description:
+          type: string
+        hostname:
+          type: string
+        ipxe_script_url:
+          type: string
+        locked:
+          type: boolean
+        network_frozen:
+          description: If true, this instance can not be converted to a different
+            network type.
+          type: boolean
+        spot_instance:
+          description: Can be set to false to convert a spot-market instance to on-demand.
+          externalDocs:
+            url: https://metal.equinix.com/developers/docs/deploy/spot-market/#converting-a-spot-market-server-to-on-demand
+          type: boolean
+        tags:
+          items:
+            type: string
+          type: array
+        userdata:
+          type: string
+        href:
+          type: string
+          format: uri
+      type: object
+    ProjectCreateInput:
+      example:
+        payment_method_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        name: name
+        customdata: '{}'
+      properties:
+        customdata:
+          type: object
+        name:
+          type: string
+        payment_method_id:
+          format: uuid
+          type: string
+        href:
+          type: string
+          format: uri
+      required:
+      - name
+      type: object
+    ProjectList:
+      example:
+        projects:
+        - devices:
+          - href: href
+          - href: href
+          volumes:
+          - href: href
+          - href: href
+          created_at: 2000-01-23 04:56:07+00:00
+          memberships:
+          - href: href
+          - href: href
+          bgp_config:
+            href: href
+          max_devices: '{}'
+          ssh_keys:
+          - href: href
+          - href: href
+          updated_at: 2000-01-23 04:56:07+00:00
+          invitations:
+          - href: href
+          - href: href
+          members:
+          - href: href
+          - href: href
+          name: name
+          network_status: '{}'
+          customdata: '{}'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          payment_method:
+            href: href
+        - devices:
+          - href: href
+          - href: href
+          volumes:
+          - href: href
+          - href: href
+          created_at: 2000-01-23 04:56:07+00:00
+          memberships:
+          - href: href
+          - href: href
+          bgp_config:
+            href: href
+          max_devices: '{}'
+          ssh_keys:
+          - href: href
+          - href: href
+          updated_at: 2000-01-23 04:56:07+00:00
+          invitations:
+          - href: href
+          - href: href
+          members:
+          - href: href
+          - href: href
+          name: name
+          network_status: '{}'
+          customdata: '{}'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          payment_method:
+            href: href
+        meta:
+          next:
+            href: href
+          total: 0
+          last:
+            href: href
+          previous:
+            href: href
+          self:
+            href: href
+          first:
+            href: href
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        projects:
+          items:
+            $ref: '#/components/schemas/Project'
+          type: array
+        href:
+          type: string
+          format: uri
+      type: object
+    Project:
+      example:
+        devices:
+        - href: href
+        - href: href
+        volumes:
+        - href: href
+        - href: href
+        created_at: 2000-01-23 04:56:07+00:00
+        memberships:
+        - href: href
+        - href: href
+        bgp_config:
+          href: href
+        max_devices: '{}'
+        ssh_keys:
+        - href: href
+        - href: href
+        updated_at: 2000-01-23 04:56:07+00:00
+        invitations:
+        - href: href
+        - href: href
+        members:
+        - href: href
+        - href: href
+        name: name
+        network_status: '{}'
+        customdata: '{}'
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        payment_method:
+          href: href
+      properties:
+        bgp_config:
+          $ref: '#/components/schemas/Href'
+        created_at:
+          format: date-time
+          type: string
+        customdata:
+          type: object
+        devices:
+          items:
+            $ref: '#/components/schemas/Href'
+          type: array
+        id:
+          format: uuid
+          type: string
+        invitations:
+          items:
+            $ref: '#/components/schemas/Href'
+          type: array
+        max_devices:
+          type: object
+        members:
+          items:
+            $ref: '#/components/schemas/Href'
+          type: array
+        memberships:
+          items:
+            $ref: '#/components/schemas/Href'
+          type: array
+        name:
+          type: string
+        network_status:
+          type: object
+        payment_method:
+          $ref: '#/components/schemas/Href'
+        ssh_keys:
+          items:
+            $ref: '#/components/schemas/Href'
+          type: array
+        updated_at:
+          format: date-time
+          type: string
+        volumes:
+          items:
+            $ref: '#/components/schemas/Href'
+          type: array
+        organization:
+          $ref: '#/components/schemas/Href'
+        href:
+          type: string
+          format: uri
+        backend_transfer_enabled:
+          type: boolean
+      type: object
+    createDevice_request:
+      oneOf:
+      - $ref: '#/components/schemas/DeviceCreateInMetroInput'
+      - $ref: '#/components/schemas/DeviceCreateInFacilityInput'
+    OrganizationInput:
+      example:
+        twitter: twitter
+        website: website
+        address:
+          country: country
+          address: address
+          address2: address2
+          city: city
+          coordinates:
+            latitude: latitude
+            longitude: longitude
+          state: state
+          zip_code: zip_code
+        name: name
+        description: description
+        logo: ''
+        billing_address:
+          country: country
+          address: address
+          address2: address2
+          city: city
+          coordinates:
+            latitude: latitude
+            longitude: longitude
+          state: state
+          zip_code: zip_code
+        customdata: '{}'
+        enforce_2fa_at: 2000-01-23 04:56:07+00:00
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        billing_address:
+          $ref: '#/components/schemas/Address'
+        customdata:
+          type: object
+        description:
+          type: string
+        enforce_2fa_at:
+          description: Force to all members to have enabled the two factor authentication
+            after that date, unless the value is null
+          format: date-time
+          type: string
+        logo:
+          format: binary
+          type: string
+        name:
+          type: string
+        twitter:
+          type: string
+        website:
+          type: string
+        href:
+          type: string
+          format: uri
+      type: object
+    OrganizationList:
+      example:
+        meta:
+          next:
+            href: href
+          total: 0
+          last:
+            href: href
+          previous:
+            href: href
+          self:
+            href: href
+          first:
+            href: href
+        organizations:
+        - website: website
+          address:
+            country: country
+            address: address
+            address2: address2
+            city: city
+            coordinates:
+              latitude: latitude
+              longitude: longitude
+            state: state
+            zip_code: zip_code
+          projects:
+          - href: href
+          - href: href
+          credit_amount: 0.8008282
+          created_at: 2000-01-23 04:56:07+00:00
+          description: description
+          billing_address:
+            country: country
+            address: address
+            address2: address2
+            city: city
+            coordinates:
+              latitude: latitude
+              longitude: longitude
+            state: state
+            zip_code: zip_code
+          memberships:
+          - href: href
+          - href: href
+          enforce_2fa_at: 2000-01-23 04:56:07+00:00
+          twitter: twitter
+          updated_at: 2000-01-23 04:56:07+00:00
+          terms: 6
+          members:
+          - href: href
+          - href: href
+          name: name
+          logo: ''
+          customdata: '{}'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - website: website
+          address:
+            country: country
+            address: address
+            address2: address2
+            city: city
+            coordinates:
+              latitude: latitude
+              longitude: longitude
+            state: state
+            zip_code: zip_code
+          projects:
+          - href: href
+          - href: href
+          credit_amount: 0.8008282
+          created_at: 2000-01-23 04:56:07+00:00
+          description: description
+          billing_address:
+            country: country
+            address: address
+            address2: address2
+            city: city
+            coordinates:
+              latitude: latitude
+              longitude: longitude
+            state: state
+            zip_code: zip_code
+          memberships:
+          - href: href
+          - href: href
+          enforce_2fa_at: 2000-01-23 04:56:07+00:00
+          twitter: twitter
+          updated_at: 2000-01-23 04:56:07+00:00
+          terms: 6
+          members:
+          - href: href
+          - href: href
+          name: name
+          logo: ''
+          customdata: '{}'
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        organizations:
+          items:
+            $ref: '#/components/schemas/Organization'
+          type: array
+        href:
+          type: string
+          format: uri
+      type: object
     DeviceList:
       example:
         devices:
@@ -1873,30 +2407,6 @@ components:
           type: string
           format: uri
       type: object
-    createDevice_request:
-      oneOf:
-      - $ref: '#/components/schemas/DeviceCreateInMetroInput'
-      - $ref: '#/components/schemas/DeviceCreateInFacilityInput'
-    ProjectUpdateInput:
-      example:
-        payment_method_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        name: name
-        backend_transfer_enabled: true
-        customdata: '{}'
-      properties:
-        backend_transfer_enabled:
-          type: boolean
-        customdata:
-          type: object
-        name:
-          type: string
-        payment_method_id:
-          format: uuid
-          type: string
-        href:
-          type: string
-          format: uri
-      type: object
     Device:
       example:
         ip_addresses:
@@ -2334,526 +2844,6 @@ components:
             $ref: '#/components/schemas/Href'
           type: array
       type: object
-    Organization:
-      example:
-        website: website
-        address:
-          country: country
-          address: address
-          address2: address2
-          city: city
-          coordinates:
-            latitude: latitude
-            longitude: longitude
-          state: state
-          zip_code: zip_code
-        projects:
-        - href: href
-        - href: href
-        credit_amount: 0.8008282
-        created_at: 2000-01-23 04:56:07+00:00
-        description: description
-        billing_address:
-          country: country
-          address: address
-          address2: address2
-          city: city
-          coordinates:
-            latitude: latitude
-            longitude: longitude
-          state: state
-          zip_code: zip_code
-        memberships:
-        - href: href
-        - href: href
-        enforce_2fa_at: 2000-01-23 04:56:07+00:00
-        twitter: twitter
-        updated_at: 2000-01-23 04:56:07+00:00
-        terms: 6
-        members:
-        - href: href
-        - href: href
-        name: name
-        logo: ''
-        customdata: '{}'
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        billing_address:
-          $ref: '#/components/schemas/Address'
-        created_at:
-          format: date-time
-          type: string
-        credit_amount:
-          format: float
-          type: number
-        customdata:
-          type: object
-        description:
-          type: string
-        enforce_2fa_at:
-          description: Force to all members to have enabled the two factor authentication
-            after that date, unless the value is null
-          format: date-time
-          type: string
-        id:
-          format: uuid
-          type: string
-        logo:
-          format: binary
-          type: string
-        members:
-          items:
-            $ref: '#/components/schemas/Href'
-          type: array
-        memberships:
-          items:
-            $ref: '#/components/schemas/Href'
-          type: array
-        name:
-          type: string
-        projects:
-          items:
-            $ref: '#/components/schemas/Href'
-          type: array
-        terms:
-          type: integer
-        twitter:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-        website:
-          type: string
-        href:
-          type: string
-          format: uri
-      type: object
-    OrganizationList:
-      example:
-        meta:
-          next:
-            href: href
-          total: 0
-          last:
-            href: href
-          previous:
-            href: href
-          self:
-            href: href
-          first:
-            href: href
-        organizations:
-        - website: website
-          address:
-            country: country
-            address: address
-            address2: address2
-            city: city
-            coordinates:
-              latitude: latitude
-              longitude: longitude
-            state: state
-            zip_code: zip_code
-          projects:
-          - href: href
-          - href: href
-          credit_amount: 0.8008282
-          created_at: 2000-01-23 04:56:07+00:00
-          description: description
-          billing_address:
-            country: country
-            address: address
-            address2: address2
-            city: city
-            coordinates:
-              latitude: latitude
-              longitude: longitude
-            state: state
-            zip_code: zip_code
-          memberships:
-          - href: href
-          - href: href
-          enforce_2fa_at: 2000-01-23 04:56:07+00:00
-          twitter: twitter
-          updated_at: 2000-01-23 04:56:07+00:00
-          terms: 6
-          members:
-          - href: href
-          - href: href
-          name: name
-          logo: ''
-          customdata: '{}'
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        - website: website
-          address:
-            country: country
-            address: address
-            address2: address2
-            city: city
-            coordinates:
-              latitude: latitude
-              longitude: longitude
-            state: state
-            zip_code: zip_code
-          projects:
-          - href: href
-          - href: href
-          credit_amount: 0.8008282
-          created_at: 2000-01-23 04:56:07+00:00
-          description: description
-          billing_address:
-            country: country
-            address: address
-            address2: address2
-            city: city
-            coordinates:
-              latitude: latitude
-              longitude: longitude
-            state: state
-            zip_code: zip_code
-          memberships:
-          - href: href
-          - href: href
-          enforce_2fa_at: 2000-01-23 04:56:07+00:00
-          twitter: twitter
-          updated_at: 2000-01-23 04:56:07+00:00
-          terms: 6
-          members:
-          - href: href
-          - href: href
-          name: name
-          logo: ''
-          customdata: '{}'
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        organizations:
-          items:
-            $ref: '#/components/schemas/Organization'
-          type: array
-        href:
-          type: string
-          format: uri
-      type: object
-    DeviceUpdateInput:
-      example:
-        userdata: userdata
-        hostname: hostname
-        spot_instance: true
-        network_frozen: true
-        description: description
-        always_pxe: true
-        billing_cycle: billing_cycle
-        customdata: '{}'
-        ipxe_script_url: ipxe_script_url
-        locked: true
-        tags:
-        - tags
-        - tags
-      properties:
-        always_pxe:
-          type: boolean
-        billing_cycle:
-          type: string
-        customdata:
-          type: object
-        description:
-          type: string
-        hostname:
-          type: string
-        ipxe_script_url:
-          type: string
-        locked:
-          type: boolean
-        network_frozen:
-          description: If true, this instance can not be converted to a different
-            network type.
-          type: boolean
-        spot_instance:
-          description: Can be set to false to convert a spot-market instance to on-demand.
-          externalDocs:
-            url: https://metal.equinix.com/developers/docs/deploy/spot-market/#converting-a-spot-market-server-to-on-demand
-          type: boolean
-        tags:
-          items:
-            type: string
-          type: array
-        userdata:
-          type: string
-        href:
-          type: string
-          format: uri
-      type: object
-    OrganizationInput:
-      example:
-        twitter: twitter
-        website: website
-        address:
-          country: country
-          address: address
-          address2: address2
-          city: city
-          coordinates:
-            latitude: latitude
-            longitude: longitude
-          state: state
-          zip_code: zip_code
-        name: name
-        description: description
-        logo: ''
-        billing_address:
-          country: country
-          address: address
-          address2: address2
-          city: city
-          coordinates:
-            latitude: latitude
-            longitude: longitude
-          state: state
-          zip_code: zip_code
-        customdata: '{}'
-        enforce_2fa_at: 2000-01-23 04:56:07+00:00
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        billing_address:
-          $ref: '#/components/schemas/Address'
-        customdata:
-          type: object
-        description:
-          type: string
-        enforce_2fa_at:
-          description: Force to all members to have enabled the two factor authentication
-            after that date, unless the value is null
-          format: date-time
-          type: string
-        logo:
-          format: binary
-          type: string
-        name:
-          type: string
-        twitter:
-          type: string
-        website:
-          type: string
-        href:
-          type: string
-          format: uri
-      type: object
-    ProjectList:
-      example:
-        projects:
-        - devices:
-          - href: href
-          - href: href
-          volumes:
-          - href: href
-          - href: href
-          created_at: 2000-01-23 04:56:07+00:00
-          memberships:
-          - href: href
-          - href: href
-          bgp_config:
-            href: href
-          max_devices: '{}'
-          ssh_keys:
-          - href: href
-          - href: href
-          updated_at: 2000-01-23 04:56:07+00:00
-          invitations:
-          - href: href
-          - href: href
-          members:
-          - href: href
-          - href: href
-          name: name
-          network_status: '{}'
-          customdata: '{}'
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          payment_method:
-            href: href
-        - devices:
-          - href: href
-          - href: href
-          volumes:
-          - href: href
-          - href: href
-          created_at: 2000-01-23 04:56:07+00:00
-          memberships:
-          - href: href
-          - href: href
-          bgp_config:
-            href: href
-          max_devices: '{}'
-          ssh_keys:
-          - href: href
-          - href: href
-          updated_at: 2000-01-23 04:56:07+00:00
-          invitations:
-          - href: href
-          - href: href
-          members:
-          - href: href
-          - href: href
-          name: name
-          network_status: '{}'
-          customdata: '{}'
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          payment_method:
-            href: href
-        meta:
-          next:
-            href: href
-          total: 0
-          last:
-            href: href
-          previous:
-            href: href
-          self:
-            href: href
-          first:
-            href: href
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        projects:
-          items:
-            $ref: '#/components/schemas/Project'
-          type: array
-        href:
-          type: string
-          format: uri
-      type: object
-    ProjectCreateInput:
-      example:
-        payment_method_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        name: name
-        customdata: '{}'
-      properties:
-        customdata:
-          type: object
-        name:
-          type: string
-        payment_method_id:
-          format: uuid
-          type: string
-        href:
-          type: string
-          format: uri
-      required:
-      - name
-      type: object
-    ProjectCreateFromRootInput:
-      example:
-        payment_method_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        organization_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        name: name
-        customdata: '{}'
-      properties:
-        customdata:
-          type: object
-        name:
-          type: string
-        organization_id:
-          format: uuid
-          type: string
-        payment_method_id:
-          format: uuid
-          type: string
-        href:
-          type: string
-          format: uri
-      required:
-      - name
-      type: object
-    Project:
-      example:
-        devices:
-        - href: href
-        - href: href
-        volumes:
-        - href: href
-        - href: href
-        created_at: 2000-01-23 04:56:07+00:00
-        memberships:
-        - href: href
-        - href: href
-        bgp_config:
-          href: href
-        max_devices: '{}'
-        ssh_keys:
-        - href: href
-        - href: href
-        updated_at: 2000-01-23 04:56:07+00:00
-        invitations:
-        - href: href
-        - href: href
-        members:
-        - href: href
-        - href: href
-        name: name
-        network_status: '{}'
-        customdata: '{}'
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        payment_method:
-          href: href
-      properties:
-        bgp_config:
-          $ref: '#/components/schemas/Href'
-        created_at:
-          format: date-time
-          type: string
-        customdata:
-          type: object
-        devices:
-          items:
-            $ref: '#/components/schemas/Href'
-          type: array
-        id:
-          format: uuid
-          type: string
-        invitations:
-          items:
-            $ref: '#/components/schemas/Href'
-          type: array
-        max_devices:
-          type: object
-        members:
-          items:
-            $ref: '#/components/schemas/Href'
-          type: array
-        memberships:
-          items:
-            $ref: '#/components/schemas/Href'
-          type: array
-        name:
-          type: string
-        network_status:
-          type: object
-        payment_method:
-          $ref: '#/components/schemas/Href'
-        ssh_keys:
-          items:
-            $ref: '#/components/schemas/Href'
-          type: array
-        updated_at:
-          format: date-time
-          type: string
-        volumes:
-          items:
-            $ref: '#/components/schemas/Href'
-          type: array
-        organization:
-          $ref: '#/components/schemas/Href'
-        href:
-          type: string
-          format: uri
-        backend_transfer_enabled:
-          type: boolean
-      type: object
     Error:
       description: Error responses are included with 4xx and 5xx HTTP responses from
         the API service. Either "error" or "errors" will be set.
@@ -2871,41 +2861,32 @@ components:
           type: string
           format: uri
       type: object
-    Meta:
+    Device_project_lite:
+      allOf:
+      - $ref: '#/components/schemas/Href'
+      - description: Lite version of project object when included
+        type: object
+    DeviceCreateInFacilityInput:
+      allOf:
+      - $ref: '#/components/schemas/FacilityInput'
+      - $ref: '#/components/schemas/DeviceCreateInput'
+    Device_actions_inner:
       example:
-        next:
-          href: href
-        total: 0
-        last:
-          href: href
-        previous:
-          href: href
-        self:
-          href: href
-        first:
-          href: href
+        name: name
+        type: type
       properties:
-        first:
-          $ref: '#/components/schemas/Href'
-        last:
-          $ref: '#/components/schemas/Href'
-        next:
-          $ref: '#/components/schemas/Href'
-        previous:
-          $ref: '#/components/schemas/Href'
-        self:
-          $ref: '#/components/schemas/Href'
-        total:
-          type: integer
+        type:
+          type: string
+        name:
+          type: string
         href:
           type: string
           format: uri
       type: object
-    Device_metro:
+    DeviceCreateInMetroInput:
       allOf:
-      - $ref: '#/components/schemas/Metro'
-      - description: The metro the facility is in
-        type: object
+      - $ref: '#/components/schemas/MetroInput'
+      - $ref: '#/components/schemas/DeviceCreateInput'
     Plan:
       example:
         legacy: true
@@ -3014,6 +2995,20 @@ components:
           type: string
           format: uri
       type: object
+    Href:
+      example:
+        href: href
+      properties:
+        href:
+          type: string
+      required:
+      - href
+      type: object
+    Device_project:
+      allOf:
+      - $ref: '#/components/schemas/Href'
+      - description: Full version of project object when included
+        type: object
     Address:
       example:
         country: country
@@ -3082,10 +3077,11 @@ components:
         type:
           type: string
       type: object
-    DeviceCreateInFacilityInput:
+    Device_created_by:
       allOf:
-      - $ref: '#/components/schemas/FacilityInput'
-      - $ref: '#/components/schemas/DeviceCreateInput'
+      - $ref: '#/components/schemas/UserLite'
+      - description: The user that created the device.
+        type: object
     IPAssignment:
       example:
         address: address
@@ -3148,15 +3144,37 @@ components:
         public:
           type: boolean
       type: object
-    Device_actions_inner:
+    Device_metro:
+      allOf:
+      - $ref: '#/components/schemas/Metro'
+      - description: The metro the facility is in
+        type: object
+    Meta:
       example:
-        name: name
-        type: type
+        next:
+          href: href
+        total: 0
+        last:
+          href: href
+        previous:
+          href: href
+        self:
+          href: href
+        first:
+          href: href
       properties:
-        type:
-          type: string
-        name:
-          type: string
+        first:
+          $ref: '#/components/schemas/Href'
+        last:
+          $ref: '#/components/schemas/Href'
+        next:
+          $ref: '#/components/schemas/Href'
+        previous:
+          $ref: '#/components/schemas/Href'
+        self:
+          $ref: '#/components/schemas/Href'
+        total:
+          type: integer
         href:
           type: string
           format: uri
@@ -3221,15 +3239,6 @@ components:
         href:
           type: string
           format: uri
-      type: object
-    Href:
-      example:
-        href: href
-      properties:
-        href:
-          type: string
-      required:
-      - href
       type: object
     Port:
       description: Port is a hardware port associated with a reserved or instantiated
@@ -3362,209 +3371,6 @@ components:
           type: string
         version:
           type: string
-        href:
-          type: string
-          format: uri
-      type: object
-    Device_project:
-      allOf:
-      - $ref: '#/components/schemas/Href'
-      - description: Full version of project object when included
-        type: object
-    DeviceCreateInMetroInput:
-      allOf:
-      - $ref: '#/components/schemas/MetroInput'
-      - $ref: '#/components/schemas/DeviceCreateInput'
-    Device_created_by:
-      allOf:
-      - $ref: '#/components/schemas/UserLite'
-      - description: The user that created the device.
-        type: object
-    Device_project_lite:
-      allOf:
-      - $ref: '#/components/schemas/Href'
-      - description: Lite version of project object when included
-        type: object
-    IPAssignment_metro:
-      allOf:
-      - $ref: '#/components/schemas/Metro'
-      - description: The metro the IP address is in
-        type: object
-    Plan_available_in_metros_inner:
-      example:
-        price:
-          hour: 1.23
-        href: href
-      properties:
-        href:
-          description: href to the Metro
-          type: string
-        price:
-          $ref: '#/components/schemas/Plan_available_in_inner_price'
-      type: object
-    UserLite:
-      properties:
-        avatar_thumb_url:
-          description: Avatar thumbnail URL of the User
-          type: string
-        created_at:
-          description: When the user was created
-          format: date-time
-          type: string
-        email:
-          description: Primary email address of the User
-          type: string
-        first_name:
-          description: First name of the User
-          type: string
-        full_name:
-          description: Full name of the User
-          type: string
-        href:
-          description: API URL uniquely representing the User
-          type: string
-        id:
-          description: ID of the User
-          format: uuid
-          type: string
-        last_name:
-          description: Last name of the User
-          type: string
-        short_id:
-          description: Short ID of the User
-          type: string
-        updated_at:
-          description: When the user details were last updated
-          format: date-time
-          type: string
-      required:
-      - id
-      - short_id
-      type: object
-    VirtualNetwork:
-      example:
-        vxlan: 5
-        metal_gateways:
-        - gateway_address: 10.1.2.1/27
-          updated_at: 2000-01-23 04:56:07+00:00
-          vlan: 1001
-          created_at: 2000-01-23 04:56:07+00:00
-          href: href
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          state: ready
-        - gateway_address: 10.1.2.1/27
-          updated_at: 2000-01-23 04:56:07+00:00
-          vlan: 1001
-          created_at: 2000-01-23 04:56:07+00:00
-          href: href
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          state: ready
-        metro_code: metro_code
-        instances:
-        - href: href
-        - href: href
-        metro:
-          href: href
-        description: description
-        href: href
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        facility:
-          href: href
-        assigned_to_virtual_circuit: true
-        assigned_to:
-          href: href
-      properties:
-        assigned_to:
-          $ref: '#/components/schemas/Href'
-        assigned_to_virtual_circuit:
-          description: True if the virtual network is attached to a virtual circuit.
-            False if not.
-          type: boolean
-        description:
-          type: string
-        facility:
-          $ref: '#/components/schemas/Href'
-        href:
-          type: string
-        id:
-          format: uuid
-          type: string
-        instances:
-          description: A list of instances with ports currently associated to this
-            Virtual Network.
-          items:
-            $ref: '#/components/schemas/Href'
-          type: array
-        metal_gateways:
-          description: A list of metal gateways currently associated to this Virtual
-            Network.
-          items:
-            $ref: '#/components/schemas/MetalGatewayLite'
-          type: array
-        metro:
-          $ref: '#/components/schemas/Href'
-        metro_code:
-          description: The Metro code of the metro in which this Virtual Network is
-            defined.
-          type: string
-        vxlan:
-          type: integer
-      type: object
-    MetroInput:
-      properties:
-        metro:
-          description: 'Metro code or ID of where the instance should be provisioned
-            in.
-
-            Either metro or facility must be provided.'
-          example: sv
-          type: string
-        href:
-          type: string
-          format: uri
-      required:
-      - metro
-      type: object
-    Plan_specs:
-      example:
-        features:
-          txt: true
-          uefi: true
-          raid: true
-        cpus:
-        - count: 2
-          type: type
-        - count: 2
-          type: type
-        drives:
-        - size: 3.84TB
-          count: 7
-          type: HDD
-          category: boot
-        - size: 3.84TB
-          count: 7
-          type: HDD
-          category: boot
-        nics:
-        - count: 2
-          type: 1Gbps
-        - count: 2
-          type: 1Gbps
-      properties:
-        cpus:
-          items:
-            $ref: '#/components/schemas/Plan_specs_cpus_inner'
-          type: array
-        drives:
-          items:
-            $ref: '#/components/schemas/Plan_specs_drives_inner'
-          type: array
-        nics:
-          items:
-            $ref: '#/components/schemas/Plan_specs_nics_inner'
-          type: array
-        features:
-          $ref: '#/components/schemas/Plan_specs_features'
         href:
           type: string
           format: uri
@@ -3830,6 +3636,21 @@ components:
       - operating_system
       - plan
       type: object
+    MetroInput:
+      properties:
+        metro:
+          description: 'Metro code or ID of where the instance should be provisioned
+            in.
+
+            Either metro or facility must be provided.'
+          example: sv
+          type: string
+        href:
+          type: string
+          format: uri
+      required:
+      - metro
+      type: object
     Plan_available_in_inner:
       example:
         price:
@@ -3842,34 +3663,56 @@ components:
         price:
           $ref: '#/components/schemas/Plan_available_in_inner_price'
       type: object
-    Coordinates:
+    Plan_available_in_metros_inner:
       example:
-        latitude: latitude
-        longitude: longitude
+        price:
+          hour: 1.23
+        href: href
       properties:
-        latitude:
-          type: string
-        longitude:
-          type: string
         href:
+          description: href to the Metro
           type: string
-          format: uri
+        price:
+          $ref: '#/components/schemas/Plan_available_in_inner_price'
       type: object
-    PortData:
-      example:
-        bonded: true
-        mac: mac
+    UserLite:
       properties:
-        mac:
-          description: MAC address is set for NetworkPort ports
+        avatar_thumb_url:
+          description: Avatar thumbnail URL of the User
           type: string
-        bonded:
-          description: Bonded is true for NetworkPort ports in a bond and NetworkBondPort
-            ports that are active
-          type: boolean
+        created_at:
+          description: When the user was created
+          format: date-time
+          type: string
+        email:
+          description: Primary email address of the User
+          type: string
+        first_name:
+          description: First name of the User
+          type: string
+        full_name:
+          description: Full name of the User
+          type: string
         href:
+          description: API URL uniquely representing the User
           type: string
-          format: uri
+        id:
+          description: ID of the User
+          format: uuid
+          type: string
+        last_name:
+          description: Last name of the User
+          type: string
+        short_id:
+          description: Short ID of the User
+          type: string
+        updated_at:
+          description: When the user details were last updated
+          format: date-time
+          type: string
+      required:
+      - id
+      - short_id
       type: object
     Metro:
       example:
@@ -3891,6 +3734,150 @@ components:
           type: string
           format: uri
       type: object
+    IPAssignment_metro:
+      allOf:
+      - $ref: '#/components/schemas/Metro'
+      - description: The metro the IP address is in
+        type: object
+    FacilityInput:
+      properties:
+        facility:
+          $ref: '#/components/schemas/FacilityInput_facility'
+        href:
+          type: string
+          format: uri
+      required:
+      - facility
+      type: object
+    VirtualNetwork:
+      example:
+        vxlan: 5
+        metal_gateways:
+        - gateway_address: 10.1.2.1/27
+          updated_at: 2000-01-23 04:56:07+00:00
+          vlan: 1001
+          created_at: 2000-01-23 04:56:07+00:00
+          href: href
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          state: ready
+        - gateway_address: 10.1.2.1/27
+          updated_at: 2000-01-23 04:56:07+00:00
+          vlan: 1001
+          created_at: 2000-01-23 04:56:07+00:00
+          href: href
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          state: ready
+        metro_code: metro_code
+        instances:
+        - href: href
+        - href: href
+        metro:
+          href: href
+        description: description
+        href: href
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        facility:
+          href: href
+        assigned_to_virtual_circuit: true
+        assigned_to:
+          href: href
+      properties:
+        assigned_to:
+          $ref: '#/components/schemas/Href'
+        assigned_to_virtual_circuit:
+          description: True if the virtual network is attached to a virtual circuit.
+            False if not.
+          type: boolean
+        description:
+          type: string
+        facility:
+          $ref: '#/components/schemas/Href'
+        href:
+          type: string
+        id:
+          format: uuid
+          type: string
+        instances:
+          description: A list of instances with ports currently associated to this
+            Virtual Network.
+          items:
+            $ref: '#/components/schemas/Href'
+          type: array
+        metal_gateways:
+          description: A list of metal gateways currently associated to this Virtual
+            Network.
+          items:
+            $ref: '#/components/schemas/MetalGatewayLite'
+          type: array
+        metro:
+          $ref: '#/components/schemas/Href'
+        metro_code:
+          description: The Metro code of the metro in which this Virtual Network is
+            defined.
+          type: string
+        vxlan:
+          type: integer
+      type: object
+    Plan_specs:
+      example:
+        features:
+          txt: true
+          uefi: true
+          raid: true
+        cpus:
+        - count: 2
+          type: type
+        - count: 2
+          type: type
+        drives:
+        - size: 3.84TB
+          count: 7
+          type: HDD
+          category: boot
+        - size: 3.84TB
+          count: 7
+          type: HDD
+          category: boot
+        nics:
+        - count: 2
+          type: 1Gbps
+        - count: 2
+          type: 1Gbps
+      properties:
+        cpus:
+          items:
+            $ref: '#/components/schemas/Plan_specs_cpus_inner'
+          type: array
+        drives:
+          items:
+            $ref: '#/components/schemas/Plan_specs_drives_inner'
+          type: array
+        nics:
+          items:
+            $ref: '#/components/schemas/Plan_specs_nics_inner'
+          type: array
+        features:
+          $ref: '#/components/schemas/Plan_specs_features'
+        href:
+          type: string
+          format: uri
+      type: object
+    PortData:
+      example:
+        bonded: true
+        mac: mac
+      properties:
+        mac:
+          description: MAC address is set for NetworkPort ports
+          type: string
+        bonded:
+          description: Bonded is true for NetworkPort ports in a bond and NetworkBondPort
+            ports that are active
+          type: boolean
+        href:
+          type: string
+          format: uri
+      type: object
     BondPortData:
       example:
         name: name
@@ -3907,15 +3894,18 @@ components:
           type: string
           format: uri
       type: object
-    FacilityInput:
+    Coordinates:
+      example:
+        latitude: latitude
+        longitude: longitude
       properties:
-        facility:
-          $ref: '#/components/schemas/FacilityInput_facility'
+        latitude:
+          type: string
+        longitude:
+          type: string
         href:
           type: string
           format: uri
-      required:
-      - facility
       type: object
     ParentBlock:
       example:
@@ -3932,52 +3922,6 @@ components:
           type: string
         network:
           type: string
-      type: object
-    Plan_specs_drives_inner:
-      example:
-        size: 3.84TB
-        count: 7
-        type: HDD
-        category: boot
-      properties:
-        count:
-          type: integer
-        type:
-          enum:
-          - HDD
-          - SSD
-          - NVME
-          type: string
-        size:
-          example: 3.84TB
-          type: string
-        category:
-          enum:
-          - boot
-          - cache
-          - storage
-          type: string
-        href:
-          type: string
-          format: uri
-      type: object
-    Plan_specs_nics_inner:
-      example:
-        count: 2
-        type: 1Gbps
-      properties:
-        count:
-          example: 2
-          type: integer
-        type:
-          enum:
-          - 1Gbps
-          - 10Gbps
-          - 25Gbps
-          type: string
-        href:
-          type: string
-          format: uri
       type: object
     FacilityInput_facility:
       anyOf:
@@ -4003,78 +3947,6 @@ components:
         `{ "facility": ["f3", "f2", "any"] }` can be used to prioritize `f3` and then
         `f2` before accepting `any` facility. If none of the facilities provided have
         availability for the requested device the request will fail.'
-    Plan_available_in_inner_price:
-      example:
-        hour: 1.23
-      properties:
-        hour:
-          example: 1.23
-          format: decimal
-          type: number
-        href:
-          type: string
-          format: uri
-      type: object
-    Plan_specs_features:
-      example:
-        txt: true
-        uefi: true
-        raid: true
-      properties:
-        raid:
-          type: boolean
-        txt:
-          type: boolean
-        uefi:
-          type: boolean
-        href:
-          type: string
-          format: uri
-      type: object
-    SSHKeyInput:
-      example:
-        label: label
-        key: key
-      properties:
-        key:
-          type: string
-        label:
-          type: string
-        href:
-          type: string
-          format: uri
-      type: object
-    DeviceCreateInput_ip_addresses_inner:
-      properties:
-        address_family:
-          description: Address Family for IP Address
-          enum:
-          - 4
-          - 6
-          example: 4
-          format: int32
-          type: integer
-        cidr:
-          description: Cidr Size for the IP Block created. Valid values depends on
-            the operating system being provisioned. (28..32 for IPv4 addresses, 124..127
-            for IPv6 addresses)
-          example: 28
-          format: int32
-          type: integer
-        ip_reservations:
-          description: UUIDs of any IP reservations to use when assigning IPs
-          items:
-            type: string
-          type: array
-        public:
-          default: true
-          description: Address Type for IP Address
-          example: false
-          type: boolean
-        href:
-          type: string
-          format: uri
-      type: object
     Plan_specs_cpus_inner:
       example:
         count: 2
@@ -4084,6 +3956,18 @@ components:
           type: integer
         type:
           type: string
+        href:
+          type: string
+          format: uri
+      type: object
+    Plan_available_in_inner_price:
+      example:
+        hour: 1.23
+      properties:
+        hour:
+          example: 1.23
+          format: decimal
+          type: number
         href:
           type: string
           format: uri
@@ -4132,6 +4016,112 @@ components:
             Metal Gateway.
           example: 1001
           type: integer
+      type: object
+    Plan_specs_nics_inner:
+      example:
+        count: 2
+        type: 1Gbps
+      properties:
+        count:
+          example: 2
+          type: integer
+        type:
+          enum:
+          - 1Gbps
+          - 10Gbps
+          - 25Gbps
+          type: string
+        href:
+          type: string
+          format: uri
+      type: object
+    SSHKeyInput:
+      example:
+        label: label
+        key: key
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+        href:
+          type: string
+          format: uri
+      type: object
+    Plan_specs_features:
+      example:
+        txt: true
+        uefi: true
+        raid: true
+      properties:
+        raid:
+          type: boolean
+        txt:
+          type: boolean
+        uefi:
+          type: boolean
+        href:
+          type: string
+          format: uri
+      type: object
+    DeviceCreateInput_ip_addresses_inner:
+      properties:
+        address_family:
+          description: Address Family for IP Address
+          enum:
+          - 4
+          - 6
+          example: 4
+          format: int32
+          type: integer
+        cidr:
+          description: Cidr Size for the IP Block created. Valid values depends on
+            the operating system being provisioned. (28..32 for IPv4 addresses, 124..127
+            for IPv6 addresses)
+          example: 28
+          format: int32
+          type: integer
+        ip_reservations:
+          description: UUIDs of any IP reservations to use when assigning IPs
+          items:
+            type: string
+          type: array
+        public:
+          default: true
+          description: Address Type for IP Address
+          example: false
+          type: boolean
+        href:
+          type: string
+          format: uri
+      type: object
+    Plan_specs_drives_inner:
+      example:
+        size: 3.84TB
+        count: 7
+        type: HDD
+        category: boot
+      properties:
+        count:
+          type: integer
+        type:
+          enum:
+          - HDD
+          - SSD
+          - NVME
+          type: string
+        size:
+          example: 3.84TB
+          type: string
+        category:
+          enum:
+          - boot
+          - cache
+          - storage
+          type: string
+        href:
+          type: string
+          format: uri
       type: object
   securitySchemes:
     x_auth_token:

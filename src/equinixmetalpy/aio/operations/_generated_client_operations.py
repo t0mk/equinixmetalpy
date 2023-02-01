@@ -869,7 +869,6 @@ class GeneratedClientOperationsMixin(MixinABC):
         exclude: Optional[List[str]] = None,
         page: int = 1,
         per_page: int = 10,
-        search: Optional[str] = None,
         **kwargs: Any
     ) -> Union[_models.DeviceList, _models.Error]:
         """Retrieve all devices of an organization.
@@ -900,8 +899,6 @@ class GeneratedClientOperationsMixin(MixinABC):
         :type page: int
         :param per_page: Items returned per page. Default value is 10.
         :type per_page: int
-        :param search: Search query. Default value is None.
-        :type search: str
         :keyword callable cls: A custom type or function that will be passed the direct response
         :return: DeviceList or Error or the result of cls(response)
         :rtype: ~equinixmetalpy.models.DeviceList or ~equinixmetalpy.models.Error
@@ -932,7 +929,6 @@ class GeneratedClientOperationsMixin(MixinABC):
             exclude=exclude,
             page=page,
             per_page=per_page,
-            search=search,
             template_url=self.find_organization_devices.metadata["url"],
             headers=_headers,
             params=_params,
@@ -979,7 +975,6 @@ class GeneratedClientOperationsMixin(MixinABC):
         exclude: Optional[List[str]] = None,
         page: int = 1,
         per_page: int = 10,
-        search: Optional[str] = None,
         **kwargs: Any
     ) -> Union[_models.ProjectList, _models.Error]:
         """Retrieve all projects of an organization.
@@ -1000,8 +995,6 @@ class GeneratedClientOperationsMixin(MixinABC):
         :type page: int
         :param per_page: Items returned per page. Default value is 10.
         :type per_page: int
-        :param search: Search query. Default value is None.
-        :type search: str
         :keyword callable cls: A custom type or function that will be passed the direct response
         :return: ProjectList or Error or the result of cls(response)
         :rtype: ~equinixmetalpy.models.ProjectList or ~equinixmetalpy.models.Error
@@ -1027,7 +1020,6 @@ class GeneratedClientOperationsMixin(MixinABC):
             exclude=exclude,
             page=page,
             per_page=per_page,
-            search=search,
             template_url=self.find_organization_projects.metadata["url"],
             headers=_headers,
             params=_params,
@@ -1204,7 +1196,6 @@ class GeneratedClientOperationsMixin(MixinABC):
         exclude: Optional[List[str]] = None,
         page: int = 1,
         per_page: int = 10,
-        search: Optional[str] = None,
         **kwargs: Any
     ) -> Union[_models.ProjectList, _models.Error]:
         """Retrieve all projects.
@@ -1223,8 +1214,6 @@ class GeneratedClientOperationsMixin(MixinABC):
         :type page: int
         :param per_page: Items returned per page. Default value is 10.
         :type per_page: int
-        :param search: Search query. Default value is None.
-        :type search: str
         :keyword callable cls: A custom type or function that will be passed the direct response
         :return: ProjectList or Error or the result of cls(response)
         :rtype: ~equinixmetalpy.models.ProjectList or ~equinixmetalpy.models.Error
@@ -1249,7 +1238,6 @@ class GeneratedClientOperationsMixin(MixinABC):
             exclude=exclude,
             page=page,
             per_page=per_page,
-            search=search,
             template_url=self.find_projects.metadata["url"],
             headers=_headers,
             params=_params,
@@ -1711,7 +1699,6 @@ class GeneratedClientOperationsMixin(MixinABC):
         exclude: Optional[List[str]] = None,
         page: int = 1,
         per_page: int = 10,
-        search: Optional[str] = None,
         **kwargs: Any
     ) -> Union[_models.DeviceList, _models.Error]:
         """Retrieve all devices of a project.
@@ -1742,8 +1729,6 @@ class GeneratedClientOperationsMixin(MixinABC):
         :type page: int
         :param per_page: Items returned per page. Default value is 10.
         :type per_page: int
-        :param search: Search query. Default value is None.
-        :type search: str
         :keyword callable cls: A custom type or function that will be passed the direct response
         :return: DeviceList or Error or the result of cls(response)
         :rtype: ~equinixmetalpy.models.DeviceList or ~equinixmetalpy.models.Error
@@ -1774,7 +1759,6 @@ class GeneratedClientOperationsMixin(MixinABC):
             exclude=exclude,
             page=page,
             per_page=per_page,
-            search=search,
             template_url=self.find_project_devices.metadata["url"],
             headers=_headers,
             params=_params,

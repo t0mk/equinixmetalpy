@@ -24,10 +24,9 @@ from http.client import responses
 
 
 __all__: List[str] = [
-    "ApiException",
+    "ApiError",
     "Client",
     "is_error",
-    "collect_error_message",
     "raise_if_error",
 ]  # Add all objects you want publicly available to users at this package level
 
@@ -65,7 +64,7 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
     HTTP request/response logger.
     """
 
-    def __init__(self, api_endpoint, file):  # pylint: disable=unused-argument
+    def __init__(self, api_endpoint, file=None):  # pylint: disable=unused-argument
         self._logger = logging.getLogger(__name__)
         handler = logging.StreamHandler(stream=sys.stderr)
         if file:
@@ -171,17 +170,17 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
 class Client(GeneratedClient):
     def __init__(self, credential: str, base_url: str = EM_API, **kwargs: Any) -> None:
         credential = AzureKeyCredential(credential)
-        logging_policy = None
-        debug_log_file = os.getenv("METAL_PYTHON_DEBUG_LOG")
-        if (os.getenv("METAL_PYTHON_DEBUG") == "1") | (debug_log_file is not None):
+        if os.getenv("METAL_PYTHON_DEBUG") == "1":
             policy_args = dict(api_endpoint=base_url)
-            if len(debug_log_file) > 0:
+            debug_log_file = os.getenv("METAL_PYTHON_DEBUG_PATH", None)
+            if debug_log_file is not None:
+                if debug_log_file == "":
+                    raise ValueError(
+                        "METAL_PYTHON_DEBUG_PATH must be a non-empty string"
+                    )
                 policy_args["file"] = debug_log_file
-            else:
-                raise ValueError(
-                    "When METAL_PYTHON_DEBUG_LOG set, it must not be empty")
             logging_policy = HttpLoggingPolicy(**policy_args)
-        kwargs["logging_policy"] = logging_policy
+            kwargs["logging_policy"] = logging_policy
         sdk_moniker = f"equinixmetalpy/{_version.VERSION}"
         super().__init__(credential, base_url, sdk_moniker=sdk_moniker, **kwargs)
 
@@ -195,7 +194,12 @@ def patch_sdk():
     """
 
 
-class ApiException(Exception):
+class ApiError(Exception):
+    error_list = []
+
+    def __init__(self, error_list):
+        self.error_list = error_list
+        super().__init__(", ".join([e for e in error_list]))
     pass
 
 
@@ -208,16 +212,16 @@ def is_error(result):
     return False
 
 
-def collect_error_message(err_result):
+def collect_error_list(err_result):
     err_list = []
     if err_result.error is not None:
         err_list.append(err_result.error)
     if err_result.errors is not None:
         err_list.extend(err_result.errors)
-    return ", ".join(err_list)
+    return err_list
 
 
 def raise_if_error(result):
     if is_error(result):
-        raise ApiException(collect_error_message(result))
+        raise ApiError(collect_error_list(result))
     return result
