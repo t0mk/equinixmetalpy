@@ -24,7 +24,7 @@ from http.client import responses
 
 
 __all__: List[str] = [
-    "ApiError",
+    "MetalApiError",
     "Client",
     "is_error",
     "raise_if_error",
@@ -194,7 +194,7 @@ def patch_sdk():
     """
 
 
-class ApiError(Exception):
+class MetalApiError(Exception):
     error_list = []
 
     def __init__(self, error_list):
@@ -223,5 +223,5 @@ def collect_error_list(err_result):
 
 def raise_if_error(result):
     if is_error(result):
-        raise ApiError(collect_error_list(result))
+        raise MetalApiError(collect_error_list(result))
     return result
