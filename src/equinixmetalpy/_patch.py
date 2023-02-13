@@ -117,7 +117,7 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
         :type response: ~azure.core.pipeline.PipelineResponse
         """
         http_response = response.http_response
-        topdiv = '=======[RESPONSE]============\nHTTP {} ({}) from {}'.format(
+        topdiv = "=======[RESPONSE]============\nHTTP {} ({}) from {}".format(
             http_response.status_code,
             responses.get(http_response.status_code, "Unknown"),
             request.http_request.url.replace(self.api_endpoint, ""),
@@ -132,14 +132,12 @@ class HttpLoggingPolicy(SansIOHTTPPolicy):
             log_string = get_headers_string(http_response.headers)
             # We don't want to log binary data if the response is a file.
             # log_string += "\nBody:"
-            pattern = re.compile(
-                r'attachment; ?filename=["\w.]+', re.IGNORECASE)
+            pattern = re.compile(r'attachment; ?filename=["\w.]+', re.IGNORECASE)
             header = http_response.headers.get("content-disposition")
 
             if header and pattern.match(header):
                 filename = header.partition("=")[2]
-                log_string += "Body contains file attachments: {}".format(
-                    filename)
+                log_string += "Body contains file attachments: {}".format(filename)
             elif http_response.headers.get("content-type", "").endswith("octet-stream"):
                 log_string += "Body contains binary data."
             elif http_response.headers.get("content-type", "").startswith("image"):

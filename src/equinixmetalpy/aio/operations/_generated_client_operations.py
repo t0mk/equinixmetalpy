@@ -30,6 +30,7 @@ from ...operations._generated_client_operations import (
     build_delete_organization_request,
     build_delete_project_request,
     build_find_device_by_id_request,
+    build_find_ip_reservations_request,
     build_find_organization_by_id_request,
     build_find_organization_devices_request,
     build_find_organization_projects_request,
@@ -37,6 +38,7 @@ from ...operations._generated_client_operations import (
     build_find_project_by_id_request,
     build_find_project_devices_request,
     build_find_projects_request,
+    build_request_ip_reservation_request,
     build_update_device_request,
     build_update_organization_request,
     build_update_project_request,
@@ -1951,3 +1953,257 @@ class GeneratedClientOperationsMixin(MixinABC):
         return deserialized
 
     create_device.metadata = {"url": "/projects/{id}/devices"}  # type: ignore
+
+    @distributed_trace_async
+    async def find_ip_reservations(
+        self,
+        id: str,
+        types: Optional[List[Union[str, "_models.Enum15"]]] = None,
+        include: Optional[List[str]] = None,
+        exclude: Optional[List[str]] = None,
+        per_page: int = 250,
+        **kwargs: Any
+    ) -> Union[_models.IPReservationList, _models.Error]:
+        """Retrieve all ip reservations.
+
+        Provides a paginated list of IP reservations for a single project.
+
+        :param id: Project UUID. Required.
+        :type id: str
+        :param types: Filter project IP reservations by reservation type. Default value is None.
+        :type types: list[str or ~equinixmetalpy.models.Enum15]
+        :param include: Nested attributes to include. Included objects will return their full
+         attributes. Attribute names can be dotted (up to 3 levels) to included deeply
+         nested objects. Default value is None.
+        :type include: list[str]
+        :param exclude: Nested attributes to exclude. Excluded objects will return only the href
+         attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply
+         nested objects. Default value is None.
+        :type exclude: list[str]
+        :param per_page: Items returned per page. Default value is 250.
+        :type per_page: int
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: IPReservationList or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.IPReservationList or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = kwargs.pop("headers", {}) or {}
+        _params = kwargs.pop("params", {}) or {}
+
+        cls = kwargs.pop(
+            "cls", None
+        )  # type: ClsType[Union[_models.IPReservationList, _models.Error]]
+
+        request = build_find_ip_reservations_request(
+            id=id,
+            types=types,
+            include=include,
+            exclude=exclude,
+            per_page=per_page,
+            template_url=self.find_ip_reservations.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = await self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [200, 401, 403, 404]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        if response.status_code == 200:
+            deserialized = self._deserialize("IPReservationList", pipeline_response)
+
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 403:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 404:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    find_ip_reservations.metadata = {"url": "/projects/{id}/ips"}  # type: ignore
+
+    @overload
+    async def request_ip_reservation(
+        self,
+        id: str,
+        body: _models.RequestIPReservationRequest,
+        *,
+        content_type: str = "application/json",
+        **kwargs: Any
+    ) -> Union[_models.RequestIPReservation201Response, _models.Error]:
+        """Requesting IP reservations.
+
+        Request more IP space for a project in order to have additional IP addresses to assign to
+        devices.  If the request is within the max quota, an IP reservation will be created. If the
+        project will exceed its IP quota, a request will be submitted for review, and will return an IP
+        Reservation with a ``state`` of ``pending``. You can automatically have the request fail with
+        HTTP status 422 instead of triggering the review process by providing the
+        ``fail_on_approval_required`` parameter set to ``true`` in the request.
+
+        :param id: Project UUID. Required.
+        :type id: str
+        :param body: IP Reservation Request to create. Required.
+        :type body: ~equinixmetalpy.models.RequestIPReservationRequest
+        :keyword content_type: Body Parameter content-type. Content type parameter for JSON body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: RequestIPReservation201Response or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.RequestIPReservation201Response or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+
+    @overload
+    async def request_ip_reservation(
+        self,
+        id: str,
+        body: IO,
+        *,
+        content_type: str = "application/json",
+        **kwargs: Any
+    ) -> Union[_models.RequestIPReservation201Response, _models.Error]:
+        """Requesting IP reservations.
+
+        Request more IP space for a project in order to have additional IP addresses to assign to
+        devices.  If the request is within the max quota, an IP reservation will be created. If the
+        project will exceed its IP quota, a request will be submitted for review, and will return an IP
+        Reservation with a ``state`` of ``pending``. You can automatically have the request fail with
+        HTTP status 422 instead of triggering the review process by providing the
+        ``fail_on_approval_required`` parameter set to ``true`` in the request.
+
+        :param id: Project UUID. Required.
+        :type id: str
+        :param body: IP Reservation Request to create. Required.
+        :type body: IO
+        :keyword content_type: Body Parameter content-type. Content type parameter for binary body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: RequestIPReservation201Response or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.RequestIPReservation201Response or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+
+    @distributed_trace_async
+    async def request_ip_reservation(
+        self,
+        id: str,
+        body: Union[_models.RequestIPReservationRequest, IO],
+        **kwargs: Any
+    ) -> Union[_models.RequestIPReservation201Response, _models.Error]:
+        """Requesting IP reservations.
+
+        Request more IP space for a project in order to have additional IP addresses to assign to
+        devices.  If the request is within the max quota, an IP reservation will be created. If the
+        project will exceed its IP quota, a request will be submitted for review, and will return an IP
+        Reservation with a ``state`` of ``pending``. You can automatically have the request fail with
+        HTTP status 422 instead of triggering the review process by providing the
+        ``fail_on_approval_required`` parameter set to ``true`` in the request.
+
+        :param id: Project UUID. Required.
+        :type id: str
+        :param body: IP Reservation Request to create. Is either a model type or a IO type. Required.
+        :type body: ~equinixmetalpy.models.RequestIPReservationRequest or IO
+        :keyword content_type: Body Parameter content-type. Known values are: 'application/json'.
+         Default value is None.
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: RequestIPReservation201Response or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.RequestIPReservation201Response or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
+        _params = kwargs.pop("params", {}) or {}
+
+        content_type = kwargs.pop(
+            "content_type", _headers.pop("Content-Type", None)
+        )  # type: Optional[str]
+        cls = kwargs.pop(
+            "cls", None
+        )  # type: ClsType[Union[_models.RequestIPReservation201Response, _models.Error]]
+
+        content_type = content_type or "application/json"
+        _json = None
+        _content = None
+        if isinstance(body, (IO, bytes)):
+            _content = body
+        else:
+            _json = self._serialize.body(body, "RequestIPReservationRequest")
+
+        request = build_request_ip_reservation_request(
+            id=id,
+            content_type=content_type,
+            json=_json,
+            content=_content,
+            template_url=self.request_ip_reservation.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = await self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [201, 401, 403, 404, 422]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        if response.status_code == 201:
+            deserialized = self._deserialize(
+                "RequestIPReservation201Response", pipeline_response
+            )
+
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 403:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 404:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 422:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    request_ip_reservation.metadata = {"url": "/projects/{id}/ips"}  # type: ignore

@@ -43,7 +43,7 @@ def build_delete_device_request(
     # Construct URL
     _url = kwargs.pop("template_url", "/devices/{id}")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
@@ -51,7 +51,7 @@ def build_delete_device_request(
     # Construct parameters
     if force_delete is not None:
         _params["force_delete"] = _SERIALIZER.query(
-            "force_delete", force_delete, "bool", div=","
+            "force_delete", force_delete, "bool"
         )
 
     # Construct headers
@@ -77,7 +77,7 @@ def build_find_device_by_id_request(
     # Construct URL
     _url = kwargs.pop("template_url", "/devices/{id}")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
@@ -107,7 +107,7 @@ def build_update_device_request(id: str, **kwargs: Any) -> HttpRequest:
     # Construct URL
     _url = kwargs.pop("template_url", "/devices/{id}")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
@@ -142,10 +142,10 @@ def build_find_organizations_request(
 
     # Construct parameters
     if personal is not None:
-        _params["personal"] = _SERIALIZER.query("personal", personal, "str", div=",")
+        _params["personal"] = _SERIALIZER.query("personal", personal, "str")
     if without_projects is not None:
         _params["without_projects"] = _SERIALIZER.query(
-            "without_projects", without_projects, "str", div=","
+            "without_projects", without_projects, "str"
         )
     if include is not None:
         _params["include"] = _SERIALIZER.query("include", include, "[str]", div=",")
@@ -153,11 +153,11 @@ def build_find_organizations_request(
         _params["exclude"] = _SERIALIZER.query("exclude", exclude, "[str]", div=",")
     if page is not None:
         _params["page"] = _SERIALIZER.query(
-            "page", page, "int", div=",", maximum=100000, minimum=1
+            "page", page, "int", maximum=100000, minimum=1
         )
     if per_page is not None:
         _params["per_page"] = _SERIALIZER.query(
-            "per_page", per_page, "int", div=",", maximum=1000, minimum=1
+            "per_page", per_page, "int", maximum=1000, minimum=1
         )
 
     # Construct headers
@@ -197,7 +197,7 @@ def build_delete_organization_request(id: str, **kwargs: Any) -> HttpRequest:
     # Construct URL
     _url = kwargs.pop("template_url", "/organizations/{id}")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
@@ -223,7 +223,7 @@ def build_find_organization_by_id_request(
     # Construct URL
     _url = kwargs.pop("template_url", "/organizations/{id}")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
@@ -253,7 +253,7 @@ def build_update_organization_request(id: str, **kwargs: Any) -> HttpRequest:
     # Construct URL
     _url = kwargs.pop("template_url", "/organizations/{id}")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
@@ -290,33 +290,33 @@ def build_find_organization_devices_request(
     # Construct URL
     _url = kwargs.pop("template_url", "/organizations/{id}/devices")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
 
     # Construct parameters
     if facility is not None:
-        _params["facility"] = _SERIALIZER.query("facility", facility, "str", div=",")
+        _params["facility"] = _SERIALIZER.query("facility", facility, "str")
     if hostname is not None:
-        _params["hostname"] = _SERIALIZER.query("hostname", hostname, "str", div=",")
+        _params["hostname"] = _SERIALIZER.query("hostname", hostname, "str")
     if reserved is not None:
-        _params["reserved"] = _SERIALIZER.query("reserved", reserved, "bool", div=",")
+        _params["reserved"] = _SERIALIZER.query("reserved", reserved, "bool")
     if tag is not None:
-        _params["tag"] = _SERIALIZER.query("tag", tag, "str", div=",")
+        _params["tag"] = _SERIALIZER.query("tag", tag, "str")
     if type is not None:
-        _params["type"] = _SERIALIZER.query("type", type, "str", div=",")
+        _params["type"] = _SERIALIZER.query("type", type, "str")
     if include is not None:
         _params["include"] = _SERIALIZER.query("include", include, "[str]", div=",")
     if exclude is not None:
         _params["exclude"] = _SERIALIZER.query("exclude", exclude, "[str]", div=",")
     if page is not None:
         _params["page"] = _SERIALIZER.query(
-            "page", page, "int", div=",", maximum=100000, minimum=1
+            "page", page, "int", maximum=100000, minimum=1
         )
     if per_page is not None:
         _params["per_page"] = _SERIALIZER.query(
-            "per_page", per_page, "int", div=",", maximum=1000, minimum=1
+            "per_page", per_page, "int", maximum=1000, minimum=1
         )
 
     # Construct headers
@@ -344,7 +344,7 @@ def build_find_organization_projects_request(
     # Construct URL
     _url = kwargs.pop("template_url", "/organizations/{id}/projects")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
@@ -356,11 +356,11 @@ def build_find_organization_projects_request(
         _params["exclude"] = _SERIALIZER.query("exclude", exclude, "[str]", div=",")
     if page is not None:
         _params["page"] = _SERIALIZER.query(
-            "page", page, "int", div=",", maximum=100000, minimum=1
+            "page", page, "int", maximum=100000, minimum=1
         )
     if per_page is not None:
         _params["per_page"] = _SERIALIZER.query(
-            "per_page", per_page, "int", div=",", maximum=1000, minimum=1
+            "per_page", per_page, "int", maximum=1000, minimum=1
         )
 
     # Construct headers
@@ -382,7 +382,7 @@ def build_create_organization_project_request(id: str, **kwargs: Any) -> HttpReq
     # Construct URL
     _url = kwargs.pop("template_url", "/organizations/{id}/projects")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
@@ -420,11 +420,11 @@ def build_find_projects_request(
         _params["exclude"] = _SERIALIZER.query("exclude", exclude, "[str]", div=",")
     if page is not None:
         _params["page"] = _SERIALIZER.query(
-            "page", page, "int", div=",", maximum=100000, minimum=1
+            "page", page, "int", maximum=100000, minimum=1
         )
     if per_page is not None:
         _params["per_page"] = _SERIALIZER.query(
-            "per_page", per_page, "int", div=",", maximum=1000, minimum=1
+            "per_page", per_page, "int", maximum=1000, minimum=1
         )
 
     # Construct headers
@@ -464,7 +464,7 @@ def build_delete_project_request(id: str, **kwargs: Any) -> HttpRequest:
     # Construct URL
     _url = kwargs.pop("template_url", "/projects/{id}")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
@@ -490,7 +490,7 @@ def build_find_project_by_id_request(
     # Construct URL
     _url = kwargs.pop("template_url", "/projects/{id}")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
@@ -520,7 +520,7 @@ def build_update_project_request(id: str, **kwargs: Any) -> HttpRequest:
     # Construct URL
     _url = kwargs.pop("template_url", "/projects/{id}")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
@@ -557,33 +557,33 @@ def build_find_project_devices_request(
     # Construct URL
     _url = kwargs.pop("template_url", "/projects/{id}/devices")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
 
     # Construct parameters
     if facility is not None:
-        _params["facility"] = _SERIALIZER.query("facility", facility, "str", div=",")
+        _params["facility"] = _SERIALIZER.query("facility", facility, "str")
     if hostname is not None:
-        _params["hostname"] = _SERIALIZER.query("hostname", hostname, "str", div=",")
+        _params["hostname"] = _SERIALIZER.query("hostname", hostname, "str")
     if reserved is not None:
-        _params["reserved"] = _SERIALIZER.query("reserved", reserved, "bool", div=",")
+        _params["reserved"] = _SERIALIZER.query("reserved", reserved, "bool")
     if tag is not None:
-        _params["tag"] = _SERIALIZER.query("tag", tag, "str", div=",")
+        _params["tag"] = _SERIALIZER.query("tag", tag, "str")
     if type is not None:
-        _params["type"] = _SERIALIZER.query("type", type, "str", div=",")
+        _params["type"] = _SERIALIZER.query("type", type, "str")
     if include is not None:
         _params["include"] = _SERIALIZER.query("include", include, "[str]", div=",")
     if exclude is not None:
         _params["exclude"] = _SERIALIZER.query("exclude", exclude, "[str]", div=",")
     if page is not None:
         _params["page"] = _SERIALIZER.query(
-            "page", page, "int", div=",", maximum=100000, minimum=1
+            "page", page, "int", maximum=100000, minimum=1
         )
     if per_page is not None:
         _params["per_page"] = _SERIALIZER.query(
-            "per_page", per_page, "int", div=",", maximum=1000, minimum=1
+            "per_page", per_page, "int", maximum=1000, minimum=1
         )
 
     # Construct headers
@@ -605,7 +605,75 @@ def build_create_device_request(id: str, **kwargs: Any) -> HttpRequest:
     # Construct URL
     _url = kwargs.pop("template_url", "/projects/{id}/devices")
     path_format_arguments = {
-        "id": _SERIALIZER.url("id", id, "str", div=","),
+        "id": _SERIALIZER.url("id", id, "str"),
+    }
+
+    _url = _format_url_section(_url, **path_format_arguments)
+
+    # Construct headers
+    if content_type is not None:
+        _headers["Content-Type"] = _SERIALIZER.header(
+            "content_type", content_type, "str"
+        )
+    _headers["Accept"] = _SERIALIZER.header("accept", accept, "str")
+
+    return HttpRequest(method="POST", url=_url, headers=_headers, **kwargs)
+
+
+def build_find_ip_reservations_request(
+    id: str,
+    *,
+    types: Optional[List[Union[str, "_models.Enum15"]]] = None,
+    include: Optional[List[str]] = None,
+    exclude: Optional[List[str]] = None,
+    per_page: int = 250,
+    **kwargs: Any
+) -> HttpRequest:
+    _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
+    _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
+
+    accept = _headers.pop("Accept", "application/json")
+
+    # Construct URL
+    _url = kwargs.pop("template_url", "/projects/{id}/ips")
+    path_format_arguments = {
+        "id": _SERIALIZER.url("id", id, "str"),
+    }
+
+    _url = _format_url_section(_url, **path_format_arguments)
+
+    # Construct parameters
+    if types is not None:
+        _params["types"] = _SERIALIZER.query("types", types, "[str]", div=",")
+    if include is not None:
+        _params["include"] = _SERIALIZER.query("include", include, "[str]", div=",")
+    if exclude is not None:
+        _params["exclude"] = _SERIALIZER.query("exclude", exclude, "[str]", div=",")
+    if per_page is not None:
+        _params["per_page"] = _SERIALIZER.query(
+            "per_page", per_page, "int", maximum=1000, minimum=1
+        )
+
+    # Construct headers
+    _headers["Accept"] = _SERIALIZER.header("accept", accept, "str")
+
+    return HttpRequest(
+        method="GET", url=_url, params=_params, headers=_headers, **kwargs
+    )
+
+
+def build_request_ip_reservation_request(id: str, **kwargs: Any) -> HttpRequest:
+    _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
+
+    content_type = kwargs.pop(
+        "content_type", _headers.pop("Content-Type", None)
+    )  # type: Optional[str]
+    accept = _headers.pop("Accept", "application/json")
+
+    # Construct URL
+    _url = kwargs.pop("template_url", "/projects/{id}/ips")
+    path_format_arguments = {
+        "id": _SERIALIZER.url("id", id, "str"),
     }
 
     _url = _format_url_section(_url, **path_format_arguments)
@@ -2520,3 +2588,257 @@ class GeneratedClientOperationsMixin(MixinABC):
         return deserialized
 
     create_device.metadata = {"url": "/projects/{id}/devices"}  # type: ignore
+
+    @distributed_trace
+    def find_ip_reservations(
+        self,
+        id: str,
+        types: Optional[List[Union[str, "_models.Enum15"]]] = None,
+        include: Optional[List[str]] = None,
+        exclude: Optional[List[str]] = None,
+        per_page: int = 250,
+        **kwargs: Any
+    ) -> Union[_models.IPReservationList, _models.Error]:
+        """Retrieve all ip reservations.
+
+        Provides a paginated list of IP reservations for a single project.
+
+        :param id: Project UUID. Required.
+        :type id: str
+        :param types: Filter project IP reservations by reservation type. Default value is None.
+        :type types: list[str or ~equinixmetalpy.models.Enum15]
+        :param include: Nested attributes to include. Included objects will return their full
+         attributes. Attribute names can be dotted (up to 3 levels) to included deeply
+         nested objects. Default value is None.
+        :type include: list[str]
+        :param exclude: Nested attributes to exclude. Excluded objects will return only the href
+         attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply
+         nested objects. Default value is None.
+        :type exclude: list[str]
+        :param per_page: Items returned per page. Default value is 250.
+        :type per_page: int
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: IPReservationList or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.IPReservationList or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = kwargs.pop("headers", {}) or {}
+        _params = kwargs.pop("params", {}) or {}
+
+        cls = kwargs.pop(
+            "cls", None
+        )  # type: ClsType[Union[_models.IPReservationList, _models.Error]]
+
+        request = build_find_ip_reservations_request(
+            id=id,
+            types=types,
+            include=include,
+            exclude=exclude,
+            per_page=per_page,
+            template_url=self.find_ip_reservations.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [200, 401, 403, 404]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        if response.status_code == 200:
+            deserialized = self._deserialize("IPReservationList", pipeline_response)
+
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 403:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 404:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    find_ip_reservations.metadata = {"url": "/projects/{id}/ips"}  # type: ignore
+
+    @overload
+    def request_ip_reservation(
+        self,
+        id: str,
+        body: _models.RequestIPReservationRequest,
+        *,
+        content_type: str = "application/json",
+        **kwargs: Any
+    ) -> Union[_models.RequestIPReservation201Response, _models.Error]:
+        """Requesting IP reservations.
+
+        Request more IP space for a project in order to have additional IP addresses to assign to
+        devices.  If the request is within the max quota, an IP reservation will be created. If the
+        project will exceed its IP quota, a request will be submitted for review, and will return an IP
+        Reservation with a ``state`` of ``pending``. You can automatically have the request fail with
+        HTTP status 422 instead of triggering the review process by providing the
+        ``fail_on_approval_required`` parameter set to ``true`` in the request.
+
+        :param id: Project UUID. Required.
+        :type id: str
+        :param body: IP Reservation Request to create. Required.
+        :type body: ~equinixmetalpy.models.RequestIPReservationRequest
+        :keyword content_type: Body Parameter content-type. Content type parameter for JSON body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: RequestIPReservation201Response or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.RequestIPReservation201Response or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+
+    @overload
+    def request_ip_reservation(
+        self,
+        id: str,
+        body: IO,
+        *,
+        content_type: str = "application/json",
+        **kwargs: Any
+    ) -> Union[_models.RequestIPReservation201Response, _models.Error]:
+        """Requesting IP reservations.
+
+        Request more IP space for a project in order to have additional IP addresses to assign to
+        devices.  If the request is within the max quota, an IP reservation will be created. If the
+        project will exceed its IP quota, a request will be submitted for review, and will return an IP
+        Reservation with a ``state`` of ``pending``. You can automatically have the request fail with
+        HTTP status 422 instead of triggering the review process by providing the
+        ``fail_on_approval_required`` parameter set to ``true`` in the request.
+
+        :param id: Project UUID. Required.
+        :type id: str
+        :param body: IP Reservation Request to create. Required.
+        :type body: IO
+        :keyword content_type: Body Parameter content-type. Content type parameter for binary body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: RequestIPReservation201Response or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.RequestIPReservation201Response or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+
+    @distributed_trace
+    def request_ip_reservation(
+        self,
+        id: str,
+        body: Union[_models.RequestIPReservationRequest, IO],
+        **kwargs: Any
+    ) -> Union[_models.RequestIPReservation201Response, _models.Error]:
+        """Requesting IP reservations.
+
+        Request more IP space for a project in order to have additional IP addresses to assign to
+        devices.  If the request is within the max quota, an IP reservation will be created. If the
+        project will exceed its IP quota, a request will be submitted for review, and will return an IP
+        Reservation with a ``state`` of ``pending``. You can automatically have the request fail with
+        HTTP status 422 instead of triggering the review process by providing the
+        ``fail_on_approval_required`` parameter set to ``true`` in the request.
+
+        :param id: Project UUID. Required.
+        :type id: str
+        :param body: IP Reservation Request to create. Is either a model type or a IO type. Required.
+        :type body: ~equinixmetalpy.models.RequestIPReservationRequest or IO
+        :keyword content_type: Body Parameter content-type. Known values are: 'application/json'.
+         Default value is None.
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: RequestIPReservation201Response or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.RequestIPReservation201Response or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
+        _params = kwargs.pop("params", {}) or {}
+
+        content_type = kwargs.pop(
+            "content_type", _headers.pop("Content-Type", None)
+        )  # type: Optional[str]
+        cls = kwargs.pop(
+            "cls", None
+        )  # type: ClsType[Union[_models.RequestIPReservation201Response, _models.Error]]
+
+        content_type = content_type or "application/json"
+        _json = None
+        _content = None
+        if isinstance(body, (IO, bytes)):
+            _content = body
+        else:
+            _json = self._serialize.body(body, "RequestIPReservationRequest")
+
+        request = build_request_ip_reservation_request(
+            id=id,
+            content_type=content_type,
+            json=_json,
+            content=_content,
+            template_url=self.request_ip_reservation.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [201, 401, 403, 404, 422]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        if response.status_code == 201:
+            deserialized = self._deserialize(
+                "RequestIPReservation201Response", pipeline_response
+            )
+
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 403:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 404:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 422:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    request_ip_reservation.metadata = {"url": "/projects/{id}/ips"}  # type: ignore

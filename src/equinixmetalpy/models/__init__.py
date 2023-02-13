@@ -28,6 +28,12 @@ from ._models_py3 import FacilityInputFacility
 from ._models_py3 import Href
 from ._models_py3 import IPAssignment
 from ._models_py3 import IPAssignmentMetro
+from ._models_py3 import IPReservation
+from ._models_py3 import IPReservationFacility
+from ._models_py3 import IPReservationList
+from ._models_py3 import IPReservationListIpAddressesInner
+from ._models_py3 import IPReservationMetro
+from ._models_py3 import IPReservationRequestInput
 from ._models_py3 import Meta
 from ._models_py3 import MetalGatewayLite
 from ._models_py3 import Metro
@@ -53,16 +59,24 @@ from ._models_py3 import ProjectCreateFromRootInput
 from ._models_py3 import ProjectCreateInput
 from ._models_py3 import ProjectList
 from ._models_py3 import ProjectUpdateInput
+from ._models_py3 import RequestIPReservation201Response
+from ._models_py3 import RequestIPReservationRequest
 from ._models_py3 import SSHKeyInput
+from ._models_py3 import User
 from ._models_py3 import UserLite
 from ._models_py3 import VirtualNetwork
+from ._models_py3 import Vrf
+from ._models_py3 import VrfIpReservation
+from ._models_py3 import VrfIpReservationCreateInput
 
 from ._generated_client_enums import DeviceCreateInputBillingCycle
 from ._generated_client_enums import DeviceCreateInputIpAddressesInnerAddressFamily
 from ._generated_client_enums import DeviceState
 from ._generated_client_enums import Enum11
 from ._generated_client_enums import Enum12
+from ._generated_client_enums import Enum15
 from ._generated_client_enums import FacilityFeaturesItem
+from ._generated_client_enums import IPReservationType
 from ._generated_client_enums import MetalGatewayLiteState
 from ._generated_client_enums import PlanDeploymentTypesItem
 from ._generated_client_enums import PlanLine
@@ -72,6 +86,7 @@ from ._generated_client_enums import PlanSpecsNicsInnerType
 from ._generated_client_enums import PlanType
 from ._generated_client_enums import PortNetworkType
 from ._generated_client_enums import PortType
+from ._generated_client_enums import VrfIpReservationType
 from ._patch import __all__ as _patch_all
 from ._patch import *  # type: ignore # pylint: disable=unused-wildcard-import
 from ._patch import patch_sdk as _patch_sdk
@@ -101,6 +116,12 @@ __all__ = [
     "Href",
     "IPAssignment",
     "IPAssignmentMetro",
+    "IPReservation",
+    "IPReservationFacility",
+    "IPReservationList",
+    "IPReservationListIpAddressesInner",
+    "IPReservationMetro",
+    "IPReservationRequestInput",
     "Meta",
     "MetalGatewayLite",
     "Metro",
@@ -126,15 +147,23 @@ __all__ = [
     "ProjectCreateInput",
     "ProjectList",
     "ProjectUpdateInput",
+    "RequestIPReservation201Response",
+    "RequestIPReservationRequest",
     "SSHKeyInput",
+    "User",
     "UserLite",
     "VirtualNetwork",
+    "Vrf",
+    "VrfIpReservation",
+    "VrfIpReservationCreateInput",
     "DeviceCreateInputBillingCycle",
     "DeviceCreateInputIpAddressesInnerAddressFamily",
     "DeviceState",
     "Enum11",
     "Enum12",
+    "Enum15",
     "FacilityFeaturesItem",
+    "IPReservationType",
     "MetalGatewayLiteState",
     "PlanDeploymentTypesItem",
     "PlanLine",
@@ -144,6 +173,7 @@ __all__ = [
     "PlanType",
     "PortNetworkType",
     "PortType",
+    "VrfIpReservationType",
 ]
 __all__.extend([p for p in _patch_all if p not in __all__])
 _patch_sdk()

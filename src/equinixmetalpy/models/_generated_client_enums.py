@@ -58,6 +58,16 @@ class Enum12(str, Enum, metaclass=CaseInsensitiveEnumMeta):
     ONLY = "only"
 
 
+class Enum15(str, Enum, metaclass=CaseInsensitiveEnumMeta):
+    """Enum15."""
+
+    GLOBAL_IPV4 = "global_ipv4"
+    PRIVATE_IPV4 = "private_ipv4"
+    PUBLIC_IPV4 = "public_ipv4"
+    PUBLIC_IPV6 = "public_ipv6"
+    VRF = "vrf"
+
+
 class FacilityFeaturesItem(str, Enum, metaclass=CaseInsensitiveEnumMeta):
     """FacilityFeaturesItem."""
 
@@ -66,6 +76,15 @@ class FacilityFeaturesItem(str, Enum, metaclass=CaseInsensitiveEnumMeta):
     LAYER2 = "layer_2"
     GLOBAL_IPV4 = "global_ipv4"
     IBX = "ibx"
+
+
+class IPReservationType(str, Enum, metaclass=CaseInsensitiveEnumMeta):
+    """IPReservationType."""
+
+    GLOBAL_IPV4 = "global_ipv4"
+    PUBLIC_IPV4 = "public_ipv4"
+    PRIVATE_IPV4 = "private_ipv4"
+    PUBLIC_IPV6 = "public_ipv6"
 
 
 class MetalGatewayLiteState(str, Enum, metaclass=CaseInsensitiveEnumMeta):
@@ -141,3 +160,9 @@ class PortType(str, Enum, metaclass=CaseInsensitiveEnumMeta):
 
     NETWORK_PORT = "NetworkPort"
     NETWORK_BOND_PORT = "NetworkBondPort"
+
+
+class VrfIpReservationType(str, Enum, metaclass=CaseInsensitiveEnumMeta):
+    """VrfIpReservationType."""
+
+    VRF = "vrf"

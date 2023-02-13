@@ -7,7 +7,7 @@
 
 import datetime
 import sys
-from typing import Any, IO, List, Optional, TYPE_CHECKING, Union
+from typing import Any, Dict, IO, List, Optional, TYPE_CHECKING, Union
 
 from .. import _serialization
 
@@ -204,8 +204,8 @@ class Device(_serialization.Model):  # pylint: disable=too-many-instance-attribu
     :vartype created_at: ~datetime.datetime
     :ivar created_by: The user that created the device.
     :vartype created_by: ~equinixmetalpy.models.DeviceCreatedBy
-    :ivar customdata: Any object.
-    :vartype customdata: JSON
+    :ivar customdata: Dictionary of :code:`<any>`.
+    :vartype customdata: dict[str, any]
     :ivar description:
     :vartype description: str
     :ivar facility:
@@ -295,7 +295,7 @@ class Device(_serialization.Model):  # pylint: disable=too-many-instance-attribu
         "bonding_mode": {"key": "bonding_mode", "type": "int"},
         "created_at": {"key": "created_at", "type": "iso-8601"},
         "created_by": {"key": "created_by", "type": "DeviceCreatedBy"},
-        "customdata": {"key": "customdata", "type": "object"},
+        "customdata": {"key": "customdata", "type": "{object}"},
         "description": {"key": "description", "type": "str"},
         "facility": {"key": "facility", "type": "Facility"},
         "hardware_reservation": {"key": "hardware_reservation", "type": "Href"},
@@ -339,7 +339,7 @@ class Device(_serialization.Model):  # pylint: disable=too-many-instance-attribu
         bonding_mode: Optional[int] = None,
         created_at: Optional[datetime.datetime] = None,
         created_by: Optional["_models.DeviceCreatedBy"] = None,
-        customdata: Optional[JSON] = None,
+        customdata: Optional[Dict[str, Any]] = None,
         description: Optional[str] = None,
         facility: Optional["_models.Facility"] = None,
         hardware_reservation: Optional["_models.Href"] = None,
@@ -386,8 +386,8 @@ class Device(_serialization.Model):  # pylint: disable=too-many-instance-attribu
         :paramtype created_at: ~datetime.datetime
         :keyword created_by: The user that created the device.
         :paramtype created_by: ~equinixmetalpy.models.DeviceCreatedBy
-        :keyword customdata: Any object.
-        :paramtype customdata: JSON
+        :keyword customdata: Dictionary of :code:`<any>`.
+        :paramtype customdata: dict[str, any]
         :keyword description:
         :paramtype description: str
         :keyword facility:
@@ -760,7 +760,7 @@ class DeviceCreateInput(
     :vartype billing_cycle: str or ~equinixmetalpy.models.DeviceCreateInputBillingCycle
     :ivar customdata: Customdata is an arbitrary JSON value that can be accessed via the
      metadata service.
-    :vartype customdata: JSON
+    :vartype customdata: dict[str, any]
     :ivar description: Any description of the device or how it will be used. This may be used
      to inform other API consumers with project access.
     :vartype description: str
@@ -904,7 +904,7 @@ class DeviceCreateInput(
     _attribute_map = {
         "always_pxe": {"key": "always_pxe", "type": "bool"},
         "billing_cycle": {"key": "billing_cycle", "type": "str"},
-        "customdata": {"key": "customdata", "type": "object"},
+        "customdata": {"key": "customdata", "type": "{object}"},
         "description": {"key": "description", "type": "str"},
         "features": {"key": "features", "type": "[str]"},
         "hardware_reservation_id": {"key": "hardware_reservation_id", "type": "str"},
@@ -940,7 +940,7 @@ class DeviceCreateInput(
         billing_cycle: Optional[
             Union[str, "_models.DeviceCreateInputBillingCycle"]
         ] = None,
-        customdata: Optional[JSON] = None,
+        customdata: Optional[Dict[str, Any]] = None,
         description: Optional[str] = None,
         features: Optional[List[str]] = None,
         hardware_reservation_id: Optional[str] = None,
@@ -976,7 +976,7 @@ class DeviceCreateInput(
         :paramtype billing_cycle: str or ~equinixmetalpy.models.DeviceCreateInputBillingCycle
         :keyword customdata: Customdata is an arbitrary JSON value that can be accessed via the
          metadata service.
-        :paramtype customdata: JSON
+        :paramtype customdata: dict[str, any]
         :keyword description: Any description of the device or how it will be used. This may be used
          to inform other API consumers with project access.
         :paramtype description: str
@@ -1212,7 +1212,7 @@ class DeviceCreateInFacilityInput(
     :vartype billing_cycle: str or ~equinixmetalpy.models.DeviceCreateInputBillingCycle
     :ivar customdata: Customdata is an arbitrary JSON value that can be accessed via the
      metadata service.
-    :vartype customdata: JSON
+    :vartype customdata: dict[str, any]
     :ivar description: Any description of the device or how it will be used. This may be used
      to inform other API consumers with project access.
     :vartype description: str
@@ -1369,7 +1369,7 @@ class DeviceCreateInFacilityInput(
     _attribute_map = {
         "always_pxe": {"key": "always_pxe", "type": "bool"},
         "billing_cycle": {"key": "billing_cycle", "type": "str"},
-        "customdata": {"key": "customdata", "type": "object"},
+        "customdata": {"key": "customdata", "type": "{object}"},
         "description": {"key": "description", "type": "str"},
         "features": {"key": "features", "type": "[str]"},
         "hardware_reservation_id": {"key": "hardware_reservation_id", "type": "str"},
@@ -1407,7 +1407,7 @@ class DeviceCreateInFacilityInput(
         billing_cycle: Optional[
             Union[str, "_models.DeviceCreateInputBillingCycle"]
         ] = None,
-        customdata: Optional[JSON] = None,
+        customdata: Optional[Dict[str, Any]] = None,
         description: Optional[str] = None,
         features: Optional[List[str]] = None,
         hardware_reservation_id: Optional[str] = None,
@@ -1443,7 +1443,7 @@ class DeviceCreateInFacilityInput(
         :paramtype billing_cycle: str or ~equinixmetalpy.models.DeviceCreateInputBillingCycle
         :keyword customdata: Customdata is an arbitrary JSON value that can be accessed via the
          metadata service.
-        :paramtype customdata: JSON
+        :paramtype customdata: dict[str, any]
         :keyword description: Any description of the device or how it will be used. This may be used
          to inform other API consumers with project access.
         :paramtype description: str
@@ -1695,7 +1695,7 @@ class DeviceCreateInMetroInput(
     :vartype billing_cycle: str or ~equinixmetalpy.models.DeviceCreateInputBillingCycle
     :ivar customdata: Customdata is an arbitrary JSON value that can be accessed via the
      metadata service.
-    :vartype customdata: JSON
+    :vartype customdata: dict[str, any]
     :ivar description: Any description of the device or how it will be used. This may be used
      to inform other API consumers with project access.
     :vartype description: str
@@ -1843,7 +1843,7 @@ class DeviceCreateInMetroInput(
     _attribute_map = {
         "always_pxe": {"key": "always_pxe", "type": "bool"},
         "billing_cycle": {"key": "billing_cycle", "type": "str"},
-        "customdata": {"key": "customdata", "type": "object"},
+        "customdata": {"key": "customdata", "type": "{object}"},
         "description": {"key": "description", "type": "str"},
         "features": {"key": "features", "type": "[str]"},
         "hardware_reservation_id": {"key": "hardware_reservation_id", "type": "str"},
@@ -1881,7 +1881,7 @@ class DeviceCreateInMetroInput(
         billing_cycle: Optional[
             Union[str, "_models.DeviceCreateInputBillingCycle"]
         ] = None,
-        customdata: Optional[JSON] = None,
+        customdata: Optional[Dict[str, Any]] = None,
         description: Optional[str] = None,
         features: Optional[List[str]] = None,
         hardware_reservation_id: Optional[str] = None,
@@ -1917,7 +1917,7 @@ class DeviceCreateInMetroInput(
         :paramtype billing_cycle: str or ~equinixmetalpy.models.DeviceCreateInputBillingCycle
         :keyword customdata: Customdata is an arbitrary JSON value that can be accessed via the
          metadata service.
-        :paramtype customdata: JSON
+        :paramtype customdata: dict[str, any]
         :keyword description: Any description of the device or how it will be used. This may be used
          to inform other API consumers with project access.
         :paramtype description: str
@@ -2396,8 +2396,8 @@ class DeviceUpdateInput(
     :vartype always_pxe: bool
     :ivar billing_cycle:
     :vartype billing_cycle: str
-    :ivar customdata: Any object.
-    :vartype customdata: JSON
+    :ivar customdata: Dictionary of :code:`<any>`.
+    :vartype customdata: dict[str, any]
     :ivar description:
     :vartype description: str
     :ivar hostname:
@@ -2421,7 +2421,7 @@ class DeviceUpdateInput(
     _attribute_map = {
         "always_pxe": {"key": "always_pxe", "type": "bool"},
         "billing_cycle": {"key": "billing_cycle", "type": "str"},
-        "customdata": {"key": "customdata", "type": "object"},
+        "customdata": {"key": "customdata", "type": "{object}"},
         "description": {"key": "description", "type": "str"},
         "hostname": {"key": "hostname", "type": "str"},
         "ipxe_script_url": {"key": "ipxe_script_url", "type": "str"},
@@ -2438,7 +2438,7 @@ class DeviceUpdateInput(
         *,
         always_pxe: Optional[bool] = None,
         billing_cycle: Optional[str] = None,
-        customdata: Optional[JSON] = None,
+        customdata: Optional[Dict[str, Any]] = None,
         description: Optional[str] = None,
         hostname: Optional[str] = None,
         ipxe_script_url: Optional[str] = None,
@@ -2455,8 +2455,8 @@ class DeviceUpdateInput(
         :paramtype always_pxe: bool
         :keyword billing_cycle:
         :paramtype billing_cycle: str
-        :keyword customdata: Any object.
-        :paramtype customdata: JSON
+        :keyword customdata: Dictionary of :code:`<any>`.
+        :paramtype customdata: dict[str, any]
         :keyword description:
         :paramtype description: str
         :keyword hostname:
@@ -2550,6 +2550,10 @@ class Event(_serialization.Model):
     :vartype state: str
     :ivar type:
     :vartype type: str
+    :ivar modified_by: Any object.
+    :vartype modified_by: JSON
+    :ivar ip:
+    :vartype ip: str
     """
 
     _attribute_map = {
@@ -2561,6 +2565,8 @@ class Event(_serialization.Model):
         "relationships": {"key": "relationships", "type": "[Href]"},
         "state": {"key": "state", "type": "str"},
         "type": {"key": "type", "type": "str"},
+        "modified_by": {"key": "modified_by", "type": "object"},
+        "ip": {"key": "ip", "type": "str"},
     }
 
     def __init__(
@@ -2574,6 +2580,8 @@ class Event(_serialization.Model):
         relationships: Optional[List["_models.Href"]] = None,
         state: Optional[str] = None,
         type: Optional[str] = None,
+        modified_by: Optional[JSON] = None,
+        ip: Optional[str] = None,
         **kwargs
     ):
         """
@@ -2593,6 +2601,10 @@ class Event(_serialization.Model):
         :paramtype state: str
         :keyword type:
         :paramtype type: str
+        :keyword modified_by: Any object.
+        :paramtype modified_by: JSON
+        :keyword ip:
+        :paramtype ip: str
         """
         super().__init__(**kwargs)
         self.body = body
@@ -2603,6 +2615,8 @@ class Event(_serialization.Model):
         self.relationships = relationships
         self.state = state
         self.type = type
+        self.modified_by = modified_by
+        self.ip = ip
 
 
 class Facility(_serialization.Model):
@@ -2886,6 +2900,517 @@ class IPAssignmentMetro(Metro):
         )
 
 
+class IPReservation(
+    _serialization.Model
+):  # pylint: disable=too-many-instance-attributes
+    """IPReservation.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar addon:
+    :vartype addon: bool
+    :ivar address:
+    :vartype address: str
+    :ivar address_family:
+    :vartype address_family: int
+    :ivar assignments:
+    :vartype assignments: list[~equinixmetalpy.models.IPAssignment]
+    :ivar available:
+    :vartype available: str
+    :ivar bill:
+    :vartype bill: bool
+    :ivar cidr:
+    :vartype cidr: int
+    :ivar created_at:
+    :vartype created_at: ~datetime.datetime
+    :ivar customdata: Any object.
+    :vartype customdata: JSON
+    :ivar enabled:
+    :vartype enabled: bool
+    :ivar details:
+    :vartype details: str
+    :ivar facility: The facility the IP reservation is in. If the facility the IP reservation was
+     requested in is in a metro, a metro value will also be set, and the subsequent IP reservation
+     can be used on a metro level. Can be null if requesting an IP reservation in a metro.
+    :vartype facility: ~equinixmetalpy.models.IPReservationFacility
+    :ivar gateway:
+    :vartype gateway: str
+    :ivar global_ip:
+    :vartype global_ip: bool
+    :ivar href:
+    :vartype href: str
+    :ivar id:
+    :vartype id: str
+    :ivar manageable:
+    :vartype manageable: bool
+    :ivar management:
+    :vartype management: bool
+    :ivar metal_gateway:
+    :vartype metal_gateway: ~equinixmetalpy.models.MetalGatewayLite
+    :ivar metro: The metro the IP reservation is in. As long as the IP reservation has a metro, it
+     can be used on a metro level. Can be null if requesting an IP reservation in a facility that is
+     not in a metro.
+    :vartype metro: ~equinixmetalpy.models.IPReservationMetro
+    :ivar netmask:
+    :vartype netmask: str
+    :ivar network:
+    :vartype network: str
+    :ivar project:
+    :vartype project: ~equinixmetalpy.models.Project
+    :ivar project_lite:
+    :vartype project_lite: ~equinixmetalpy.models.Href
+    :ivar requested_by:
+    :vartype requested_by: ~equinixmetalpy.models.Href
+    :ivar public:
+    :vartype public: bool
+    :ivar state:
+    :vartype state: str
+    :ivar tags:
+    :vartype tags: list[str]
+    :ivar type: Required. Known values are: "global_ipv4", "public_ipv4", "private_ipv4", and
+     "public_ipv6".
+    :vartype type: str or ~equinixmetalpy.models.IPReservationType
+    """
+
+    _validation = {
+        "type": {"required": True},
+    }
+
+    _attribute_map = {
+        "addon": {"key": "addon", "type": "bool"},
+        "address": {"key": "address", "type": "str"},
+        "address_family": {"key": "address_family", "type": "int"},
+        "assignments": {"key": "assignments", "type": "[IPAssignment]"},
+        "available": {"key": "available", "type": "str"},
+        "bill": {"key": "bill", "type": "bool"},
+        "cidr": {"key": "cidr", "type": "int"},
+        "created_at": {"key": "created_at", "type": "iso-8601"},
+        "customdata": {"key": "customdata", "type": "object"},
+        "enabled": {"key": "enabled", "type": "bool"},
+        "details": {"key": "details", "type": "str"},
+        "facility": {"key": "facility", "type": "IPReservationFacility"},
+        "gateway": {"key": "gateway", "type": "str"},
+        "global_ip": {"key": "global_ip", "type": "bool"},
+        "href": {"key": "href", "type": "str"},
+        "id": {"key": "id", "type": "str"},
+        "manageable": {"key": "manageable", "type": "bool"},
+        "management": {"key": "management", "type": "bool"},
+        "metal_gateway": {"key": "metal_gateway", "type": "MetalGatewayLite"},
+        "metro": {"key": "metro", "type": "IPReservationMetro"},
+        "netmask": {"key": "netmask", "type": "str"},
+        "network": {"key": "network", "type": "str"},
+        "project": {"key": "project", "type": "Project"},
+        "project_lite": {"key": "project_lite", "type": "Href"},
+        "requested_by": {"key": "requested_by", "type": "Href"},
+        "public": {"key": "public", "type": "bool"},
+        "state": {"key": "state", "type": "str"},
+        "tags": {"key": "tags", "type": "[str]"},
+        "type": {"key": "type", "type": "str"},
+    }
+
+    def __init__(  # pylint: disable=too-many-locals
+        self,
+        *,
+        type: Union[str, "_models.IPReservationType"],
+        addon: Optional[bool] = None,
+        address: Optional[str] = None,
+        address_family: Optional[int] = None,
+        assignments: Optional[List["_models.IPAssignment"]] = None,
+        available: Optional[str] = None,
+        bill: Optional[bool] = None,
+        cidr: Optional[int] = None,
+        created_at: Optional[datetime.datetime] = None,
+        customdata: Optional[JSON] = None,
+        enabled: Optional[bool] = None,
+        details: Optional[str] = None,
+        facility: Optional["_models.IPReservationFacility"] = None,
+        gateway: Optional[str] = None,
+        global_ip: Optional[bool] = None,
+        href: Optional[str] = None,
+        id: Optional[str] = None,  # pylint: disable=redefined-builtin
+        manageable: Optional[bool] = None,
+        management: Optional[bool] = None,
+        metal_gateway: Optional["_models.MetalGatewayLite"] = None,
+        metro: Optional["_models.IPReservationMetro"] = None,
+        netmask: Optional[str] = None,
+        network: Optional[str] = None,
+        project: Optional["_models.Project"] = None,
+        project_lite: Optional["_models.Href"] = None,
+        requested_by: Optional["_models.Href"] = None,
+        public: Optional[bool] = None,
+        state: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+        **kwargs
+    ):
+        """
+        :keyword addon:
+        :paramtype addon: bool
+        :keyword address:
+        :paramtype address: str
+        :keyword address_family:
+        :paramtype address_family: int
+        :keyword assignments:
+        :paramtype assignments: list[~equinixmetalpy.models.IPAssignment]
+        :keyword available:
+        :paramtype available: str
+        :keyword bill:
+        :paramtype bill: bool
+        :keyword cidr:
+        :paramtype cidr: int
+        :keyword created_at:
+        :paramtype created_at: ~datetime.datetime
+        :keyword customdata: Any object.
+        :paramtype customdata: JSON
+        :keyword enabled:
+        :paramtype enabled: bool
+        :keyword details:
+        :paramtype details: str
+        :keyword facility: The facility the IP reservation is in. If the facility the IP reservation
+         was requested in is in a metro, a metro value will also be set, and the subsequent IP
+         reservation can be used on a metro level. Can be null if requesting an IP reservation in a
+         metro.
+        :paramtype facility: ~equinixmetalpy.models.IPReservationFacility
+        :keyword gateway:
+        :paramtype gateway: str
+        :keyword global_ip:
+        :paramtype global_ip: bool
+        :keyword href:
+        :paramtype href: str
+        :keyword id:
+        :paramtype id: str
+        :keyword manageable:
+        :paramtype manageable: bool
+        :keyword management:
+        :paramtype management: bool
+        :keyword metal_gateway:
+        :paramtype metal_gateway: ~equinixmetalpy.models.MetalGatewayLite
+        :keyword metro: The metro the IP reservation is in. As long as the IP reservation has a metro,
+         it can be used on a metro level. Can be null if requesting an IP reservation in a facility that
+         is not in a metro.
+        :paramtype metro: ~equinixmetalpy.models.IPReservationMetro
+        :keyword netmask:
+        :paramtype netmask: str
+        :keyword network:
+        :paramtype network: str
+        :keyword project:
+        :paramtype project: ~equinixmetalpy.models.Project
+        :keyword project_lite:
+        :paramtype project_lite: ~equinixmetalpy.models.Href
+        :keyword requested_by:
+        :paramtype requested_by: ~equinixmetalpy.models.Href
+        :keyword public:
+        :paramtype public: bool
+        :keyword state:
+        :paramtype state: str
+        :keyword tags:
+        :paramtype tags: list[str]
+        :keyword type: Required. Known values are: "global_ipv4", "public_ipv4", "private_ipv4", and
+         "public_ipv6".
+        :paramtype type: str or ~equinixmetalpy.models.IPReservationType
+        """
+        super().__init__(**kwargs)
+        self.addon = addon
+        self.address = address
+        self.address_family = address_family
+        self.assignments = assignments
+        self.available = available
+        self.bill = bill
+        self.cidr = cidr
+        self.created_at = created_at
+        self.customdata = customdata
+        self.enabled = enabled
+        self.details = details
+        self.facility = facility
+        self.gateway = gateway
+        self.global_ip = global_ip
+        self.href = href
+        self.id = id
+        self.manageable = manageable
+        self.management = management
+        self.metal_gateway = metal_gateway
+        self.metro = metro
+        self.netmask = netmask
+        self.network = network
+        self.project = project
+        self.project_lite = project_lite
+        self.requested_by = requested_by
+        self.public = public
+        self.state = state
+        self.tags = tags
+        self.type = type
+
+
+class IPReservationFacility(Facility):
+    """The facility the IP reservation is in. If the facility the IP reservation was requested in is in a metro, a metro value will also be set, and the subsequent IP reservation can be used on a metro level. Can be null if requesting an IP reservation in a metro.
+
+    :ivar address:
+    :vartype address: ~equinixmetalpy.models.Address
+    :ivar code:
+    :vartype code: str
+    :ivar features:
+    :vartype features: list[str or ~equinixmetalpy.models.FacilityFeaturesItem]
+    :ivar id:
+    :vartype id: str
+    :ivar ip_ranges: IP ranges registered in facility. Can be used for GeoIP location.
+    :vartype ip_ranges: list[str]
+    :ivar metro: The metro the facility is in.
+    :vartype metro: ~equinixmetalpy.models.DeviceMetro
+    :ivar name:
+    :vartype name: str
+    :ivar href:
+    :vartype href: str
+    """
+
+    _attribute_map = {
+        "address": {"key": "address", "type": "Address"},
+        "code": {"key": "code", "type": "str"},
+        "features": {"key": "features", "type": "[str]"},
+        "id": {"key": "id", "type": "str"},
+        "ip_ranges": {"key": "ip_ranges", "type": "[str]"},
+        "metro": {"key": "metro", "type": "DeviceMetro"},
+        "name": {"key": "name", "type": "str"},
+        "href": {"key": "href", "type": "str"},
+    }
+
+    def __init__(
+        self,
+        *,
+        address: Optional["_models.Address"] = None,
+        code: Optional[str] = None,
+        features: Optional[List[Union[str, "_models.FacilityFeaturesItem"]]] = None,
+        id: Optional[str] = None,  # pylint: disable=redefined-builtin
+        ip_ranges: Optional[List[str]] = None,
+        metro: Optional["_models.DeviceMetro"] = None,
+        name: Optional[str] = None,
+        href: Optional[str] = None,
+        **kwargs
+    ):
+        """
+        :keyword address:
+        :paramtype address: ~equinixmetalpy.models.Address
+        :keyword code:
+        :paramtype code: str
+        :keyword features:
+        :paramtype features: list[str or ~equinixmetalpy.models.FacilityFeaturesItem]
+        :keyword id:
+        :paramtype id: str
+        :keyword ip_ranges: IP ranges registered in facility. Can be used for GeoIP location.
+        :paramtype ip_ranges: list[str]
+        :keyword metro: The metro the facility is in.
+        :paramtype metro: ~equinixmetalpy.models.DeviceMetro
+        :keyword name:
+        :paramtype name: str
+        :keyword href:
+        :paramtype href: str
+        """
+        super().__init__(
+            address=address,
+            code=code,
+            features=features,
+            id=id,
+            ip_ranges=ip_ranges,
+            metro=metro,
+            name=name,
+            href=href,
+            **kwargs
+        )
+
+
+class IPReservationList(_serialization.Model):
+    """IPReservationList.
+
+    :ivar ip_addresses:
+    :vartype ip_addresses: list[~equinixmetalpy.models.IPReservationListIpAddressesInner]
+    :ivar href:
+    :vartype href: str
+    """
+
+    _attribute_map = {
+        "ip_addresses": {
+            "key": "ip_addresses",
+            "type": "[IPReservationListIpAddressesInner]",
+        },
+        "href": {"key": "href", "type": "str"},
+    }
+
+    def __init__(
+        self,
+        *,
+        ip_addresses: Optional[
+            List["_models.IPReservationListIpAddressesInner"]
+        ] = None,
+        href: Optional[str] = None,
+        **kwargs
+    ):
+        """
+        :keyword ip_addresses:
+        :paramtype ip_addresses: list[~equinixmetalpy.models.IPReservationListIpAddressesInner]
+        :keyword href:
+        :paramtype href: str
+        """
+        super().__init__(**kwargs)
+        self.ip_addresses = ip_addresses
+        self.href = href
+
+
+class IPReservationListIpAddressesInner(_serialization.Model):
+    """IPReservationListIpAddressesInner."""
+
+    _attribute_map = {}
+
+    def __init__(self, **kwargs):
+        """ """
+        super().__init__(**kwargs)
+
+
+class IPReservationMetro(Metro):
+    """The metro the IP reservation is in. As long as the IP reservation has a metro, it can be used on a metro level. Can be null if requesting an IP reservation in a facility that is not in a metro.
+
+    :ivar code:
+    :vartype code: str
+    :ivar country:
+    :vartype country: str
+    :ivar id:
+    :vartype id: str
+    :ivar name:
+    :vartype name: str
+    :ivar href:
+    :vartype href: str
+    """
+
+    _attribute_map = {
+        "code": {"key": "code", "type": "str"},
+        "country": {"key": "country", "type": "str"},
+        "id": {"key": "id", "type": "str"},
+        "name": {"key": "name", "type": "str"},
+        "href": {"key": "href", "type": "str"},
+    }
+
+    def __init__(
+        self,
+        *,
+        code: Optional[str] = None,
+        country: Optional[str] = None,
+        id: Optional[str] = None,  # pylint: disable=redefined-builtin
+        name: Optional[str] = None,
+        href: Optional[str] = None,
+        **kwargs
+    ):
+        """
+        :keyword code:
+        :paramtype code: str
+        :keyword country:
+        :paramtype country: str
+        :keyword id:
+        :paramtype id: str
+        :keyword name:
+        :paramtype name: str
+        :keyword href:
+        :paramtype href: str
+        """
+        super().__init__(
+            code=code, country=country, id=id, name=name, href=href, **kwargs
+        )
+
+
+class IPReservationRequestInput(_serialization.Model):
+    """IPReservationRequestInput.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar comments:
+    :vartype comments: str
+    :ivar customdata: Any object.
+    :vartype customdata: JSON
+    :ivar details:
+    :vartype details: str
+    :ivar facility:
+    :vartype facility: str
+    :ivar fail_on_approval_required:
+    :vartype fail_on_approval_required: bool
+    :ivar metro: The code of the metro you are requesting the IP reservation in.
+    :vartype metro: str
+    :ivar quantity: Required.
+    :vartype quantity: int
+    :ivar tags:
+    :vartype tags: list[str]
+    :ivar type: Required.
+    :vartype type: str
+    :ivar href:
+    :vartype href: str
+    """
+
+    _validation = {
+        "quantity": {"required": True},
+        "type": {"required": True},
+    }
+
+    _attribute_map = {
+        "comments": {"key": "comments", "type": "str"},
+        "customdata": {"key": "customdata", "type": "object"},
+        "details": {"key": "details", "type": "str"},
+        "facility": {"key": "facility", "type": "str"},
+        "fail_on_approval_required": {
+            "key": "fail_on_approval_required",
+            "type": "bool",
+        },
+        "metro": {"key": "metro", "type": "str"},
+        "quantity": {"key": "quantity", "type": "int"},
+        "tags": {"key": "tags", "type": "[str]"},
+        "type": {"key": "type", "type": "str"},
+        "href": {"key": "href", "type": "str"},
+    }
+
+    def __init__(
+        self,
+        *,
+        quantity: int,
+        type: str,
+        comments: Optional[str] = None,
+        customdata: Optional[JSON] = None,
+        details: Optional[str] = None,
+        facility: Optional[str] = None,
+        fail_on_approval_required: Optional[bool] = None,
+        metro: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+        href: Optional[str] = None,
+        **kwargs
+    ):
+        """
+        :keyword comments:
+        :paramtype comments: str
+        :keyword customdata: Any object.
+        :paramtype customdata: JSON
+        :keyword details:
+        :paramtype details: str
+        :keyword facility:
+        :paramtype facility: str
+        :keyword fail_on_approval_required:
+        :paramtype fail_on_approval_required: bool
+        :keyword metro: The code of the metro you are requesting the IP reservation in.
+        :paramtype metro: str
+        :keyword quantity: Required.
+        :paramtype quantity: int
+        :keyword tags:
+        :paramtype tags: list[str]
+        :keyword type: Required.
+        :paramtype type: str
+        :keyword href:
+        :paramtype href: str
+        """
+        super().__init__(**kwargs)
+        self.comments = comments
+        self.customdata = customdata
+        self.details = details
+        self.facility = facility
+        self.fail_on_approval_required = fail_on_approval_required
+        self.metro = metro
+        self.quantity = quantity
+        self.tags = tags
+        self.type = type
+        self.href = href
+
+
 class Meta(_serialization.Model):
     """Meta.
 
@@ -2901,6 +3426,10 @@ class Meta(_serialization.Model):
     :vartype self_property: ~equinixmetalpy.models.Href
     :ivar total:
     :vartype total: int
+    :ivar current_page:
+    :vartype current_page: int
+    :ivar last_page:
+    :vartype last_page: int
     :ivar href:
     :vartype href: str
     """
@@ -2912,6 +3441,8 @@ class Meta(_serialization.Model):
         "previous": {"key": "previous", "type": "Href"},
         "self_property": {"key": "self", "type": "Href"},
         "total": {"key": "total", "type": "int"},
+        "current_page": {"key": "current_page", "type": "int"},
+        "last_page": {"key": "last_page", "type": "int"},
         "href": {"key": "href", "type": "str"},
     }
 
@@ -2924,6 +3455,8 @@ class Meta(_serialization.Model):
         previous: Optional["_models.Href"] = None,
         self_property: Optional["_models.Href"] = None,
         total: Optional[int] = None,
+        current_page: Optional[int] = None,
+        last_page: Optional[int] = None,
         href: Optional[str] = None,
         **kwargs
     ):
@@ -2940,6 +3473,10 @@ class Meta(_serialization.Model):
         :paramtype self_property: ~equinixmetalpy.models.Href
         :keyword total:
         :paramtype total: int
+        :keyword current_page:
+        :paramtype current_page: int
+        :keyword last_page:
+        :paramtype last_page: int
         :keyword href:
         :paramtype href: str
         """
@@ -2950,6 +3487,8 @@ class Meta(_serialization.Model):
         self.previous = previous
         self.self_property = self_property
         self.total = total
+        self.current_page = current_page
+        self.last_page = last_page
         self.href = href
 
 
@@ -3032,11 +3571,15 @@ class MetalGatewayLite(_serialization.Model):
         self.vlan = vlan
 
 
-class OperatingSystem(_serialization.Model):
+class OperatingSystem(
+    _serialization.Model
+):  # pylint: disable=too-many-instance-attributes
     """OperatingSystem.
 
     :ivar distro:
     :vartype distro: str
+    :ivar distro_label:
+    :vartype distro_label: str
     :ivar id:
     :vartype id: str
     :ivar licensed: Licenced OS is priced according to pricing property.
@@ -3061,6 +3604,7 @@ class OperatingSystem(_serialization.Model):
 
     _attribute_map = {
         "distro": {"key": "distro", "type": "str"},
+        "distro_label": {"key": "distro_label", "type": "str"},
         "id": {"key": "id", "type": "str"},
         "licensed": {"key": "licensed", "type": "bool"},
         "name": {"key": "name", "type": "str"},
@@ -3076,6 +3620,7 @@ class OperatingSystem(_serialization.Model):
         self,
         *,
         distro: Optional[str] = None,
+        distro_label: Optional[str] = None,
         id: Optional[str] = None,  # pylint: disable=redefined-builtin
         licensed: Optional[bool] = None,
         name: Optional[str] = None,
@@ -3090,6 +3635,8 @@ class OperatingSystem(_serialization.Model):
         """
         :keyword distro:
         :paramtype distro: str
+        :keyword distro_label:
+        :paramtype distro_label: str
         :keyword id:
         :paramtype id: str
         :keyword licensed: Licenced OS is priced according to pricing property.
@@ -3113,6 +3660,7 @@ class OperatingSystem(_serialization.Model):
         """
         super().__init__(**kwargs)
         self.distro = distro
+        self.distro_label = distro_label
         self.id = id
         self.licensed = licensed
         self.name = name
@@ -4388,6 +4936,26 @@ class ProjectUpdateInput(_serialization.Model):
         self.href = href
 
 
+class RequestIPReservation201Response(_serialization.Model):
+    """RequestIPReservation201Response."""
+
+    _attribute_map = {}
+
+    def __init__(self, **kwargs):
+        """ """
+        super().__init__(**kwargs)
+
+
+class RequestIPReservationRequest(_serialization.Model):
+    """RequestIPReservationRequest."""
+
+    _attribute_map = {}
+
+    def __init__(self, **kwargs):
+        """ """
+        super().__init__(**kwargs)
+
+
 class SSHKeyInput(_serialization.Model):
     """SSHKeyInput.
 
@@ -4425,6 +4993,164 @@ class SSHKeyInput(_serialization.Model):
         self.key = key
         self.label = label
         self.href = href
+
+
+class User(_serialization.Model):  # pylint: disable=too-many-instance-attributes
+    """User.
+
+    :ivar avatar_thumb_url:
+    :vartype avatar_thumb_url: str
+    :ivar avatar_url:
+    :vartype avatar_url: str
+    :ivar created_at:
+    :vartype created_at: ~datetime.datetime
+    :ivar customdata: Any object.
+    :vartype customdata: JSON
+    :ivar email:
+    :vartype email: str
+    :ivar emails:
+    :vartype emails: list[~equinixmetalpy.models.Href]
+    :ivar first_name:
+    :vartype first_name: str
+    :ivar fraud_score:
+    :vartype fraud_score: str
+    :ivar full_name:
+    :vartype full_name: str
+    :ivar href:
+    :vartype href: str
+    :ivar id:
+    :vartype id: str
+    :ivar last_login_at:
+    :vartype last_login_at: ~datetime.datetime
+    :ivar last_name:
+    :vartype last_name: str
+    :ivar max_organizations:
+    :vartype max_organizations: int
+    :ivar max_projects:
+    :vartype max_projects: int
+    :ivar phone_number:
+    :vartype phone_number: str
+    :ivar short_id:
+    :vartype short_id: str
+    :ivar timezone:
+    :vartype timezone: str
+    :ivar two_factor_auth:
+    :vartype two_factor_auth: str
+    :ivar updated_at:
+    :vartype updated_at: ~datetime.datetime
+    """
+
+    _attribute_map = {
+        "avatar_thumb_url": {"key": "avatar_thumb_url", "type": "str"},
+        "avatar_url": {"key": "avatar_url", "type": "str"},
+        "created_at": {"key": "created_at", "type": "iso-8601"},
+        "customdata": {"key": "customdata", "type": "object"},
+        "email": {"key": "email", "type": "str"},
+        "emails": {"key": "emails", "type": "[Href]"},
+        "first_name": {"key": "first_name", "type": "str"},
+        "fraud_score": {"key": "fraud_score", "type": "str"},
+        "full_name": {"key": "full_name", "type": "str"},
+        "href": {"key": "href", "type": "str"},
+        "id": {"key": "id", "type": "str"},
+        "last_login_at": {"key": "last_login_at", "type": "iso-8601"},
+        "last_name": {"key": "last_name", "type": "str"},
+        "max_organizations": {"key": "max_organizations", "type": "int"},
+        "max_projects": {"key": "max_projects", "type": "int"},
+        "phone_number": {"key": "phone_number", "type": "str"},
+        "short_id": {"key": "short_id", "type": "str"},
+        "timezone": {"key": "timezone", "type": "str"},
+        "two_factor_auth": {"key": "two_factor_auth", "type": "str"},
+        "updated_at": {"key": "updated_at", "type": "iso-8601"},
+    }
+
+    def __init__(
+        self,
+        *,
+        avatar_thumb_url: Optional[str] = None,
+        avatar_url: Optional[str] = None,
+        created_at: Optional[datetime.datetime] = None,
+        customdata: Optional[JSON] = None,
+        email: Optional[str] = None,
+        emails: Optional[List["_models.Href"]] = None,
+        first_name: Optional[str] = None,
+        fraud_score: Optional[str] = None,
+        full_name: Optional[str] = None,
+        href: Optional[str] = None,
+        id: Optional[str] = None,  # pylint: disable=redefined-builtin
+        last_login_at: Optional[datetime.datetime] = None,
+        last_name: Optional[str] = None,
+        max_organizations: Optional[int] = None,
+        max_projects: Optional[int] = None,
+        phone_number: Optional[str] = None,
+        short_id: Optional[str] = None,
+        timezone: Optional[str] = None,
+        two_factor_auth: Optional[str] = None,
+        updated_at: Optional[datetime.datetime] = None,
+        **kwargs
+    ):
+        """
+        :keyword avatar_thumb_url:
+        :paramtype avatar_thumb_url: str
+        :keyword avatar_url:
+        :paramtype avatar_url: str
+        :keyword created_at:
+        :paramtype created_at: ~datetime.datetime
+        :keyword customdata: Any object.
+        :paramtype customdata: JSON
+        :keyword email:
+        :paramtype email: str
+        :keyword emails:
+        :paramtype emails: list[~equinixmetalpy.models.Href]
+        :keyword first_name:
+        :paramtype first_name: str
+        :keyword fraud_score:
+        :paramtype fraud_score: str
+        :keyword full_name:
+        :paramtype full_name: str
+        :keyword href:
+        :paramtype href: str
+        :keyword id:
+        :paramtype id: str
+        :keyword last_login_at:
+        :paramtype last_login_at: ~datetime.datetime
+        :keyword last_name:
+        :paramtype last_name: str
+        :keyword max_organizations:
+        :paramtype max_organizations: int
+        :keyword max_projects:
+        :paramtype max_projects: int
+        :keyword phone_number:
+        :paramtype phone_number: str
+        :keyword short_id:
+        :paramtype short_id: str
+        :keyword timezone:
+        :paramtype timezone: str
+        :keyword two_factor_auth:
+        :paramtype two_factor_auth: str
+        :keyword updated_at:
+        :paramtype updated_at: ~datetime.datetime
+        """
+        super().__init__(**kwargs)
+        self.avatar_thumb_url = avatar_thumb_url
+        self.avatar_url = avatar_url
+        self.created_at = created_at
+        self.customdata = customdata
+        self.email = email
+        self.emails = emails
+        self.first_name = first_name
+        self.fraud_score = fraud_score
+        self.full_name = full_name
+        self.href = href
+        self.id = id
+        self.last_login_at = last_login_at
+        self.last_name = last_name
+        self.max_organizations = max_organizations
+        self.max_projects = max_projects
+        self.phone_number = phone_number
+        self.short_id = short_id
+        self.timezone = timezone
+        self.two_factor_auth = two_factor_auth
+        self.updated_at = updated_at
 
 
 class VirtualNetwork(
@@ -4528,3 +5254,380 @@ class VirtualNetwork(
         self.metro = metro
         self.metro_code = metro_code
         self.vxlan = vxlan
+
+
+class Vrf(_serialization.Model):  # pylint: disable=too-many-instance-attributes
+    """Vrf.
+
+    :ivar id:
+    :vartype id: str
+    :ivar name:
+    :vartype name: str
+    :ivar description: Optional field that can be set to describe the VRF.
+    :vartype description: str
+    :ivar local_asn: A 4-byte ASN associated with the VRF.
+    :vartype local_asn: int
+    :ivar ip_ranges: A list of CIDR network addresses. Like ["10.0.0.0/16", "2001:d78::/56"].
+    :vartype ip_ranges: list[str]
+    :ivar project:
+    :vartype project: ~equinixmetalpy.models.Project
+    :ivar metro:
+    :vartype metro: ~equinixmetalpy.models.Metro
+    :ivar created_by:
+    :vartype created_by: ~equinixmetalpy.models.User
+    :ivar href:
+    :vartype href: str
+    :ivar created_at:
+    :vartype created_at: ~datetime.datetime
+    :ivar updated_at:
+    :vartype updated_at: ~datetime.datetime
+    """
+
+    _attribute_map = {
+        "id": {"key": "id", "type": "str"},
+        "name": {"key": "name", "type": "str"},
+        "description": {"key": "description", "type": "str"},
+        "local_asn": {"key": "local_asn", "type": "int"},
+        "ip_ranges": {"key": "ip_ranges", "type": "[str]"},
+        "project": {"key": "project", "type": "Project"},
+        "metro": {"key": "metro", "type": "Metro"},
+        "created_by": {"key": "created_by", "type": "User"},
+        "href": {"key": "href", "type": "str"},
+        "created_at": {"key": "created_at", "type": "iso-8601"},
+        "updated_at": {"key": "updated_at", "type": "iso-8601"},
+    }
+
+    def __init__(
+        self,
+        *,
+        id: Optional[str] = None,  # pylint: disable=redefined-builtin
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        local_asn: Optional[int] = None,
+        ip_ranges: Optional[List[str]] = None,
+        project: Optional["_models.Project"] = None,
+        metro: Optional["_models.Metro"] = None,
+        created_by: Optional["_models.User"] = None,
+        href: Optional[str] = None,
+        created_at: Optional[datetime.datetime] = None,
+        updated_at: Optional[datetime.datetime] = None,
+        **kwargs
+    ):
+        """
+        :keyword id:
+        :paramtype id: str
+        :keyword name:
+        :paramtype name: str
+        :keyword description: Optional field that can be set to describe the VRF.
+        :paramtype description: str
+        :keyword local_asn: A 4-byte ASN associated with the VRF.
+        :paramtype local_asn: int
+        :keyword ip_ranges: A list of CIDR network addresses. Like ["10.0.0.0/16", "2001:d78::/56"].
+        :paramtype ip_ranges: list[str]
+        :keyword project:
+        :paramtype project: ~equinixmetalpy.models.Project
+        :keyword metro:
+        :paramtype metro: ~equinixmetalpy.models.Metro
+        :keyword created_by:
+        :paramtype created_by: ~equinixmetalpy.models.User
+        :keyword href:
+        :paramtype href: str
+        :keyword created_at:
+        :paramtype created_at: ~datetime.datetime
+        :keyword updated_at:
+        :paramtype updated_at: ~datetime.datetime
+        """
+        super().__init__(**kwargs)
+        self.id = id
+        self.name = name
+        self.description = description
+        self.local_asn = local_asn
+        self.ip_ranges = ip_ranges
+        self.project = project
+        self.metro = metro
+        self.created_by = created_by
+        self.href = href
+        self.created_at = created_at
+        self.updated_at = updated_at
+
+
+class VrfIpReservation(
+    _serialization.Model
+):  # pylint: disable=too-many-instance-attributes
+    """VrfIpReservation.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar address_family:
+    :vartype address_family: int
+    :ivar cidr:
+    :vartype cidr: int
+    :ivar created_at:
+    :vartype created_at: ~datetime.datetime
+    :ivar created_by:
+    :vartype created_by: ~equinixmetalpy.models.Href
+    :ivar details:
+    :vartype details: str
+    :ivar href:
+    :vartype href: str
+    :ivar id:
+    :vartype id: str
+    :ivar metal_gateway:
+    :vartype metal_gateway: ~equinixmetalpy.models.MetalGatewayLite
+    :ivar netmask:
+    :vartype netmask: str
+    :ivar network:
+    :vartype network: str
+    :ivar project:
+    :vartype project: ~equinixmetalpy.models.Project
+    :ivar state:
+    :vartype state: str
+    :ivar tags:
+    :vartype tags: list[str]
+    :ivar type: Required. "vrf"
+    :vartype type: str or ~equinixmetalpy.models.VrfIpReservationType
+    :ivar vrf: Required.
+    :vartype vrf: ~equinixmetalpy.models.Vrf
+    :ivar public:
+    :vartype public: bool
+    :ivar management:
+    :vartype management: bool
+    :ivar manageable:
+    :vartype manageable: bool
+    :ivar customdata: Any object.
+    :vartype customdata: JSON
+    :ivar bill:
+    :vartype bill: bool
+    :ivar project_lite:
+    :vartype project_lite: ~equinixmetalpy.models.Project
+    :ivar address:
+    :vartype address: str
+    :ivar gateway:
+    :vartype gateway: str
+    :ivar metro:
+    :vartype metro: ~equinixmetalpy.models.Metro
+    """
+
+    _validation = {
+        "type": {"required": True},
+        "vrf": {"required": True},
+    }
+
+    _attribute_map = {
+        "address_family": {"key": "address_family", "type": "int"},
+        "cidr": {"key": "cidr", "type": "int"},
+        "created_at": {"key": "created_at", "type": "iso-8601"},
+        "created_by": {"key": "created_by", "type": "Href"},
+        "details": {"key": "details", "type": "str"},
+        "href": {"key": "href", "type": "str"},
+        "id": {"key": "id", "type": "str"},
+        "metal_gateway": {"key": "metal_gateway", "type": "MetalGatewayLite"},
+        "netmask": {"key": "netmask", "type": "str"},
+        "network": {"key": "network", "type": "str"},
+        "project": {"key": "project", "type": "Project"},
+        "state": {"key": "state", "type": "str"},
+        "tags": {"key": "tags", "type": "[str]"},
+        "type": {"key": "type", "type": "str"},
+        "vrf": {"key": "vrf", "type": "Vrf"},
+        "public": {"key": "public", "type": "bool"},
+        "management": {"key": "management", "type": "bool"},
+        "manageable": {"key": "manageable", "type": "bool"},
+        "customdata": {"key": "customdata", "type": "object"},
+        "bill": {"key": "bill", "type": "bool"},
+        "project_lite": {"key": "project_lite", "type": "Project"},
+        "address": {"key": "address", "type": "str"},
+        "gateway": {"key": "gateway", "type": "str"},
+        "metro": {"key": "metro", "type": "Metro"},
+    }
+
+    def __init__(  # pylint: disable=too-many-locals
+        self,
+        *,
+        type: Union[str, "_models.VrfIpReservationType"],
+        vrf: "_models.Vrf",
+        address_family: Optional[int] = None,
+        cidr: Optional[int] = None,
+        created_at: Optional[datetime.datetime] = None,
+        created_by: Optional["_models.Href"] = None,
+        details: Optional[str] = None,
+        href: Optional[str] = None,
+        id: Optional[str] = None,  # pylint: disable=redefined-builtin
+        metal_gateway: Optional["_models.MetalGatewayLite"] = None,
+        netmask: Optional[str] = None,
+        network: Optional[str] = None,
+        project: Optional["_models.Project"] = None,
+        state: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+        public: Optional[bool] = None,
+        management: Optional[bool] = None,
+        manageable: Optional[bool] = None,
+        customdata: Optional[JSON] = None,
+        bill: Optional[bool] = None,
+        project_lite: Optional["_models.Project"] = None,
+        address: Optional[str] = None,
+        gateway: Optional[str] = None,
+        metro: Optional["_models.Metro"] = None,
+        **kwargs
+    ):
+        """
+        :keyword address_family:
+        :paramtype address_family: int
+        :keyword cidr:
+        :paramtype cidr: int
+        :keyword created_at:
+        :paramtype created_at: ~datetime.datetime
+        :keyword created_by:
+        :paramtype created_by: ~equinixmetalpy.models.Href
+        :keyword details:
+        :paramtype details: str
+        :keyword href:
+        :paramtype href: str
+        :keyword id:
+        :paramtype id: str
+        :keyword metal_gateway:
+        :paramtype metal_gateway: ~equinixmetalpy.models.MetalGatewayLite
+        :keyword netmask:
+        :paramtype netmask: str
+        :keyword network:
+        :paramtype network: str
+        :keyword project:
+        :paramtype project: ~equinixmetalpy.models.Project
+        :keyword state:
+        :paramtype state: str
+        :keyword tags:
+        :paramtype tags: list[str]
+        :keyword type: Required. "vrf"
+        :paramtype type: str or ~equinixmetalpy.models.VrfIpReservationType
+        :keyword vrf: Required.
+        :paramtype vrf: ~equinixmetalpy.models.Vrf
+        :keyword public:
+        :paramtype public: bool
+        :keyword management:
+        :paramtype management: bool
+        :keyword manageable:
+        :paramtype manageable: bool
+        :keyword customdata: Any object.
+        :paramtype customdata: JSON
+        :keyword bill:
+        :paramtype bill: bool
+        :keyword project_lite:
+        :paramtype project_lite: ~equinixmetalpy.models.Project
+        :keyword address:
+        :paramtype address: str
+        :keyword gateway:
+        :paramtype gateway: str
+        :keyword metro:
+        :paramtype metro: ~equinixmetalpy.models.Metro
+        """
+        super().__init__(**kwargs)
+        self.address_family = address_family
+        self.cidr = cidr
+        self.created_at = created_at
+        self.created_by = created_by
+        self.details = details
+        self.href = href
+        self.id = id
+        self.metal_gateway = metal_gateway
+        self.netmask = netmask
+        self.network = network
+        self.project = project
+        self.state = state
+        self.tags = tags
+        self.type = type
+        self.vrf = vrf
+        self.public = public
+        self.management = management
+        self.manageable = manageable
+        self.customdata = customdata
+        self.bill = bill
+        self.project_lite = project_lite
+        self.address = address
+        self.gateway = gateway
+        self.metro = metro
+
+
+class VrfIpReservationCreateInput(_serialization.Model):
+    """VrfIpReservationCreateInput.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar cidr: The size of the VRF IP Reservation's subnet. Required.
+    :vartype cidr: int
+    :ivar customdata: Any object.
+    :vartype customdata: JSON
+    :ivar details:
+    :vartype details: str
+    :ivar network: The starting address for this VRF IP Reservation's subnet. Required.
+    :vartype network: str
+    :ivar tags:
+    :vartype tags: list[str]
+    :ivar type: Must be set to 'vrf'. Required.
+    :vartype type: str
+    :ivar vrf_id: The ID of the VRF in which this VRF IP Reservation is created. The VRF must have
+     an existing IP Range that contains the requested subnet. This field may be aliased as just
+     'vrf'. Required.
+    :vartype vrf_id: str
+    :ivar href:
+    :vartype href: str
+    """
+
+    _validation = {
+        "cidr": {"required": True},
+        "network": {"required": True},
+        "type": {"required": True},
+        "vrf_id": {"required": True},
+    }
+
+    _attribute_map = {
+        "cidr": {"key": "cidr", "type": "int"},
+        "customdata": {"key": "customdata", "type": "object"},
+        "details": {"key": "details", "type": "str"},
+        "network": {"key": "network", "type": "str"},
+        "tags": {"key": "tags", "type": "[str]"},
+        "type": {"key": "type", "type": "str"},
+        "vrf_id": {"key": "vrf_id", "type": "str"},
+        "href": {"key": "href", "type": "str"},
+    }
+
+    def __init__(
+        self,
+        *,
+        cidr: int,
+        network: str,
+        type: str,
+        vrf_id: str,
+        customdata: Optional[JSON] = None,
+        details: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+        href: Optional[str] = None,
+        **kwargs
+    ):
+        """
+        :keyword cidr: The size of the VRF IP Reservation's subnet. Required.
+        :paramtype cidr: int
+        :keyword customdata: Any object.
+        :paramtype customdata: JSON
+        :keyword details:
+        :paramtype details: str
+        :keyword network: The starting address for this VRF IP Reservation's subnet. Required.
+        :paramtype network: str
+        :keyword tags:
+        :paramtype tags: list[str]
+        :keyword type: Must be set to 'vrf'. Required.
+        :paramtype type: str
+        :keyword vrf_id: The ID of the VRF in which this VRF IP Reservation is created. The VRF must
+         have an existing IP Range that contains the requested subnet. This field may be aliased as just
+         'vrf'. Required.
+        :paramtype vrf_id: str
+        :keyword href:
+        :paramtype href: str
+        """
+        super().__init__(**kwargs)
+        self.cidr = cidr
+        self.customdata = customdata
+        self.details = details
+        self.network = network
+        self.tags = tags
+        self.type = type
+        self.vrf_id = vrf_id
+        self.href = href
