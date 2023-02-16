@@ -2860,6 +2860,90 @@ class IPAssignment(
         self.public = public
 
 
+class IPAssignmentInput(_serialization.Model):
+    """IPAssignmentInput.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :ivar address: Required.
+    :vartype address: str
+    :ivar customdata: Any object.
+    :vartype customdata: JSON
+    :ivar manageable:
+    :vartype manageable: bool
+    :ivar href:
+    :vartype href: str
+    """
+
+    _validation = {
+        "address": {"required": True},
+    }
+
+    _attribute_map = {
+        "address": {"key": "address", "type": "str"},
+        "customdata": {"key": "customdata", "type": "object"},
+        "manageable": {"key": "manageable", "type": "bool"},
+        "href": {"key": "href", "type": "str"},
+    }
+
+    def __init__(
+        self,
+        *,
+        address: str,
+        customdata: Optional[JSON] = None,
+        manageable: Optional[bool] = None,
+        href: Optional[str] = None,
+        **kwargs
+    ):
+        """
+        :keyword address: Required.
+        :paramtype address: str
+        :keyword customdata: Any object.
+        :paramtype customdata: JSON
+        :keyword manageable:
+        :paramtype manageable: bool
+        :keyword href:
+        :paramtype href: str
+        """
+        super().__init__(**kwargs)
+        self.address = address
+        self.customdata = customdata
+        self.manageable = manageable
+        self.href = href
+
+
+class IPAssignmentList(_serialization.Model):
+    """IPAssignmentList.
+
+    :ivar ip_addresses:
+    :vartype ip_addresses: list[~equinixmetalpy.models.IPAssignment]
+    :ivar href:
+    :vartype href: str
+    """
+
+    _attribute_map = {
+        "ip_addresses": {"key": "ip_addresses", "type": "[IPAssignment]"},
+        "href": {"key": "href", "type": "str"},
+    }
+
+    def __init__(
+        self,
+        *,
+        ip_addresses: Optional[List["_models.IPAssignment"]] = None,
+        href: Optional[str] = None,
+        **kwargs
+    ):
+        """
+        :keyword ip_addresses:
+        :paramtype ip_addresses: list[~equinixmetalpy.models.IPAssignment]
+        :keyword href:
+        :paramtype href: str
+        """
+        super().__init__(**kwargs)
+        self.ip_addresses = ip_addresses
+        self.href = href
+
+
 class IPAssignmentMetro(Metro):
     """The metro the IP address is in.
 

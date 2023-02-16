@@ -24,6 +24,7 @@ from ... import models as _models
 from ..._vendor import _convert_request
 from ...operations._generated_client_operations import (
     build_create_device_request,
+    build_create_ip_assignment_request,
     build_create_organization_project_request,
     build_create_organization_request,
     build_create_project_request,
@@ -34,6 +35,7 @@ from ...operations._generated_client_operations import (
     build_find_device_by_id_request,
     build_find_ip_address_by_id_request,
     build_find_ip_address_customdata_request,
+    build_find_ip_assignments_request,
     build_find_ip_availabilities_request,
     build_find_ip_reservation_customdata_request,
     build_find_ip_reservations_request,
@@ -364,6 +366,228 @@ class GeneratedClientOperationsMixin(
         return deserialized
 
     update_device.metadata = {"url": "/devices/{id}"}  # type: ignore
+
+    @distributed_trace_async
+    async def find_ip_assignments(
+        self,
+        id: str,
+        include: Optional[List[str]] = None,
+        exclude: Optional[List[str]] = None,
+        **kwargs: Any
+    ) -> Union[_models.IPAssignmentList, _models.Error]:
+        """Retrieve all ip assignments.
+
+        Returns all ip assignments for a device.
+
+        :param id: Device UUID. Required.
+        :type id: str
+        :param include: Nested attributes to include. Included objects will return their full
+         attributes. Attribute names can be dotted (up to 3 levels) to included deeply
+         nested objects. Default value is None.
+        :type include: list[str]
+        :param exclude: Nested attributes to exclude. Excluded objects will return only the href
+         attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply
+         nested objects. Default value is None.
+        :type exclude: list[str]
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: IPAssignmentList or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.IPAssignmentList or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+            304: ResourceNotModifiedError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = kwargs.pop("headers", {}) or {}
+        _params = kwargs.pop("params", {}) or {}
+
+        cls = kwargs.pop(
+            "cls", None
+        )  # type: ClsType[Union[_models.IPAssignmentList, _models.Error]]
+
+        request = build_find_ip_assignments_request(
+            id=id,
+            include=include,
+            exclude=exclude,
+            template_url=self.find_ip_assignments.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = await self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [200, 401, 404]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        if response.status_code == 200:
+            deserialized = self._deserialize("IPAssignmentList", pipeline_response)
+
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 404:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    find_ip_assignments.metadata = {"url": "/devices/{id}/ips"}  # type: ignore
+
+    @overload
+    async def create_ip_assignment(
+        self,
+        id: str,
+        body: _models.IPAssignmentInput,
+        *,
+        content_type: str = "application/json",
+        **kwargs: Any
+    ) -> Union[_models.IPAssignment, _models.Error]:
+        """Create an ip assignment.
+
+        Creates an ip assignment for a device.
+
+        :param id: Device UUID. Required.
+        :type id: str
+        :param body: IPAssignment to create. Required.
+        :type body: ~equinixmetalpy.models.IPAssignmentInput
+        :keyword content_type: Body Parameter content-type. Content type parameter for JSON body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: IPAssignment or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.IPAssignment or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+
+    @overload
+    async def create_ip_assignment(
+        self,
+        id: str,
+        body: IO,
+        *,
+        content_type: str = "application/json",
+        **kwargs: Any
+    ) -> Union[_models.IPAssignment, _models.Error]:
+        """Create an ip assignment.
+
+        Creates an ip assignment for a device.
+
+        :param id: Device UUID. Required.
+        :type id: str
+        :param body: IPAssignment to create. Required.
+        :type body: IO
+        :keyword content_type: Body Parameter content-type. Content type parameter for binary body.
+         Default value is "application/json".
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: IPAssignment or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.IPAssignment or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+
+    @distributed_trace_async
+    async def create_ip_assignment(
+        self, id: str, body: Union[_models.IPAssignmentInput, IO], **kwargs: Any
+    ) -> Union[_models.IPAssignment, _models.Error]:
+        """Create an ip assignment.
+
+        Creates an ip assignment for a device.
+
+        :param id: Device UUID. Required.
+        :type id: str
+        :param body: IPAssignment to create. Is either a model type or a IO type. Required.
+        :type body: ~equinixmetalpy.models.IPAssignmentInput or IO
+        :keyword content_type: Body Parameter content-type. Known values are: 'application/json'.
+         Default value is None.
+        :paramtype content_type: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: IPAssignment or Error or the result of cls(response)
+        :rtype: ~equinixmetalpy.models.IPAssignment or ~equinixmetalpy.models.Error
+        :raises ~azure.core.exceptions.HttpResponseError:
+        """
+        error_map = {
+            401: ClientAuthenticationError,
+            404: ResourceNotFoundError,
+            409: ResourceExistsError,
+            304: ResourceNotModifiedError,
+        }
+        error_map.update(kwargs.pop("error_map", {}) or {})
+
+        _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
+        _params = kwargs.pop("params", {}) or {}
+
+        content_type = kwargs.pop(
+            "content_type", _headers.pop("Content-Type", None)
+        )  # type: Optional[str]
+        cls = kwargs.pop(
+            "cls", None
+        )  # type: ClsType[Union[_models.IPAssignment, _models.Error]]
+
+        content_type = content_type or "application/json"
+        _json = None
+        _content = None
+        if isinstance(body, (IO, bytes)):
+            _content = body
+        else:
+            _json = self._serialize.body(body, "IPAssignmentInput")
+
+        request = build_create_ip_assignment_request(
+            id=id,
+            content_type=content_type,
+            json=_json,
+            content=_content,
+            template_url=self.create_ip_assignment.metadata["url"],
+            headers=_headers,
+            params=_params,
+        )
+        request = _convert_request(request)
+        request.url = self._client.format_url(request.url)  # type: ignore
+
+        pipeline_response = await self._client._pipeline.run(  # type: ignore # pylint: disable=protected-access
+            request, stream=False, **kwargs
+        )
+
+        response = pipeline_response.http_response
+
+        if response.status_code not in [201, 401, 404, 422]:
+            map_error(
+                status_code=response.status_code, response=response, error_map=error_map
+            )
+            raise HttpResponseError(response=response)
+
+        if response.status_code == 201:
+            deserialized = self._deserialize("IPAssignment", pipeline_response)
+
+        if response.status_code == 401:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 404:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if response.status_code == 422:
+            deserialized = self._deserialize("Error", pipeline_response)
+
+        if cls:
+            return cls(pipeline_response, deserialized, {})
+
+        return deserialized
+
+    create_ip_assignment.metadata = {"url": "/devices/{id}/ips"}  # type: ignore
 
     @distributed_trace_async
     async def delete_ip_address(

@@ -28,6 +28,8 @@ from ._models_py3 import FacilityInputFacility
 from ._models_py3 import FindIPAddressById200Response
 from ._models_py3 import Href
 from ._models_py3 import IPAssignment
+from ._models_py3 import IPAssignmentInput
+from ._models_py3 import IPAssignmentList
 from ._models_py3 import IPAssignmentMetro
 from ._models_py3 import IPAssignmentUpdateInput
 from ._models_py3 import IPAvailabilitiesList
@@ -120,6 +122,8 @@ __all__ = [
     "FindIPAddressById200Response",
     "Href",
     "IPAssignment",
+    "IPAssignmentInput",
+    "IPAssignmentList",
     "IPAssignmentMetro",
     "IPAssignmentUpdateInput",
     "IPAvailabilitiesList",

@@ -20,6 +20,7 @@ WANT_TAGS = ["Projects", "Devices", "Organizations"]
 # what paths I want to keep
 WANT_PATHS = [
     '/devices/{id}',
+    '/devices/{id}/ips',
     '/organizations',
     '/organizations/{id}',
     '/organizations/{id}/projects',
